@@ -4,15 +4,11 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
 } from "react-native";
-import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
-import DashboardHeader from "../../../components/header/dashboardHeader/DashboardHeader";
 import Slider from "../../../components/slider/Slider";
 import Card from "../../../components/card/card/Card";
 import { globalStyles } from "../../../styles/global";
 import themeColor from "../../../../themeColor";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const RestauDashboard = ({ navigation }) => {
   //placeholder data for smallCard Component
@@ -97,16 +93,22 @@ const RestauDashboard = ({ navigation }) => {
     ],
   };
   return (
-    <View>
+    <View style={styles.container} >
       <ScrollView showsVerticalScrollIndicator={false}>
         <Slider foodData={smallCardData1} />
         <Slider foodData={smallCardData2} />
+        <View style={{marginHorizontal:10}}>
         <Card navigation={navigation} />
+        </View>
       </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container:{
+    backgroundColor:"#fff",
+  }
+});
 
 export default RestauDashboard;

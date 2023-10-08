@@ -8,34 +8,39 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import {
-  FontAwesome,
-  Ionicons,
-} from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import themeColor from "../../../themeColor";
 import { globalStyles } from "../../styles/global";
 import Button from "../../components/button/Button";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../redux/reducers/authReducer";
-import { useToast } from 'react-native-paper-toast';
+import { useToast } from "react-native-paper-toast";
+import Loader from "../../components/loader/Loader";
 
 const UserRegistration = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const toaster = useToast()
   const [showPassword, setShowPassword] = useState(false);
-  const handleSignup = async (data)=>{
-  try{
-   const res = await dispatch(signup(data)).unwrap()
-   const display = await toaster.show({ message: res.message, type: 'success', position:'top'})
-    navigation.navigate("UserLogin")
-  }catch(error){
-    console.log(error)
-    toaster.show({ message: error, type: 'error', position:'top'});
-  }
-  }
+  const [loading, setLoading] = useState(
+    useSelector((state) => state.auth.loading)
+  );
+  const dispatch = useDispatch();
+  const toaster = useToast();
+  const handleSignup = async (data) => {
+    try {
+      setLoading(true);
+      const res = await dispatch(signup(data)).unwrap();
+      toaster.show({ message: res.message, type: "success", position: "top" });
+    } catch (error) {
+      console.log(error);
+      toaster.show({ message: error, type: "error", position: "top" });
+      setLoading(false);
+      return;
+    }
+    navigation.navigate("UserLogin");
+    setLoading(false);
+  };
   const signupvalidationSchema = yup.object().shape({
     username: yup
       .string()
@@ -51,6 +56,9 @@ const UserRegistration = ({ navigation }) => {
       .required("password is required"),
     location: yup.string().required("location is required"),
   });
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}

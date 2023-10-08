@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     textAlign: "center",
+    marginBottom: 20,
+
   },
 });
 

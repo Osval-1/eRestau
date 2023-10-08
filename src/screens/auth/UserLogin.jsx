@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
     color: themeColor.primary,
     fontWeight: "bold",
+    marginBottom:10
   },
   orText: {
     textAlign: "center",
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 10,
     fontSize: 15,
-    marginBottom: -10,
+    marginBottom: 10,
   },
 });
 

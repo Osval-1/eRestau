@@ -3,7 +3,7 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import Setting from "../../screens/user/cartScreens/Setting";
+import Cart from "../../screens/user/cartScreens/Cart";
 
 const CartStackScreen = createStackNavigator();
 
@@ -20,7 +20,7 @@ const CartStack = () => {
           headerShown: false,
         }}
         name="Cartstack"
-        component={Setting}
+        component={Cart}
       />
     </CartStackScreen.Navigator>
   );

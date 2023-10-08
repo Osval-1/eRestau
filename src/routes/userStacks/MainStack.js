@@ -16,6 +16,8 @@ import CartStack from "./CartStack";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import DashboardHeader from "../../components/header/dashboardHeader/DashboardHeader";
+import UserDashboard from "../../screens/user/homeScreens/UserDashboard";
+
 import Header from "../../components/header/header/Header";
 
 const Tabs = createMaterialBottomTabNavigator();
@@ -36,8 +38,8 @@ function getHeaderTitle(route) {
           icon={<FontAwesome5 name="search" color="black" size={23} />}
         />
       );
-    case "Menu":
-      return <Header name="Menu" />;
+    case "Cart":
+      return <Header name="Cart" />;
   }
 }
 
@@ -67,21 +69,9 @@ const MainStackTabs = () => {
             ),
           };
         }}
-        component={HomeStack}
+        component={UserDashboard}
       />
-      <Tabs.Screen
-        name="Profile"
-        options={() => {
-          return {
-            tabBarButton: (props) => <TouchableOpacity {...props} />,
-            tabBarHideOnKeyboard: true,
-            tabBarIcon: ({ color }) => (
-              <FontAwesome name="user-circle" size={24} color={color} />
-            ),
-          };
-        }}
-        component={ProfileStack}
-      />
+     
       <Tabs.Screen
         name="Order"
         options={() => {
@@ -109,6 +99,19 @@ const MainStackTabs = () => {
         }}
         component={CartStack}
       />
+       <Tabs.Screen
+        name="Profile"
+        options={() => {
+          return {
+            tabBarButton: (props) => <TouchableOpacity {...props} />,
+            tabBarHideOnKeyboard: true,
+            tabBarIcon: ({ color }) => (
+              <FontAwesome name="user-circle" size={24} color={color} />
+            ),
+          };
+        }}
+        component={ProfileStack}
+      />
     </Tabs.Navigator>
   );
 };
@@ -133,11 +136,12 @@ const MainStack = () => {
           },
         })}
       />
-
+      <MainStackScreens.Group screenOptions={{ headerShown: false }}>
       <MainStackScreens.Screen name="HomeStack" component={HomeStack}/>
       <MainStackScreens.Screen name="OrderStack" component={OrderStack}/>
       <MainStackScreens.Screen name="CartStack" component={CartStack}/>
       <MainStackScreens.Screen name="ProfileStack" component={ProfileStack}/>
+      </MainStackScreens.Group>
     </MainStackScreens.Navigator>
   );
 };

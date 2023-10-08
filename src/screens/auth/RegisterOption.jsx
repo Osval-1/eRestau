@@ -19,7 +19,7 @@ const RegisterOption = ({ navigation }) => {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut impedit
           hic maxime repudiandae!
         </Text>
-        <View>
+        <View style={{gap:10}}>
           <Button
             title={"Register as Restaurant"}
             btnWidth={"80%"}
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
+    marginBottom:20
   },
 });
 

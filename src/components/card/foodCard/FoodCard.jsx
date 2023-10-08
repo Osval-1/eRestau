@@ -25,9 +25,10 @@ export default function FoodCard({
         <Image
           source={require("../../../../assets/images/food.jpg")}
           style={styles.image}
-        />
+          />
       </View>
       <View style={styles.textView}>
+          <View style={styles.text}>
         <Text style={globalStyles.textHeader}>
           {amount}  
           {label}
@@ -45,10 +46,14 @@ export default function FoodCard({
         {currentStatus && (
           <Text style={{ color: themeColor.primary }}>{currentStatus}</Text>
         )}
-      </View>
+
+        </View>
+        <View>
       <TouchableOpacity style={styles.iconView}>
         <Entypo name="dots-three-vertical" size={24} color="black" />
       </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
@@ -56,27 +61,26 @@ export default function FoodCard({
 const styles = StyleSheet.create({
   cardView: {
     flexDirection: "row",
-    gap: 20,
-    justifyContent: "space-between",
+    gap: 10,
     width: "100%",
-    borderBottomWidth: 2,
-    borderBottomColor: themeColor.grey_1,
     height: 120,
   },
   imageView: {
+    flex:2,
     width: "40%",
+
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: "85%",
+    borderRadius:5,
+
   },
   textView: {
-    justifyContent: "space-evenly",
-    paddingTop: 5,
-    gap: 1,
-  },
-  iconView: {
-    paddingTop: 15,
-    paddingRight: 10,
-  },
+    flex:3,
+    flexDirection:'row',
+    justifyContent: "space-between",
+  },text:{
+    gap:2
+  }
 });

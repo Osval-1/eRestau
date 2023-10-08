@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 1,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: themeColor.grey_1,
     gap: 2,
     paddingVertical: 10,

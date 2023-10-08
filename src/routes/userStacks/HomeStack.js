@@ -3,7 +3,9 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import UserDashboard from "../../screens/user/homeScreens/UserDashboard";
+import SingleFood from "../../screens/user/homeScreens/SingleFood";
+import Header from "../../components/header/header/Header";
+
 
 const HomeStackScreen = createStackNavigator();
 
@@ -13,14 +15,14 @@ const HomeStack = () => {
       screenOptions={() => ({
         gestureEnabled: true,
         ...TransitionPresets.SlideFromRightIOS,
-      })}
+      })} 
     >
-      <HomeStackScreen.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="UserHome"
-        component={UserDashboard}
+       <HomeStackScreen.Screen
+      Options={{
+        headerTitle: () => <Header name="Create Menu" />,
+      }}
+        name="SingleFood"
+        component={SingleFood}
       />
     </HomeStackScreen.Navigator>
   );

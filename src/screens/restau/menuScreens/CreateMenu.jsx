@@ -66,14 +66,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingTop:60,
   },
-  inputView: [globalStyles.inputView, { borderColor: themeColor.grey_2 }],
+  inputView: {
+    width:'93%',
+    backgroundColor: themeColor.grey_0,
+    borderRadius:5,
+    padding:4,
+
+
+  },
   imageView: {
-    ...globalStyles.inputView,
     width: "93%",
     height: 200,
-    backgroundColor: themeColor.grey_1,
-    borderColor: themeColor.grey_2,
+    backgroundColor: themeColor.grey_0,
     marginTop: 10,
+    borderRadius:5,
   },
   buttonView: {
     width: "100%",

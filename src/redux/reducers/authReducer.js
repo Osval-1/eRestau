@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authServices from "../services/authServices";
 
-const initialState = {user:''};
+const initialState = { user: "", loading: false };
 
 export const signup = createAsyncThunk(
   "authentication/signup",
@@ -24,7 +24,7 @@ export const signin = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const res = await authServices.signin(data);
-      return {res};
+      return { res };
     } catch (error) {
       const message =
         (error.message && error.response.data && error.response.data.message) ||
@@ -46,13 +46,24 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(signup.fulfilled, (state, action) => {
-      // state.user = action.payload;
-      console.log(state.user)
-    }),
-    builder.addCase(signin.fulfilled, (state, action) => {
-        state.user = action.payload.res
-      });
+    builder
+      .addCase(signup.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(signup.pending, (state, action) => {
+        state.loading = true
+      }).addCase(signup.rejected, (state, action) => {
+        state.loading = false
+      }),
+
+      builder.addCase(signin.fulfilled, (state, action) => {
+        state.user = action.payload.res;
+        state.loading = false
+      }).addCase(signin.pending, (state, action) => {
+        state.loading = true
+      }).addCase(signin.rejected, (state, action) => {
+        state.loading = false
+      })
   },
 });
 

@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 
 export default ({ children }) => {
   const [userId, setUserId] = useState("");
-  const [userRole, setUserRole] = useState("");
+  const [userRole, setUserRole] = useState("ROLE_USER");
   const [authenticated, setAuthenticated] = useState(true);
 
   const stateUser  = useSelector((state) => state.auth.user

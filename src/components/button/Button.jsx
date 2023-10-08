@@ -10,7 +10,6 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
           style={{
             borderWidth: 2,
             borderColor: themeColor.primary,
-            marginTop: 20,
             minWidth: btnWidth,
             maxWidth: maxWidth,
             padding: 10,
@@ -32,7 +31,6 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
         <TouchableOpacity
           style={{
             backgroundColor: themeColor.grey_1,
-            marginTop: 20,
             minWidth: btnWidth,
             maxWidth: maxWidth,
             padding: 10,
@@ -54,7 +52,6 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
         <TouchableOpacity
           style={{
             backgroundColor: themeColor.primary,
-            marginTop: 20,
             minWidth: btnWidth,
             maxWidth: maxWidth,
             padding: 10,

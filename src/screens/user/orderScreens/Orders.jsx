@@ -6,7 +6,7 @@ import FoodCard from "../../../components/card/foodCard/FoodCard";
 const Orders = () => {
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{marginTop:20}}>
         <FoodCard
           amount="3x"
           label="Roasted Tilapia"

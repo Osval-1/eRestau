@@ -75,19 +75,6 @@ function MainStackTabs() {
         component={RestauDashboard}
       />
       <Tabs.Screen
-        name="Profile"
-        options={() => {
-          return {
-            tabBarButton: (props) => <TouchableOpacity {...props} />,
-            tabBarHideOnKeyboard: true,
-            tabBarIcon: ({ color }) => (
-              <FontAwesome name="user-circle" size={24} color={color} />
-            ),
-          };
-        }}
-        component={Profile}
-      />
-      <Tabs.Screen
         name="Order"
         options={() => {
           return {
@@ -95,9 +82,9 @@ function MainStackTabs() {
             tabBarHideOnKeyboard: true,
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="search" color={color} size={23} />
-            ),
-          };
-        }}
+              ),
+            };
+          }}
         component={Orders}
       />
       <Tabs.Screen
@@ -108,11 +95,24 @@ function MainStackTabs() {
             tabBarHideOnKeyboard: true,
             tabBarIcon: ({ color }) => (
               <AntDesign name="menu-fold" size={24} color={color} />
-            ),
-          };
-        }}
+              ),
+            };
+          }}
         component={Menu}
       />
+          <Tabs.Screen
+            name="Profile"
+            options={() => {
+              return {
+                tabBarButton: (props) => <TouchableOpacity {...props} />,
+                tabBarHideOnKeyboard: true,
+                tabBarIcon: ({ color }) => (
+                  <FontAwesome name="user-circle" size={24} color={color} />
+                ),
+              };
+            }}
+            component={Profile}
+          />
     </Tabs.Navigator>
   );
 }

@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     marginBottom: 10,
     padding: 8,
+    borderWidth:1,
+    borderColor:'#EFEDED',
     borderRadius: 5,
   },
   image: {

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Image,Dimensions  } from "react-native";
+import { StyleSheet, Text, View, TextInput, Image,Dimensions ,SafeAreaView } from "react-native";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import React from "react";
@@ -18,7 +18,7 @@ export default function DashboardHeader() {
               width: 30,
               height: 30,
             }}
-          />
+            />
         </View>
         <View style={styles.inputContainer}>
           <AntDesign name="search1" size={20} color={themeColor.grey_1} />
@@ -26,7 +26,7 @@ export default function DashboardHeader() {
             placeholder="Search Restaurants..."
             onChangeText={(value) => console.log(value)}
             style={globalStyles.textInput}
-          />
+            />
         </View>
         <View>
           <FontAwesome5 name="bell" size={24} color="black" />
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container:{
     alignItems:'center',
     justifyContent:'center'
-    ,paddingTop:8
+    ,paddingTop:8,
   },
   header: {
     flexDirection: "row",
@@ -59,9 +59,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
-    borderWidth: 1,
+    backgroundColor:themeColor.grey_0,
     borderRadius: 5,
-    borderColor: themeColor.grey_1,
     padding: 4,
   },
 });

@@ -3,7 +3,6 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import Menu from "../../screens/restau/menuScreens/Menu";
 import Header from "../../components/header/header/Header";
 import CreateMenu from "../../screens/restau/menuScreens/CreateMenu";
 

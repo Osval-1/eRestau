@@ -8,14 +8,13 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
-export default function Card({}) {
-  const navigation = useNavigation()
+export default function Card({onpress}) {
 
   return (
     <View>
       <Pressable
         style={styles.cardHeader}
-        onPress={() => console.log("pressed")}
+        // onPress={onpress}
       >
         <View style={styles.tag}>
           <Text style={{ color: "#fff",...globalStyles.textHeader }}>restaurant</Text>
@@ -33,7 +32,7 @@ export default function Card({}) {
           </View>
         </View>
       </Pressable>
-      <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={()=>console.log('pressed')}>
+      <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={onpress}>
         <View>
           <Image
             source={require("../../../../assets/images/restaurant.jpg")}
@@ -59,8 +58,8 @@ export default function Card({}) {
             <Text>2.7KM</Text>
           </View>
           <Pressable style={styles.spaceText} onPress={()=>console.log('pressed')}>
-            <Feather name="external-link" size={24} color="black" />
-            <Text>Directions</Text>
+            <Feather name="external-link" size={24} color={themeColor.primary} />
+            <Text style={{color:themeColor.primary}}>Directions</Text>
           </Pressable>
         </View>
         </View>
@@ -75,7 +74,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     marginBottom: 10,
-    marginHorizontal:10
+    borderWidth:1,
+    borderColor:'#EFEDED',
   },
   tag: {
     backgroundColor: themeColor.primary,

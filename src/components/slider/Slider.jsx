@@ -61,9 +61,6 @@ export default function Slider({ foodData, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  flatlistView: {
-    marginHorizontal:10,
-  },
   tag: {
     backgroundColor: themeColor.primary,
     borderRadius: 30,
