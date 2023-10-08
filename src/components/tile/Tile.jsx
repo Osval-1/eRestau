@@ -2,14 +2,16 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import themeColor from "../../../themeColor";
 import { globalStyles } from "../../styles/global";
-import { useNavigation } from "@react-navigation/native";
 
-
-export default function Tile({ label, icon }) {
-  const navigation = useNavigation()
-
+export default function Tile({ label, icon, onpress }) {
+  //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
   return (
-    <TouchableOpacity activeOpacity={0.6} style={styles.tileContainer}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      style={styles.tileContainer}
+      onPress={onpress}
+      delayPressIn={100}
+    >
       <View>{icon}</View>
       <View style={styles.textView}>
         <Text style={globalStyles.textHeader}>{label}</Text>

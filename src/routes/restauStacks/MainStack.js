@@ -26,7 +26,7 @@ const Tabs = createMaterialBottomTabNavigator();
 const MainStackScreens = createStackNavigator();
 
 
-// find title for all headers apart from the home dashboard 
+// find title for all headers apart from the home dashboard for tab navigator
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   switch (routeName) {
@@ -45,7 +45,7 @@ function getHeaderTitle(route) {
       return <Header name="Menu" />;
   }
 }
-
+// Make tab navigator as top level then redirect to stack navigator as recomended by react navigaton docs
 function MainStackTabs() {
   return (
     <Tabs.Navigator
@@ -118,7 +118,7 @@ function MainStackTabs() {
 }
 
 
-// nesting tabs in stack navigator to ensure bottom tabs appear on all pages 
+// nesting tabs in stack navigator to ensure bottom tabs appear on all top pages only 
 
 const MainStack = ({ route }) => {
   return (

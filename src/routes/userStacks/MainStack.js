@@ -1,12 +1,7 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { TouchableOpacity } from "react-native";
-import {
-  FontAwesome,
-  Entypo,
-  FontAwesome5,
-  AntDesign,
-} from "@expo/vector-icons";
+import { FontAwesome, Entypo, FontAwesome5 } from "@expo/vector-icons";
 import theme from "../../../themeColor"; //importing theme color
 // importing user stacks
 import HomeStack from "./HomeStack";
@@ -17,13 +12,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import DashboardHeader from "../../components/header/dashboardHeader/DashboardHeader";
 import UserDashboard from "../../screens/user/homeScreens/UserDashboard";
+import Profile from "../../screens/user/profileScreens/Profile";
+import Orders from "../../screens/user/orderScreens/Orders";
+import Cart from "../../screens/user/cartScreens/Cart";
 
 import Header from "../../components/header/header/Header";
 
 const Tabs = createMaterialBottomTabNavigator();
 const MainStackScreens = createStackNavigator();
 
-// find title for headers apart from the home dashboard
+// find title for headers apart from the home dashboard for tab navigator
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   switch (routeName) {
@@ -31,7 +29,7 @@ function getHeaderTitle(route) {
       return <DashboardHeader />;
     case "Profile":
       return <Header name="Profile" />;
-    case "Order":
+    case "Orders":
       return (
         <Header
           name="Orders"
@@ -42,7 +40,7 @@ function getHeaderTitle(route) {
       return <Header name="Cart" />;
   }
 }
-
+// Make tab navigator as top level then redirect to stack navigator as recomended by react navigaton docs
 const MainStackTabs = () => {
   return (
     <Tabs.Navigator
@@ -71,20 +69,19 @@ const MainStackTabs = () => {
         }}
         component={UserDashboard}
       />
-     
+
       <Tabs.Screen
-        name="Order"
+        name="Orders"
         options={() => {
           return {
             tabBarButton: (props) => <TouchableOpacity {...props} />,
             tabBarHideOnKeyboard: true,
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="search" color={color} size={23} />
-
             ),
           };
         }}
-        component={OrderStack}
+        component={Orders}
       />
       <Tabs.Screen
         name="Cart"
@@ -97,9 +94,9 @@ const MainStackTabs = () => {
             ),
           };
         }}
-        component={CartStack}
+        component={Cart}
       />
-       <Tabs.Screen
+      <Tabs.Screen
         name="Profile"
         options={() => {
           return {
@@ -110,13 +107,13 @@ const MainStackTabs = () => {
             ),
           };
         }}
-        component={ProfileStack}
+        component={Profile}
       />
     </Tabs.Navigator>
   );
 };
 
-// nesting tabs in stack navigator to ensure bottom tabs appear on all pages 
+// nesting tabs in stack navigator to ensure bottom tabs appear on all top pages only
 const MainStack = () => {
   return (
     <MainStackScreens.Navigator>
@@ -137,10 +134,10 @@ const MainStack = () => {
         })}
       />
       <MainStackScreens.Group screenOptions={{ headerShown: false }}>
-      <MainStackScreens.Screen name="HomeStack" component={HomeStack}/>
-      <MainStackScreens.Screen name="OrderStack" component={OrderStack}/>
-      <MainStackScreens.Screen name="CartStack" component={CartStack}/>
-      <MainStackScreens.Screen name="ProfileStack" component={ProfileStack}/>
+        <MainStackScreens.Screen name="HomeStack" component={HomeStack} />
+        <MainStackScreens.Screen name="OrderStack" component={OrderStack} />
+        <MainStackScreens.Screen name="CartStack" component={CartStack} />
+        <MainStackScreens.Screen name="ProfileStack" component={ProfileStack} />
       </MainStackScreens.Group>
     </MainStackScreens.Navigator>
   );

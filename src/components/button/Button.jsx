@@ -2,7 +2,7 @@ import { Text, TouchableOpacity } from "react-native";
 import themeColor from "../../../themeColor";
 import { useNavigation } from "@react-navigation/native";
 
-const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
+const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
   return (
     <>
       {outlined ? (
@@ -15,7 +15,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
             padding: 10,
             borderRadius: 5,
           }}
-          onPress={()=>onpress()}
+          onPress={() => onpress()}
         >
           <Text
             style={{
@@ -27,7 +27,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
             {title}
           </Text>
         </TouchableOpacity>
-      ) : disabled? (
+      ) : disabled ? (
         <TouchableOpacity
           style={{
             backgroundColor: themeColor.grey_1,
@@ -36,7 +36,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
             padding: 10,
             borderRadius: 5,
           }}
-          onPress={()=>onpress()}
+          onPress={() => onpress()}
         >
           <Text
             style={{
@@ -48,7 +48,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
             {title}
           </Text>
         </TouchableOpacity>
-      ):(
+      ) : (
         <TouchableOpacity
           style={{
             backgroundColor: themeColor.primary,
@@ -57,7 +57,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress ,disabled}) => {
             padding: 10,
             borderRadius: 5,
           }}
-          onPress={()=>onpress()}
+          onPress={() => onpress()}
         >
           <Text
             style={{

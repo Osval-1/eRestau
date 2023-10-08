@@ -1,15 +1,27 @@
-import { StyleSheet, Text, View, Image, Pressable,TouchableOpacity} from "react-native";
-import { AntDesign, Entypo, Feather,EvilIcons,FontAwesome } from "@expo/vector-icons";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
+import {
+  AntDesign,
+  Entypo,
+  Feather,
+  EvilIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import { globalStyles } from "../../../styles/global";
 import { useNavigation } from "@react-navigation/native";
 
-
 import React from "react";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
-export default function Card({onpress}) {
-
+//delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
+export default function Card({ onpress }) {
   return (
     <View>
       <Pressable
@@ -17,7 +29,9 @@ export default function Card({onpress}) {
         // onPress={onpress}
       >
         <View style={styles.tag}>
-          <Text style={{ color: "#fff",...globalStyles.textHeader }}>restaurant</Text>
+          <Text style={{ color: "#fff", ...globalStyles.textHeader }}>
+            restaurant
+          </Text>
         </View>
         <View
           style={{
@@ -32,36 +46,47 @@ export default function Card({onpress}) {
           </View>
         </View>
       </Pressable>
-      <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={onpress}>
+      <TouchableOpacity
+        style={styles.container}
+        activeOpacity={0.6}
+        onPress={onpress}
+        delayPressIn={100}
+      >
         <View>
           <Image
             source={require("../../../../assets/images/restaurant.jpg")}
             style={styles.image}
           />
         </View>
-        <View style={{padding:10}}>
+        <View style={{ padding: 10 }}>
           <Text style={globalStyles.textHeader}>Friend's n food</Text>
-        <View style={styles.spaceText}>
-        <View  style={styles.spaceText}>
-            <EvilIcons name="location" size={24} color="black" />
-            <Text>Tarred Malingo</Text>
+          <View style={styles.spaceText}>
+            <View style={styles.spaceText}>
+              <EvilIcons name="location" size={24} color="black" />
+              <Text>Tarred Malingo</Text>
+            </View>
+            <View style={styles.spaceText}>
+              <Entypo name="thumbs-up" size={24} color="black" />
+              <Text>4.7</Text>
+            </View>
           </View>
-          <View  style={styles.spaceText}>
-            <Entypo name="thumbs-up" size={24} color="black" />
-            <Text>4.7</Text>
+          <View style={styles.spaceText}>
+            <View style={styles.spaceText}>
+              <FontAwesome name="road" size={20} color="black" />
+              <Text>2.7KM</Text>
+            </View>
+            <Pressable
+              style={styles.spaceText}
+              onPress={() => console.log("pressed")}
+            >
+              <Feather
+                name="external-link"
+                size={24}
+                color={themeColor.primary}
+              />
+              <Text style={{ color: themeColor.primary }}>Directions</Text>
+            </Pressable>
           </View>
-          
-        </View>
-        <View style={styles.spaceText}>
-        <View style={styles.spaceText}>
-        <FontAwesome name="road" size={20} color="black" />
-            <Text>2.7KM</Text>
-          </View>
-          <Pressable style={styles.spaceText} onPress={()=>console.log('pressed')}>
-            <Feather name="external-link" size={24} color={themeColor.primary} />
-            <Text style={{color:themeColor.primary}}>Directions</Text>
-          </Pressable>
-        </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -74,8 +99,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     marginBottom: 10,
-    borderWidth:1,
-    borderColor:'#EFEDED',
+    borderWidth: 1,
+    borderColor: "#EFEDED",
   },
   tag: {
     backgroundColor: themeColor.primary,
@@ -96,13 +121,13 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    borderTopLeftRadius:5,
-    borderTopRightRadius:5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
-  spaceText:{
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:"center",
-    gap:4,
-  }
+  spaceText: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 4,
+  },
 });

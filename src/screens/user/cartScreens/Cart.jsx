@@ -10,7 +10,7 @@ const Cart = () => {
       <ScrollView contentContainerStyle={{ marginTop: 10 }}>
         <View style={styles.amountView}>
           <View style={styles.textView}>
-            <Text style={globalStyles.textLarge}>Amount</Text>
+            <Text style={globalStyles.textHeader}>Total</Text>
             <Text style={globalStyles.textLarge}>5000 FCFA</Text>
           </View>
           <View style={styles.container}>
@@ -120,22 +120,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
   },
   amountView: {
     flex: 1,
     flexDirection: "row",
-    justifyContent:"space-between",
-    alignItems:"center",
-    marginBottom:10
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
   },
   textView: {
-   flex:1,
+    flex: 1,
   },
-  buttonView:{
-   flex:2,
-   justifyContent:"center",
-   alignItems:"center"
-  }
+  buttonView: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 export default Cart;

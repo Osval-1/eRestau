@@ -8,20 +8,26 @@ import DashboardHeader from "../../components/header/dashboardHeader/DashboardHe
 
 const HomeStackScreen = createStackNavigator();
 
-
 const HomeStack = () => {
   return (
     <HomeStackScreen.Navigator
       screenOptions={() => ({
         gestureEnabled: true,
         ...TransitionPresets.SlideFromRightIOS,
+        headerStyle: {
+          shadowColor: "#000000",
+          shadowOpacity: 0.8,
+          shadowRadius: 3,
+          shadowOffset: {
+            height: 1,
+            width: 1,
+          },
+        },
       })}
     >
       <HomeStackScreen.Screen
         options={{
-          // headerShown: false,
-          headerTitle:()=><DashboardHeader/>,
-          
+          headerTitle: () => <DashboardHeader />,
         }}
         name="restauDashboard"
         component={RestauDashboard}

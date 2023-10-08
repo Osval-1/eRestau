@@ -32,6 +32,9 @@ const Profile = ({ navigation }) => {
       <Tile
         label="Settings"
         icon={<Ionicons name="settings" size={34} color="black" />}
+        onpress={() =>
+          navigation.navigate("ProfileStack", { screen: "Settings" })
+        }
       />
       <Tile
         label="Notifications"

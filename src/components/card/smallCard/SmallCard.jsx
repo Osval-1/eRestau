@@ -6,18 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 
-export default function SmallCard({
-  foodName,
-  distance,
-  price,
-  image,
-}) {
-  const navigation = useNavigation()
+export default function SmallCard({ foodName, distance, price, image }) {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.smallCardContainer}
       activeOpacity={0.6}
       onPress={() => console.log(foodName)}
+      delayPressIn={100}
+      //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
     >
       <Image
         source={require("../../../../assets/images/food.jpg")}
@@ -43,8 +40,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     marginBottom: 10,
     padding: 8,
-    borderWidth:1,
-    borderColor:'#EFEDED',
+    borderWidth: 1,
+    borderColor: "#EFEDED",
     borderRadius: 5,
   },
   image: {
