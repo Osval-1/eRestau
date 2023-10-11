@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Slider from "../../../components/slider/Slider";
 import Card from "../../../components/card/card/Card";
 import { globalStyles } from "../../../styles/global";
@@ -93,12 +88,15 @@ const RestauDashboard = ({ navigation }) => {
     ],
   };
   return (
-    <View style={styles.container} >
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ marginTop: 10 }}
+      >
         <Slider foodData={smallCardData1} />
         <Slider foodData={smallCardData2} />
-        <View style={{marginHorizontal:10}}>
-        <Card navigation={navigation} />
+        <View style={{ marginHorizontal: 10 }}>
+          <Card />
         </View>
       </ScrollView>
     </View>
@@ -106,9 +104,9 @@ const RestauDashboard = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container:{
-    backgroundColor:"#fff",
-  }
+  container: {
+    backgroundColor: "#fff",
+  },
 });
 
 export default RestauDashboard;

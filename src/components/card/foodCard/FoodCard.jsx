@@ -49,7 +49,7 @@ export default function FoodCard({
 
         </View>
         <View>
-      <TouchableOpacity style={styles.iconView} delayPressIn={ 100 }>
+      <TouchableOpacity style={styles.iconView} delayPressIn={ 50 }>
         <Entypo name="dots-three-vertical" size={24} color="black" />
       </TouchableOpacity>
         </View>

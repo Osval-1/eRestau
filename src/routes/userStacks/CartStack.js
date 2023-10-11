@@ -7,6 +7,7 @@ import PaymentMethod from "../../screens/user/cartScreens/PaymentMethod";
 import PaymentReview from "../../screens/user/cartScreens/PaymentReview";
 import PaymentSuccessful from "../../screens/user/cartScreens/PaymentSuccessful";
 import PaymentFailed from "../../screens/user/cartScreens/PaymentFailed";
+import Header from "../../components/header/header/Header";
 
 const CartStackScreen = createStackNavigator();
 
@@ -28,31 +29,29 @@ const CartStack = () => {
       })}
     >
       <CartStackScreen.Screen
-        Options={{
-          headerTitle: () => <Header name=" PaymentMethod" />,
+        options={{
+          headerTitle: () => <Header name=" Payment Method" />,
         }}
-        name="PaymentMethod"
+        name="Payment Method"
         component={PaymentMethod}
       />
       <CartStackScreen.Screen
-        Options={{
-          headerTitle: () => <Header name="PaymentReview" />,
+        options={{
+          headerTitle: () => <Header name="Payment Review" />,
         }}
-        name="PaymentReview"
+        name="Payment Review"
         component={PaymentReview}
       />
       <CartStackScreen.Screen
-        Options={{
-          headerTitle: () => <Header name="PaymentSuccessful" />,
-        }}
-        name="PaymentSuccessful"
+        options={{headerShown:false}}
+        name="Payment Successful"
         component={PaymentSuccessful}
       />
       <CartStackScreen.Screen
-        Options={{
-          headerTitle: () => <Header name="PaymentFailed" />,
-        }}
-        name="PaymentFailed"
+        options={
+          { headerShown: true }
+        }
+        name="Payment Failed"
         component={PaymentFailed}
       />
     </CartStackScreen.Navigator>

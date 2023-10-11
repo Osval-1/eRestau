@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import Slider from "../../../components/slider/Slider";
 import Card from "../../../components/card/card/Card";
+import Tag from "../../../components/tag/Tag";
 
 const UserDashboard = ({ navigation }) => {
   //placeholder data for smallCard Component
@@ -91,13 +88,25 @@ const UserDashboard = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Slider foodData={smallCardData1} />
-        <Slider foodData={smallCardData2} />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ marginTop: 10 }}
+      >
+        <Slider foodData={smallCardData1} label="Popular Today!" />
+        <Slider foodData={smallCardData2} label="Recomendations" />
         <View style={{ marginHorizontal: 10 }}>
-          <Card onpress={()=>
-          navigation.navigate("HomeStack", { screen:"SingleFood" })
-            } />
+          <Tag label="Fried plantains" />
+          <Card
+            onpress={() =>
+              navigation.navigate("HomeStack", { screen: "SingleFood" })
+            }
+          />
+          <Tag label="Jellof rice" />
+          <Card
+            onpress={() =>
+              navigation.navigate("HomeStack", { screen: "SingleFood" })
+            }
+          />
         </View>
       </ScrollView>
     </View>

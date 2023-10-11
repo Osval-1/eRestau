@@ -2,18 +2,16 @@ import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import themeColor from "../../../../themeColor";
-import { useNavigation } from "@react-navigation/native";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 
 export default function SmallCard({ foodName, distance, price, image }) {
-  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.smallCardContainer}
       activeOpacity={0.6}
       onPress={() => console.log(foodName)}
-      delayPressIn={100}
+      delayPressIn={50}
       //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
     >
       <Image

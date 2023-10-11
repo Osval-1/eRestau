@@ -17,7 +17,7 @@ export default function Menu() {
   const navigation = useNavigation();
   return (
     <View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} >
         <View style={styles.container}>
           <View style={styles.inputContainer}>
             <AntDesign name="search1" size={20} color={themeColor.grey_1} />

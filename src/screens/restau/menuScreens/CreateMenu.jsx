@@ -10,6 +10,7 @@ import React from "react";
 import { globalStyles } from "../../../styles/global";
 import themeColor from "../../../../themeColor";
 import Button from "../../../components/button/Button";
+import { Entypo } from '@expo/vector-icons';
 
 export default function CreateMenu() {
  
@@ -42,7 +43,9 @@ export default function CreateMenu() {
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.imageView}
-        ></TouchableOpacity>
+        >
+          <Entypo name="camera" size={24} color="black" />
+        </TouchableOpacity>
         <View style={styles.buttonView}>
           <Button
             title={<Text style={globalStyles.textLarge}>Upload</Text>}

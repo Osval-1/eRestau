@@ -27,14 +27,14 @@ const HomeStack = () => {
       })}
     >
       <HomeStackScreen.Screen
-        Options={{
+        options={{
           headerTitle: () => <Header name="SingleFood " />,
         }}
         name="SingleFood"
         component={SingleFood}
       />
       <HomeStackScreen.Screen
-        Options={{
+        options={{
           headerTitle: () => <Header name=" SearchFood" />,
         }}
         name="SearchFood"

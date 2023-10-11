@@ -6,7 +6,7 @@ import FoodCard from "../../../components/card/foodCard/FoodCard";
 const Orders = () => {
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ marginTop: 20 }}>
+      <ScrollView contentContainerStyle={{ marginTop: 20 }} showsVerticalScrollIndicator={false}>
         <FoodCard
           amount="3x"
           label="Roasted Tilapia"
@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 10,
-    marginTop: 10,
   },
 });
 export default Orders;

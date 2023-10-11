@@ -26,7 +26,7 @@ const MenuStack = () => {
       })}
     >
       <MenuStackScreens.Screen
-        Options={{
+        options={{
           headerTitle: () => <Header name="Create Menu" />,
         }}
         name="Create Menu"

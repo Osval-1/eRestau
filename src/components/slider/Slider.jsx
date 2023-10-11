@@ -11,33 +11,16 @@ import SmallCard from "../card/smallCard/SmallCard";
 import { AntDesign } from "@expo/vector-icons";
 import themeColor from "../../../themeColor";
 import { globalStyles } from "../../styles/global";
-
+import Tag from "../tag/Tag";
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 
-export default function Slider({ foodData, navigation }) {
+export default function Slider({ foodData, onpress, label }) {
   const { tag, data } = foodData;
   return (
     <ScrollView>
-      <Pressable
-        style={styles.cardHeader}
-        onPress={() => console.log(tag.path)}
-      >
-        <View style={styles.tag}>
-          <Text style={{ color: "#fff",...globalStyles.textHeader }}>{tag.name}</Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
-          <Text style={globalStyles.textHeader}> View all</Text>
-          <View>
-            <AntDesign name="arrowright" size={24} color="black" />
-          </View>
-        </View>
-      </Pressable>
+      <View style={{ paddingHorizontal: 10 }}>
+        <Tag label={label} />
+      </View>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -46,12 +29,7 @@ export default function Slider({ foodData, navigation }) {
         renderItem={({ item }) => {
           const { foodName, price, distance } = item;
           return (
-            <SmallCard
-              foodName={foodName}
-              price={price}
-              distance={distance}
-              navigation={navigation}
-            />
+            <SmallCard foodName={foodName} price={price} distance={distance} />
           );
         }}
         keyExtractor={(item) => item.id}
@@ -60,17 +38,4 @@ export default function Slider({ foodData, navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  tag: {
-    backgroundColor: themeColor.primary,
-    borderRadius: 30,
-    paddingHorizontal: 40,
-    paddingVertical: 2,
-  },
-  cardHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    margin: 10,
-  },
-});
+const styles = StyleSheet.create({});

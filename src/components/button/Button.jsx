@@ -15,7 +15,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             padding: 10,
             borderRadius: 5,
           }}
-          onPress={() => onpress()}
+          onPress={onpress}
         >
           <Text
             style={{
@@ -36,7 +36,6 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             padding: 10,
             borderRadius: 5,
           }}
-          onPress={() => onpress()}
         >
           <Text
             style={{
@@ -57,7 +56,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             padding: 10,
             borderRadius: 5,
           }}
-          onPress={() => onpress()}
+          onPress={onpress}
         >
           <Text
             style={{

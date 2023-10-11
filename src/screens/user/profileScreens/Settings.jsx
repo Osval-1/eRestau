@@ -1,13 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, View } from "react-native";
+import React from "react";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import Tile from "../../../components/tile/Tile";
-
 
 export default function Settings() {
   return (
     <View style={styles.container}>
-       <Tile
+      <Tile
         label="Notifications"
         icon={<Ionicons name="notifications" size={34} color="black" />}
       />
@@ -24,14 +23,14 @@ export default function Settings() {
         icon={<Ionicons name="information-circle" size={34} color="black" />}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        backgroundColor: "#fff",
-        paddingHorizontal: 10,
-      },
-})
+  container: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 10,
+  },
+});

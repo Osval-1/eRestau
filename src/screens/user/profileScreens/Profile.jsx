@@ -4,8 +4,11 @@ import { globalStyles } from "../../../styles/global";
 import Button from "../../../components/button/Button";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import Tile from "../../../components/tile/Tile";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../../redux/reducers/authReducer";
 
 const Profile = ({ navigation }) => {
+  const dispatch =  useDispatch()
   return (
     <View style={styles.container}>
       <View style={styles.ProfileView}>
@@ -55,6 +58,7 @@ const Profile = ({ navigation }) => {
       <Tile
         label="Logout"
         icon={<AntDesign name="logout" size={34} color="black" />}
+        onpress={()=>dispatch(logoutUser)}
       />
     </View>
   );
