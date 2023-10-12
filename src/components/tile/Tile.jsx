@@ -7,10 +7,10 @@ export default function Tile({ label, icon, onpress }) {
   //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
   return (
     <TouchableOpacity
-      activeOpacity={0.6}
+      // activeOpacity={0.6}
       style={styles.tileContainer}
       onPress={onpress}
-      delayPressIn={100}
+      delayPressIn={50}
     >
       <View>{icon}</View>
       <View style={styles.textView}>

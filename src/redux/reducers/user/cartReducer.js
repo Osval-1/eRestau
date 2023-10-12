@@ -23,7 +23,9 @@ const cartSlice = createSlice({
     reducers:{
     
     },
-    extraReducers:{}
+    extraReducers:(builder)=>{
+
+    }
 })
 
 export default cartSlice.reducer

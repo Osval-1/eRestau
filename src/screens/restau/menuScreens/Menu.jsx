@@ -1,67 +1,26 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import React from "react";
+import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
+import React,{useEffect} from "react";
 import { AntDesign } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
-import { globalStyles } from "../../../styles/global";
 import FoodCard from "../../../components/card/foodCard/FoodCard";
-import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Menu() {
-  const navigation = useNavigation();
+export default function Menu({navigation}) {
+  const menu = useSelector((state) => state.menu);
   return (
-    <View>
-      <ScrollView showsVerticalScrollIndicator={false} >
-        <View style={styles.container}>
-          <View style={styles.inputContainer}>
-            <AntDesign name="search1" size={20} color={themeColor.grey_1} />
-            <TextInput
-              placeholder="Search Restaurants..."
-              style={{ width: "60%" }}
-              onChangeText={(value) => console.log(value)}
-            />
-          </View>
-          <FoodCard
-            label="Roasted Tilapia"
-            servings="15 servings"
-            price="5000 CFA"
-          />
-          <FoodCard
-            label="Roasted Tilapia"
-            servings="15 servings"
-            price="5000 CFA"
-          />
-          <FoodCard
-            label="Roasted Tilapia"
-            servings="15 servings"
-            price="5000 CFA"
-          />
-          <FoodCard
-            label="Roasted Tilapia"
-            servings="15 servings"
-            price="5000 CFA"
-          />
-          <FoodCard
-            label="Roasted Tilapia"
-            servings="15 servings"
-            price="5000 CFA"
-          />
-          <FoodCard
-            label="Roasted Tilapia"
-            servings="15 servings"
-            price="5000 CFA"
-          />
-          <FoodCard
-            label="Roasted Tilapia"
-            servings="15 servings"
-            price="5000 CFA"
-          />
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
+          {menu.map((items) => {
+            return (
+              <FoodCard
+                key={items.id}
+                label={items.label}
+                servings={items.servings}
+                price={items.price}
+              />
+            );
+          })}
         </View>
       </ScrollView>
       <TouchableOpacity
@@ -80,18 +39,11 @@ export default function Menu() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     backgroundColor: "#fff",
+    paddingHorizontal: 10,
+    paddingTop: 10,
   },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
-    borderRadius: 5,
-    backgroundColor:themeColor.grey_0,
-    padding: 4,
-    marginVertical: 10,
-  },
+
   buttonView: {
     position: "absolute",
     bottom: 10,

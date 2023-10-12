@@ -30,6 +30,7 @@ const UserLogin = ({ navigation }) => {
   const handlesignin = async (data) => {
     try {
       const response = await dispatch(signin(data)).unwrap();
+      // console.log(response)
     } catch (error) {
       console.log(error);
       toaster.show({ message: error, type: 'error', position:'top'});

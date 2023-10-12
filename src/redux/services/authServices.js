@@ -19,6 +19,10 @@ const signin = async (data) => {
   return response.data;
 };
 
+const logout = async () => {
+  await SecureStore.deleteItemAsync('User')
+  console.log('delete user')
+};
 
 
 const authServices = {
