@@ -16,18 +16,20 @@ const signin = async (data) => {
     const value = response.data.accessToken
     await SecureStore.setItemAsync(key,value)
   }
-  return response.data;
+  const token =  await SecureStore.getItemAsync('user')
+  return {...response.data,
+    token:token }
 };
 
 const logout = async () => {
-  await SecureStore.deleteItemAsync('User')
-  console.log('delete user')
+  await SecureStore.deleteItemAsync('user')
 };
 
 
 const authServices = {
   signup,
   signin,
+  logout
 };
 
 export default authServices;

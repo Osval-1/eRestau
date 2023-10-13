@@ -97,12 +97,14 @@ const UserDashboard = ({ navigation }) => {
         <View style={{ marginHorizontal: 10 }}>
           <Tag label="Fried plantains" />
           <Card
+            label='Koki Beans'
             onpress={() =>
               navigation.navigate("HomeStack", { screen: "SingleFood" })
             }
           />
           <Tag label="Jellof rice" />
           <Card
+          label='Kolanut'
             onpress={() =>
               navigation.navigate("HomeStack", { screen: "SingleFood" })
             }

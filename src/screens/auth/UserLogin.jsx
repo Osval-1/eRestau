@@ -8,33 +8,37 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import {
-  FontAwesome,
-  Ionicons,
-} from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { globalStyles } from "../../styles/global";
 import Button from "../../components/button/Button";
 import { Formik } from "formik";
 import * as yup from "yup";
 import themeColor from "../../../themeColor";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { signin } from "../../redux/reducers/authReducer";
+import Loader from "../../components/loader/Loader";
 import { useToast } from "react-native-paper-toast";
 
 const UserLogin = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
-  const toaster = useToast()
-  
+  const toaster = useToast();
+
   const handlesignin = async (data) => {
+
     try {
+      setLoading(true);
       const response = await dispatch(signin(data)).unwrap();
-      // console.log(response)
+      console.log(response);
     } catch (error) {
       console.log(error);
-      toaster.show({ message: error, type: 'error', position:'top'});
+      toaster.show({ message: error||error.message, type: "error", position: "top" });
+      setLoading(false);
     }
+    setLoading(false);
   };
 
   const loginValidatonSchema = yup.object().shape({
@@ -50,7 +54,9 @@ const UserLogin = ({ navigation }) => {
       .min(8, ({ min }) => `password must be atleast ${min} characters`)
       .required("password is required"),
   });
-
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
     color: themeColor.primary,
     fontWeight: "bold",
-    marginBottom:10
+    marginBottom: 10,
   },
   orText: {
     textAlign: "center",

@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/stack";
 import Profile from "../../screens/restau/profileScreens/Profile";
 import Header from "../../components/header/header/Header";
+import Settings from "../../screens/restau/profileScreens/Settings";
 
 const ProfileStackScreen = createStackNavigator();
 
@@ -31,6 +32,13 @@ const ProfileStack = () => {
         }}
         name="Profilestack"
         component={Profile}
+      />
+      <ProfileStackScreen.Screen
+        options={{
+          headerTitle: () => <Header name="Settings" />,
+        }}
+        name="Settings"
+        component={Settings}
       />
     </ProfileStackScreen.Navigator>
   );

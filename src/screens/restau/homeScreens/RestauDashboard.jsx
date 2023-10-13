@@ -93,10 +93,10 @@ const RestauDashboard = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ marginTop: 10 }}
       >
-        <Slider foodData={smallCardData1} />
-        <Slider foodData={smallCardData2} />
+        <Slider foodData={smallCardData1} label="Menu" />
+        <Slider foodData={smallCardData2} label="Orders"/>
         <View style={{ marginHorizontal: 10 }}>
-          <Card />
+          <Card label='Friends n Food'  />
         </View>
       </ScrollView>
     </View>

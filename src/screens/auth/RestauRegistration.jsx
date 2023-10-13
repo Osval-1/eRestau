@@ -26,7 +26,7 @@ const RestauRegistration = ({ navigation }) => {
   const handleSignup = async (data) => {
     try {
       const res = await dispatch(signup(data)).unwrap();
-       toaster.show({
+      toaster.show({
         message: res.message,
         type: "success",
         position: "top",

@@ -19,16 +19,19 @@ import * as ImagePicker from 'expo-image-picker';
 
 export default function CreateMenu() {
   const [image, setImage] = useState(null);
-  const uploadImage=()=>{
-    const fileName = uri.split('/').pop();
-    const fileType = fileName.split('.').pop();
-    const formData = new FormData()
-    formData.append("image",{
-      name: fileName,
-      uri:image.uri,
-      type: `image/${fileType}`,
-    })
-  }
+  // const uploadImage=()=>{
+  //   const fileName = uri.split('/').pop();
+  //   const fileType = fileName.split('.').pop();
+  //   const formData = new FormData()
+  //   formData.append("image",{
+  //     name: image.fileName,
+  //     uri:image.uri,
+  //     type: `image/${fileType}`,
+  //   })
+  //   formData.append("name",{
+
+  //   })
+  // }
   const pickImage = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
   if (permissionResult.granted === false) {
@@ -83,9 +86,9 @@ export default function CreateMenu() {
             onBlur={handleBlur("menuName")}
             />
         </View>
-        {touched.username && errors.username && (
+        {touched.menuName && errors.menuName && (
                     <Text style={{ fontSize: 10, color: "red" }}>
-                      {errors.username}
+                      {errors.menuName}
                     </Text>
                   )}
         <View style={styles.inputView}>

@@ -22,9 +22,7 @@ import Loader from "../../components/loader/Loader";
 
 const UserRegistration = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(
-    useSelector((state) => state.auth.loading)
-  );
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const toaster = useToast();
   const handleSignup = async (data) => {

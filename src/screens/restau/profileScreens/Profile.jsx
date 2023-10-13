@@ -1,14 +1,23 @@
-import React,{useEffect}from "react";
+import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import Button from "../../../components/button/Button";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import Tile from "../../../components/tile/Tile";
-import { useDispatch } from "react-redux";
-import { logout } from "../../redux/reducers/authReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../../redux/reducers/authReducer";
 
 const Profile = ({ navigation }) => {
+  const user = useSelector((state)=>state.auth.user)
   const dispatch =  useDispatch()
+  const handlelogout= async () => {
+    try {
+       await dispatch(logout()).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -20,12 +29,12 @@ const Profile = ({ navigation }) => {
           />
         </TouchableOpacity>
         <View style={styles.infoView}>
-          <Text style={globalStyles.textLarge}>Restaurant Name</Text>
+          <Text style={globalStyles.textLarge}>{user.username}</Text>
           <Text style={[globalStyles.textGrey, globalStyles.textBody]}>
-            Tarred Malingo
+            {user.location}
           </Text>
           <Text style={[globalStyles.textGrey, globalStyles.textBody]}>
-            677465347
+            {user.phone}
           </Text>
           <Button
             title={<Text style={globalStyles.textLarge}>Edit</Text>}
@@ -36,6 +45,9 @@ const Profile = ({ navigation }) => {
       <Tile
         label="Settings"
         icon={<Ionicons name="settings" size={34} color="black" />}
+        onpress={() =>
+          navigation.navigate("ProfileStack", { screen: "Settings" })
+        }
       />
       <Tile
         label="Notifications"
@@ -56,8 +68,7 @@ const Profile = ({ navigation }) => {
       <Tile
         label="Logout"
         icon={<AntDesign name="logout" size={34} color="black" />}
-        onpress={()=>
-            dispatch(logout)}
+        onpress={handlelogout}
 
       />
     </View>
