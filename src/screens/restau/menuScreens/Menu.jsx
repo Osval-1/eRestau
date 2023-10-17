@@ -1,27 +1,68 @@
-import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
-import React,{useEffect} from "react";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+} from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
+
+import React, { useEffect,useCallback } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import FoodCard from "../../../components/card/foodCard/FoodCard";
 import { useDispatch, useSelector } from "react-redux";
+import { globalStyles } from "../../../styles/global";
+import { getMenu } from "../../../redux/reducers/restau/menuReducer";
 
-export default function Menu({navigation}) {
+export default function Menu({ navigation }) {
   const menu = useSelector((state) => state.menu);
+  const dispatch = useDispatch();
+  
+// everytime user navigates to this screen,fetch the menu from server
+useFocusEffect(
+      useCallback(() => {
+        displayMenu()
+      }, [dispatch,menu])
+    );
+  
+
+  const displayMenu = async () => {
+    try {
+      const response = await dispatch(getMenu()).unwrap();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          {menu.map((items) => {
-            return (
-              <FoodCard
-                key={items.id}
-                label={items.label}
-                servings={items.servings}
-                price={items.price}
-              />
-            );
-          })}
-        </View>
+        {!menu[0] ? (
+          <View style={styles.container}>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text style={globalStyles.textHeader}>No Menu</Text>
+              <Text style={globalStyles.textBody}>
+                Create a Menu to View Here{" "}
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <View>
+            {menu.map((items) => {
+              return (
+                <FoodCard
+                  key={items._id}
+                  label={items.name}
+                  servings={items.quantity}
+                  price={items.price}
+                  image={items.image}
+                />
+              );
+            })}
+          </View>
+        )}
       </ScrollView>
       <TouchableOpacity
         activeOpacity={0.6}

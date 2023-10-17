@@ -15,41 +15,58 @@ import { Entypo } from '@expo/vector-icons';
 import * as yup from "yup"
 import { Formik } from "formik";
 import * as ImagePicker from 'expo-image-picker';
+import { useDispatch } from "react-redux";
+import { setMenu } from "../../../redux/reducers/restau/menuReducer";
 
 
-export default function CreateMenu() {
+
+export default function CreateMenu({navigation}) {
   const [image, setImage] = useState(null);
-  // const uploadImage=()=>{
-  //   const fileName = uri.split('/').pop();
-  //   const fileType = fileName.split('.').pop();
-  //   const formData = new FormData()
-  //   formData.append("image",{
-  //     name: image.fileName,
-  //     uri:image.uri,
-  //     type: `image/${fileType}`,
-  //   })
-  //   formData.append("name",{
+  const dispatch = useDispatch()
 
-  //   })
-  // }
-  const pickImage = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  if (permissionResult.granted === false) {
-    alert("Permission to access camera roll is required!");
-    return;
+  const uploadImage= async (data)=>{
+    const formData = new FormData();
+    formData.append("image",{
+      uri:image,
+      type:"image/jpeg",
+      name:`${data.menuName}.jpeg`,
+    })
+    formData.append("price",data.price)
+    formData.append("quantity",data.servings)
+    formData.append("name",data.menuName)
+    
+    console.log(formData)
+    try{
+      const response = await dispatch(setMenu(formData)).unwrap()
+      navigation.goBack()
+    }catch(error){
+      console.log(error)
+    }  
   }
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  const pickImage = async () => {
+    try{
 
-    console.log(result);
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (permissionResult.granted === false) {
+        alert("Permission to access camera roll is required!");
+        return;
+      }
+      // No permissions request is necessary for launching the image library
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      
+      console.log(result);
+      
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+        console.log(image)
+      }
+    }catch(error){
+      console.log(error)
     }
   };
   const menuUploadSchema = yup.object().shape({
@@ -71,10 +88,8 @@ export default function CreateMenu() {
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"} >
         <Formik 
         
-        initialValues={{menuName:'',price:"",servings:"",image}} validationSchema={menuUploadSchema}
-        onSubmit={(values)=>{
-          
-          console.log(values,formData)}}
+        initialValues={{menuName:'',price:"",servings:""}} validationSchema={menuUploadSchema}
+        onSubmit={(values)=>uploadImage(values)}
         >{({handleSubmit,handleBlur,handleChange, values,errors,touched, })=>
          <>
         <View style={styles.inputView}>
@@ -87,8 +102,8 @@ export default function CreateMenu() {
             />
         </View>
         {touched.menuName && errors.menuName && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
-                      {errors.menuName}
+                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
+                      Menu Name is required 
                     </Text>
                   )}
         <View style={styles.inputView}>
@@ -102,7 +117,7 @@ export default function CreateMenu() {
             />
         </View>
         {touched.price && errors.price && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
                       {errors.price}
                     </Text>
                   )}
@@ -117,7 +132,7 @@ export default function CreateMenu() {
             />
         </View>
         {touched.servings && errors.servings && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
                       {errors.servings}
                     </Text>
                   )}

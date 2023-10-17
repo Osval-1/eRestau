@@ -9,31 +9,32 @@ import RootStack from "./src/routes/RootStack";
 import AuthContext from "./src/context/AuthContext";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import Loader from "./src/components/loader/Loader";
 
 // SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded,fontError] = useFonts({
     'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
     'Montserrat-Regular': require('./assets/fonts/Montserrat-Regular.ttf'),
     'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
   });
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
+    if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, fontError]);
 
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
+  if (!fontsLoaded && !fontError) {
+    return <Loader/>
+  }
   return (
     <Provider store={store}>
       <AuthContext>
         <PaperProvider>
           <NavigationContainer>
             <ToastProvider>
-              <RootStack />
+              <RootStack onlayout={onLayoutRootView} />
             </ToastProvider>
           </NavigationContainer>
         </PaperProvider>

@@ -1,4 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import cartServices from "../../services/user/cartServices";
+
+
+export const setCart = createAsyncThunk(
+    "setCart",
+    async(data,thunkAPI)=>{
+        try{
+
+            const res = await cartServices.setCart(data)
+            return {res}
+        }catch(error){
+            const message = (error.message && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+            thunkAPI.rejectWithValue(message)
+    }}
+)
 
 const initialState =[
     {   id:"adssaffasd",
@@ -28,7 +45,11 @@ const cartSlice = createSlice({
       }
     },
     extraReducers:(builder)=>{
-
+        builder
+        .addCase(setCart.fulfilled, (state, action) => {
+          state.loading = false;
+        }).addCase(setCart.rejected, (state, action) => {
+            state.loading = false;})
     }
 })
 

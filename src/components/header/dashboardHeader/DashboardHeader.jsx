@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Image,Dimensions ,SafeAreaView } from "react-native";
+import { StyleSheet, View, TextInput, Image,Dimensions} from "react-native";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import React from "react";
@@ -13,9 +13,9 @@ export default function DashboardHeader() {
       <View style={styles.header}>
         <View>
           <Image
-            source={require("../../../../assets/favicon.png")}
+            source={require("../../../../assets/images/alziron-logo.png")}
             style={{
-              width: 30,
+              width: 40,
               height: 30,
             }}
             />

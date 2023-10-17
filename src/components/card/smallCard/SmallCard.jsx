@@ -23,7 +23,7 @@ export default function SmallCard({ foodName, distance, price, image }) {
       </View>
       <View style={styles.priceView}>
         <Text style={globalStyles.textBody}>{distance}</Text>
-        <Text style={{ color: themeColor.primary }}>{price}</Text>
+        <Text style={{...globalStyles.textBody, color: themeColor.primary }}>{price}</Text>
       </View>
     </TouchableOpacity>
   );

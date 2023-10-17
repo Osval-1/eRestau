@@ -5,8 +5,8 @@ export const AuthContext = createContext();
 
 export default ({ children }) => {
   const [userId, setUserId] = useState("");
-  const [userRole, setUserRole] = useState("");
-  const [authenticated, setAuthenticated] = useState("");
+  const [userRole, setUserRole] = useState("ROLE_MODERATOR");
+  const [authenticated, setAuthenticated] = useState(true);
 
   const stateUser = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.userToken);
@@ -18,7 +18,8 @@ export default ({ children }) => {
     }
   }, [stateUser]);
   useEffect(()=>{
-    setAuthenticated(token)
+    // setAuthenticated(token)
+    setAuthenticated(true) //delete this 
   },[token])
 
   return (

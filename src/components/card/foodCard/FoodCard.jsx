@@ -1,9 +1,10 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import themeColor from "../../../../themeColor";
 import { globalStyles } from "../../../styles/global";
+import config from "../../../../project.config";
+
 
 export default function FoodCard({
   amount,
@@ -15,15 +16,15 @@ export default function FoodCard({
   location,
   date,
   currentStatus,
+  image
   
 }) {
-  const navigation = useNavigation();
-
+  // `${config.ENDPOINT}/${image}`
   return (
     <View style={styles.cardView}>
       <View style={styles.imageView}>
         <Image
-          source={require("../../../../assets/images/food.jpg")}
+          source={{uri:`${config.ENDPOINT}/`+image}}
           style={styles.image}
           />
       </View>
@@ -33,15 +34,15 @@ export default function FoodCard({
           {amount}  
           {label}
         </Text>
-        {price && <Text style={themeColor.primary}>{price}</Text>}
-        {servings && <Text style={{ color: themeColor.primary }}>{servings}</Text>}
+        {price && <Text style={{...globalStyles.textBody,color:themeColor.primary}}>{price} FCFA</Text>}
+        {servings && <Text style={{...globalStyles.textGrey }}>{servings} servings</Text>}
         {date && <Text style={globalStyles.textGrey}>{date}</Text>}
         {expectedTime && (
-          <Text style={globalStyles.textGrey}>{expectedTime}</Text>
+          <Text style={globalStyles.textGrey}>{expectedTime} mins</Text>
         )}
         {userName && <Text style={globalStyles.textGrey}>{userName}</Text>}
         {location && (
-          <Text style={{ color: themeColor.primary }}>{location}</Text>
+          <Text style={{...globalStyles.textBody, color: themeColor.primary }}>{location}</Text>
         )}
         {currentStatus && (
           <Text style={{ color: themeColor.primary }}>{currentStatus}</Text>

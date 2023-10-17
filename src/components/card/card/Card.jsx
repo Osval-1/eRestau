@@ -20,7 +20,7 @@ import React from "react";
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
 
-export default function Card({ onpress,label }) {
+export default function Card({ onpress,label,src }) {
   return (
     <View>
       <TouchableOpacity
@@ -31,7 +31,7 @@ export default function Card({ onpress,label }) {
       >
         <View>
           <Image
-            source={require("../../../../assets/images/restaurant.jpg")}
+            source={{uri:src}}
             style={styles.image}
           />
         </View>
@@ -40,17 +40,17 @@ export default function Card({ onpress,label }) {
           <View style={styles.spaceText}>
             <View style={styles.spaceText}>
               {/* <EvilIcons name="location" size={24} color="black" /> */}
-              <Text>Tarred Malingo</Text>
+              <Text style={globalStyles.textBody}>Tarred Malingo</Text>
             </View>
             <View style={styles.spaceText}>
               <FontAwesome name="star" size={20} color="gold" />
-              <Text>4.7</Text>
+              <Text style={globalStyles.textBody}>4.7</Text>
             </View>
           </View>
           <View style={styles.spaceText}>
             <View style={styles.spaceText}>
               {/* <FontAwesome name="road" size={20} color="black" /> */}
-              <Text>2.7KM</Text>
+              <Text style={globalStyles.textBody}>2.7KM</Text>
             </View>
             <Pressable
               style={styles.spaceText}
@@ -62,7 +62,7 @@ export default function Card({ onpress,label }) {
                 color={themeColor.primary}
               /> */}
               {/* <Text style={{ color: themeColor.primary }}>Directions</Text> */}
-              <Text style={{ color: themeColor.primary }}>2000FCFA</Text>
+              <Text style={{...globalStyles.textBody, color: themeColor.primary }}>2000FCFA</Text>
             </Pressable>
           </View>
         </View>

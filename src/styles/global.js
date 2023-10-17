@@ -38,23 +38,30 @@ export const globalStyles = StyleSheet.create({
     width: "93%",
   },
   //typography styles
+
   textLarge: {
     fontSize: 20,
-    fontWeight: "700",
     letterSpacing: 0.5,
+    fontFamily:"Montserrat-Bold"
   },
   textHeader: {
     fontSize: 16,
     fontWeight: "600",
+    fontFamily:"Montserrat-SemiBold"
+
   },
   textBody: {
     fontSize: 14,
     fontWeight: "400",
+    fontFamily:"Montserrat-Regular"
+
   },
   textGrey: {
     color: themeColor.grey_2,
     fontSize: 14,
     fontWeight: "400",
+    fontFamily:"Montserrat-Regular"
+
   },
 
 });

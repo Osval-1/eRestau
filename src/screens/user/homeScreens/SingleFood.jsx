@@ -4,10 +4,11 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../../components/card/card/Card";
-import CategoryTag from "../../../components/tag/CategoryTag";
+// import CategoryTag from "../../../components/tag/CategoryTag";
 import { Entypo, Feather, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import { globalStyles } from "../../../styles/global";
@@ -15,10 +16,26 @@ import Button from "../../../components/button/Button";
 import MenuTile from "../../../components/card/MenuCard/MenuCard";
 
 export default function SingleFood() {
+  const [pic, setPic] = useState(null);
+  const getimage = async () => {
+    try{
+      console.log("getting image")
+      const response = await fetch(
+        "http://192.168.43.200:9000/api/product/652d3b914bedf1af6adaa1ae"
+        );
+        console.log("converting  image")
+        console.log(response)
+        const res = await response.json();
+        setPic(res.image);
+        console.log(res)
+      }catch(error){
+        console.log(error)
+      }
+  };
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Card onpress={() => console.log("asda")} label="Cabbage salad" />
+        <Card onpress={() => console.log("asda")} label="Cabbage salad" src={"http://192.168.43.200:9000/uploads/06ce9846cb83e05f330eb1b9c45f53cc"} />
         <View style={styles.orderView}>
           <View style={styles.amountView}>
             <TouchableOpacity>
@@ -33,11 +50,19 @@ export default function SingleFood() {
             <Button
               title={<Text style={globalStyles.textLarge}>Add to Cart</Text>}
               btnWidth="100%"
+              onpress={getimage}
             />
           </View>
         </View>
-          <Text style={
-            {...globalStyles.textLarge,textAlign:"center",marginBottom:20}}>Menu</Text>
+        <Text
+          style={{
+            ...globalStyles.textLarge,
+            textAlign: "center",
+            marginBottom: 20,
+          }}
+        >
+          Menu
+        </Text>
         <MenuTile label="Roasted Fish" price="5000FCFA" />
         <MenuTile label="Roasted Fish" price="5000FCFA" />
         <MenuTile label="Roasted Fish" price="5000FCFA" />
@@ -83,5 +108,4 @@ const styles = StyleSheet.create({
   buttonView: {
     flex: 3,
   },
-
 });

@@ -33,7 +33,7 @@ const Profile = ({ navigation }) => {
           <Text style={[globalStyles.textGrey, globalStyles.textBody]}>
             {user.location}
           </Text>
-          <Text style={[globalStyles.textGrey, globalStyles.textBody]}>
+          <Text style={globalStyles.textGrey}>
             {user.phone}
           </Text>
           <Button
