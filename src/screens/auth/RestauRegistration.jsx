@@ -18,24 +18,31 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { signup } from "../../redux/reducers/authReducer";
 import { useToast } from "react-native-paper-toast";
+import Loader from "../../components/loader/Loader";
+
 
 const RestauRegistration = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const toaster = useToast();
   const handleSignup = async (data) => {
+    setLoading(true);
+
     try {
       const res = await dispatch(signup(data)).unwrap();
-      toaster.show({
-        message: res.message,
-        type: "success",
-        position: "top",
-      });
+      toaster.show({ message: res.message, type: "success", position: "top" });
       navigation.navigate("UserLogin");
     } catch (error) {
       console.log(error);
       toaster.show({ message: error, type: "error", position: "top" });
+      toaster.show({ message: error.message, type: "error", position: "top" });
+      setLoading(false);
+      return;
     }
+    setLoading(false);
+
   };
   const signupvalidationSchema = yup.object().shape({
     username: yup
@@ -45,13 +52,19 @@ const RestauRegistration = ({ navigation }) => {
         ({ min }) => `username must be atleast ${min} number of characters`
       )
       .required("username is required"),
-    phone: yup.number().required("phone number is reqiured "),
+    phone: yup.string()
+    .matches(/^(\S+$)/, 'phone number cannot contain blankspaces')
+    .required("phone number is reqiured "),
     password: yup
       .string()
       .min(8, ({ min }) => `password must be atleast ${min} characters`)
+      .matches(/^(\S+$)/, 'password cannot contain blankspaces')
       .required("password is required"),
     location: yup.string().required("location is required"),
   });
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -65,7 +78,7 @@ const RestauRegistration = ({ navigation }) => {
           />
         </View>
         <View>
-          <Text>Restaurant</Text>
+          <Text style={globalStyles.textLarge}>Restaurant</Text>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -108,7 +121,7 @@ const RestauRegistration = ({ navigation }) => {
                     />
                   </View>
                   {touched.username && errors.username && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
                       {errors.username}
                     </Text>
                   )}
@@ -129,7 +142,7 @@ const RestauRegistration = ({ navigation }) => {
                     />
                   </View>
                   {touched.phone && errors.phone && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
                       {errors.phone}
                     </Text>
                   )}
@@ -138,7 +151,6 @@ const RestauRegistration = ({ navigation }) => {
                       name="location-arrow"
                       size={24}
                       color={themeColor.primary}
-                      style={{ marginRight: 5 }}
                     />
                     <TextInput
                       style={globalStyles.textInput}
@@ -149,7 +161,7 @@ const RestauRegistration = ({ navigation }) => {
                     />
                   </View>
                   {errors.location && touched.location && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
                       {errors.location}
                     </Text>
                   )}
@@ -159,10 +171,9 @@ const RestauRegistration = ({ navigation }) => {
                       name="lock"
                       size={24}
                       color={themeColor.primary}
-                      style={{ marginRight: 5 }}
                     />
                     <TextInput
-                      style={(globalStyles.textInput, { width: "88%" })}
+                      style={(globalStyles.textInput, { width: "82%",})}
                       placeholder="*********"
                       secureTextEntry={showPassword ? false : true}
                       value={values.password}
@@ -180,7 +191,7 @@ const RestauRegistration = ({ navigation }) => {
                     </TouchableOpacity>
                   </View>
                   {errors.password && touched.password && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
                       {errors.password}
                     </Text>
                   )}
@@ -218,6 +229,8 @@ const styles = StyleSheet.create({
     color: themeColor.primary,
     marginVertical: 10,
     fontWeight: "bold",
+    ...globalStyles.textBody,
+    
   },
 });
 

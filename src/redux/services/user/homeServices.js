@@ -4,29 +4,37 @@ import authHeader from "../authHeader";
 
 const url = `${config.ENDPOINT}/api/user`;
 
-const getDashboard = async () => {
-  const response = await axios.get(url+'dashboard',{ headers: await authHeader() });
+const getRecentlyViewed = async () => {
+  const response = await axios.get(`${config.ENDPOINT}/api/product/getDashboard`,
+  // { headers: await authHeader() }
+  );
   return response.data;
 };
 const Search = async () => {
-  const response = await axios.post(url+"search" ,data, { headers: await authHeader() });
+  const response = await axios.post(url+"search" ,data,
+  //  { headers: await authHeader() }
+   );
   return response.data;
 };
 const getSingleProduct = async (data) => {
-  const response = await axios.post(url + "singleProduct", data, {
-    headers: await authHeader(),
-  });
+  const response = await axios.post(url + "singleProduct", data, 
+  // {
+  //   headers: await authHeader(),
+  // }
+  );
   return response.data;
 };
 const search = async (data) => {
-  const response = await axios.post(url + "search", data, {
-    headers: await authHeader(),
-  });
+  const response = await axios.post(url + "search", data,
+  //  {
+  //   headers: await authHeader(),
+  // }
+  );
   return response.data;
 };
 
 const homeServices = {
-  getDashboard,
+  getRecentlyViewed,
   getSingleProduct,
   search,
 };

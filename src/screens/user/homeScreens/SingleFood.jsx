@@ -6,51 +6,92 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../../../components/card/card/Card";
 // import CategoryTag from "../../../components/tag/CategoryTag";
 import { Entypo, Feather, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import { globalStyles } from "../../../styles/global";
 import Button from "../../../components/button/Button";
-import MenuTile from "../../../components/card/MenuCard/MenuCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllMenu } from "../../../redux/reducers/restau/menuReducer";
+import {
+  incrementCount,
+  decrementCount,
+  addToCart,
+} from "../../../redux/reducers/user/cartReducer";
+import MenuCard from "../../../components/card/MenuCard/MenuCard";
 
-export default function SingleFood() {
-  const [pic, setPic] = useState(null);
-  const getimage = async () => {
-    try{
-      console.log("getting image")
-      const response = await fetch(
-        "http://192.168.43.200:9000/api/product/652d3b914bedf1af6adaa1ae"
-        );
-        console.log("converting  image")
-        console.log(response)
-        const res = await response.json();
-        setPic(res.image);
-        console.log(res)
-      }catch(error){
-        console.log(error)
-      }
+export default function SingleFood({ navigation, route }) {
+  const { item } = route.params;
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const menu = useSelector((state) =>
+    state.menu.filter((menus) => menus._id != item._id)
+  );
+  const count = useSelector((state) => state.cart.count);
+  const getMenu = async () => {
+    try {
+      setLoading(true);
+      const response = await dispatch(getAllMenu(item.owner._id)).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
+  const incrementcount = () => {
+    if (count === 10) {
+      return;
+    }
+    dispatch(incrementCount());
+  };
+  const decrementcount = () => {
+    if (count === 0) {
+      return;
+    }
+    dispatch(decrementCount());
+  };
+  useEffect(() => {
+    getMenu();
+  }, []);
+  // Todo
+  // reset count each time the page is accessed
+  // implement loading for the menu fetching on the page
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Card onpress={() => console.log("asda")} label="Cabbage salad" src={"http://192.168.43.200:9000/uploads/06ce9846cb83e05f330eb1b9c45f53cc"} />
+        <Card
+          onpress={() => console.log(menu)}
+          label={item.name}
+          image={item.image}
+          price={item.price}
+        />
         <View style={styles.orderView}>
           <View style={styles.amountView}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={incrementcount}>
               <Entypo name="plus" size={24} color={themeColor.primary} />
             </TouchableOpacity>
-            <Text style={globalStyles.textLarge}>2</Text>
-            <TouchableOpacity>
+            <Text style={globalStyles.textLarge}>{count}</Text>
+            <TouchableOpacity onPress={decrementcount}>
               <Entypo name="minus" size={24} color={themeColor.primary} />
             </TouchableOpacity>
           </View>
           <View style={styles.buttonView}>
             <Button
-              title={<Text style={globalStyles.textLarge}>Add to Cart</Text>}
+              title="Add to Cart"
               btnWidth="100%"
-              onpress={getimage}
+              onpress={() =>
+                dispatch(
+                  addToCart({
+                    amount: count,
+                    name: item.name,
+                    price: item.price,
+                    owner: item.owner._id,
+                    id: item._id,
+                    image:item.image
+                  })
+                )
+              }
             />
           </View>
         </View>
@@ -63,12 +104,26 @@ export default function SingleFood() {
         >
           Menu
         </Text>
-        <MenuTile label="Roasted Fish" price="5000FCFA" />
-        <MenuTile label="Roasted Fish" price="5000FCFA" />
-        <MenuTile label="Roasted Fish" price="5000FCFA" />
-        <MenuTile label="Roasted Fish" price="5000FCFA" />
-        <MenuTile label="Roasted Fish" price="5000FCFA" />
-        <MenuTile label="Roasted Fish" price="5000FCFA" />
+        {!menu[0]?(
+          <View style={styles.container}>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text style={globalStyles.textHeader}>No menu found</Text>
+              <Text style={globalStyles.textBody}>
+                no meals here to view 
+              </Text>
+            </View>
+          </View>
+        ):
+          menu.map((item) => {
+            return (
+              <MenuCard
+                key={item._id}
+                label={item.name}
+                image={item.image}
+                price={item.price}
+              />
+            );
+          })}
       </ScrollView>
     </View>
   );
@@ -79,7 +134,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 10,
-    paddingTop: 10,
   },
   tagView: {
     flexDirection: "row",

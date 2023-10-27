@@ -5,36 +5,28 @@ import {
   Image,
   Pressable,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
-import {
-  Entypo,
-  Feather,
-  EvilIcons,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import { globalStyles } from "../../../styles/global";
-
 import React from "react";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
 
-export default function Card({ onpress,label,src }) {
+export default function Card({ onpress, label, image, price }) {
   return (
-    <View>
+    <ScrollView>
       <TouchableOpacity
         style={styles.container}
         activeOpacity={0.6}
         onPress={onpress}
         delayPressIn={50}
       >
-        <View>
-          <Image
-            source={{uri:src}}
-            style={styles.image}
-          />
-        </View>
+        {/* <View> */}
+        <Image source={{ uri: image }} style={styles.image} />
+        {/* </View> */}
         <View style={{ padding: 10 }}>
           <Text style={globalStyles.textHeader}>{label}</Text>
           <View style={styles.spaceText}>
@@ -62,12 +54,16 @@ export default function Card({ onpress,label,src }) {
                 color={themeColor.primary}
               /> */}
               {/* <Text style={{ color: themeColor.primary }}>Directions</Text> */}
-              <Text style={{...globalStyles.textBody, color: themeColor.primary }}>2000FCFA</Text>
+              <Text
+                style={{ ...globalStyles.textBody, color: themeColor.primary }}
+              >
+                {price}FCFA
+              </Text>
             </Pressable>
           </View>
         </View>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -87,6 +83,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
+    height: 250,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },

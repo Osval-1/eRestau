@@ -15,7 +15,7 @@ export default function Settings() {
         icon={<Ionicons name="location" size={34} color="black" />}
       />
       <Tile
-        label="Favourites"
+        label="Privacy"
         icon={<MaterialIcons name="favorite" size={34} color="black" />}
       />
       <Tile

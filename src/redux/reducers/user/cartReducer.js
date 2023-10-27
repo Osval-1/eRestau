@@ -1,56 +1,62 @@
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import cartServices from "../../services/user/cartServices";
 
+export const setCart = createAsyncThunk("setCart", async (data, thunkAPI) => {
+  try {
+    const res = await cartServices.setCart(data);
+    return { res };
+  } catch (error) {
+    const message =
+      (error.message && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    thunkAPI.rejectWithValue(message);
+  }
+});
 
-export const setCart = createAsyncThunk(
-    "setCart",
-    async(data,thunkAPI)=>{
-        try{
-
-            const res = await cartServices.setCart(data)
-            return {res}
-        }catch(error){
-            const message = (error.message && error.response.data && error.response.data.message) ||
-            error.message ||
-            error.toString();
-            thunkAPI.rejectWithValue(message)
-    }}
-)
-
-const initialState =[
-    {   id:"adssaffasd",
-        amount:"3x",
-        label:"Roasted Tilapia",
-        expectedTime:"30 mins ago",
-        currentStatus:"in progress",
-        date:"2023-04-07"
-    },
-    {   id:"adssafasd",
-    amount:"3x",
-    label:"Roasted Tilapia",
-    expectedTime:"30 mins ago",
-    currentStatus:"in progress",
-    date:"2023-04-07"
-},
-]
+const initialState = {
+  count: 1,
+  cart: [],
+};
 
 const cartSlice = createSlice({
-    name:"cartSlice",
-    initialState,
-    reducers:{
-    addCart:(state,action)=>{
-        state.push(action.payload)
-    },deleteCart:(state,action)=>{
-        return  state.filter((item)=>item.id !== action.payload)
-      }
+  name: "cartSlice",
+  initialState,
+  reducers: {
+    addToCart: (state, action) => {
+      const newProduct = {
+        id: Date.now().toString(),
+        quantity: action.payload.amount,
+        productName: action.payload.name,
+        price: action.payload.price,
+        createdBy: action.payload.owner,
+        orderedBy: action.payload.id,
+        image:action.payload.image,
+        status:"pending"
+      };
+      state.count = 1
+      state.cart.push(newProduct);
     },
-    extraReducers:(builder)=>{
-        builder
-        .addCase(setCart.fulfilled, (state, action) => {
-          state.loading = false;
-        }).addCase(setCart.rejected, (state, action) => {
-            state.loading = false;})
-    }
-})
-
-export default cartSlice.reducer
+    deleteFromCart: (state, action) => {
+      state.cart =  state.cart.filter((item) => item.id !== action.payload);
+    },
+    incrementCount: (state, action) => {
+      state.count += 1;
+    },
+    decrementCount: (state, action) => {
+      state.count -= 1;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(setCart.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(setCart.rejected, (state, action) => {
+        state.loading = false;
+      });
+  },
+});
+export const { addToCart, deleteFromCart, incrementCount, decrementCount } =
+  cartSlice.actions;
+export default cartSlice.reducer;

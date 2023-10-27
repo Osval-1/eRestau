@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     height: 300,
   },
   text: {
+    ...globalStyles.textBody,
     textAlign: "center",
     marginBottom:20
   },

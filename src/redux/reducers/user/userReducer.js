@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import homeServices from "../../services/user/homeServices";
 import orderServices from "../../services/user/orderServices";
 
-export const getDashboard = createAsyncThunk(
-  "UserDashboard",
+export const getRecentlyViewed = createAsyncThunk(
+  "getRecentlyViewed",
   async (thunkAPI) => {
     try {
-      const res = await homeServices.getDashboard();
+      const res = await homeServices.getRecentlyViewed();
       return { res };
     } catch (error) {
       const message =
@@ -69,7 +69,7 @@ export const editProfile = createAsyncThunk("editProfile", async (thunkAPI) => {
   }
 });
 
-const initialState = [];
+const initialState = { recentlyViewed: [] };
 
 const userSlice = createSlice({
   name: "user",
@@ -77,10 +77,10 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getDashboard.fulfilled, (state, action) => {
-        state.loading = false;
+      .addCase(getRecentlyViewed.fulfilled, (state, action) => {
+        state.recentlyViewed = action.payload.res.product;
       })
-      .addCase(getDashboard.rejected, (state, action) => {
+      .addCase(getRecentlyViewed.rejected, (state, action) => {
         state.loading = false;
       }),
       builder

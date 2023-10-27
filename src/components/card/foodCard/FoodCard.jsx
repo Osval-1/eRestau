@@ -1,9 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { Entypo } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import { globalStyles } from "../../../styles/global";
-import config from "../../../../project.config";
 
 
 export default function FoodCard({
@@ -16,22 +14,21 @@ export default function FoodCard({
   location,
   date,
   currentStatus,
-  image
-  
+  image,
+  popup
 }) {
-  // `${config.ENDPOINT}/${image}`
   return (
     <View style={styles.cardView}>
       <View style={styles.imageView}>
         <Image
-          source={{uri:`${config.ENDPOINT}/`+image}}
+          source={{uri:image}}
           style={styles.image}
           />
       </View>
       <View style={styles.textView}>
           <View style={styles.text}>
         <Text style={globalStyles.textHeader}>
-          {amount}  
+          {amount}x  
           {label}
         </Text>
         {price && <Text style={{...globalStyles.textBody,color:themeColor.primary}}>{price} FCFA</Text>}
@@ -49,11 +46,11 @@ export default function FoodCard({
         )}
 
         </View>
-        <View>
+        {/* <View>      */}
       <TouchableOpacity style={styles.iconView} delayPressIn={ 50 }>
-        <Entypo name="dots-three-vertical" size={24} color="black" />
-      </TouchableOpacity>
-        </View>
+    {popup}
+       </TouchableOpacity>
+        {/* </View> */}
       </View>
     </View>
   );

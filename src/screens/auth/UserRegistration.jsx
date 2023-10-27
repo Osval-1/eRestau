@@ -33,6 +33,7 @@ const UserRegistration = ({ navigation }) => {
     } catch (error) {
       console.log(error);
       toaster.show({ message: error, type: "error", position: "top" });
+      toaster.show({ message: error.message, type: "error", position: "top" });
       setLoading(false);
       return;
     }
@@ -47,10 +48,12 @@ const UserRegistration = ({ navigation }) => {
         ({ min }) => `username must be atleast ${min} number of characters`
       )
       .required("username is required"),
-    phone: yup.number().required("phone number is reqiured "),
+    phone: yup.string().matches(/^(\S+$)/, 'phone number cannot contain blankspaces')
+    .required("phone number is reqiured "),
     password: yup
       .string()
       .min(8, ({ min }) => `password must be atleast ${min} characters`)
+      .matches(/^(\S+$)/, 'password cannot contain blankspaces')
       .required("password is required"),
     location: yup.string().required("location is required"),
   });
@@ -69,6 +72,9 @@ const UserRegistration = ({ navigation }) => {
             style={styles.image}
           />
         </View>
+        <View>
+          <Text style={globalStyles.textLarge}>Customer</Text>
+        </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
@@ -80,6 +86,7 @@ const UserRegistration = ({ navigation }) => {
               phone: "",
               location: "",
               roles: ["user", "user"],
+              //role to be passed to the backend to determine the type of user signing in
             }}
             onSubmit={(values) => handleSignup(values)}
           >
@@ -110,7 +117,7 @@ const UserRegistration = ({ navigation }) => {
                     />
                   </View>
                   {touched.username && errors.username && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
                       {errors.username}
                     </Text>
                   )}
@@ -131,7 +138,7 @@ const UserRegistration = ({ navigation }) => {
                     />
                   </View>
                   {touched.phone && errors.phone && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
                       {errors.phone}
                     </Text>
                   )}
@@ -152,7 +159,7 @@ const UserRegistration = ({ navigation }) => {
                     />
                   </View>
                   {errors.location && touched.location && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
                       {errors.location}
                     </Text>
                   )}
@@ -162,10 +169,9 @@ const UserRegistration = ({ navigation }) => {
                       name="lock"
                       size={24}
                       color={themeColor.primary}
-                      style={{ marginRight: 5 }}
                     />
                     <TextInput
-                      style={(globalStyles.textInput, { width: "88%" })}
+                      style={(globalStyles.textInput, { width: "82%" })}
                       placeholder="*********"
                       secureTextEntry={showPassword ? false : true}
                       value={values.password}
@@ -183,7 +189,7 @@ const UserRegistration = ({ navigation }) => {
                     </TouchableOpacity>
                   </View>
                   {errors.password && touched.password && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
                       {errors.password}
                     </Text>
                   )}
@@ -222,6 +228,7 @@ const styles = StyleSheet.create({
     color: themeColor.primary,
     marginVertical: 10,
     fontWeight: "bold",
+    ...globalStyles.textBody,
   },
 });
 

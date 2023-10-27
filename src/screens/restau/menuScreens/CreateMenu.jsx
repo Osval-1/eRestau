@@ -7,46 +7,51 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { globalStyles } from "../../../styles/global";
 import themeColor from "../../../../themeColor";
 import Button from "../../../components/button/Button";
-import { Entypo } from '@expo/vector-icons';
-import * as yup from "yup"
+import { Entypo } from "@expo/vector-icons";
+import * as yup from "yup";
 import { Formik } from "formik";
-import * as ImagePicker from 'expo-image-picker';
-import { useDispatch } from "react-redux";
-import { setMenu } from "../../../redux/reducers/restau/menuReducer";
+import * as ImagePicker from "expo-image-picker";
+import { useDispatch, useSelector } from "react-redux";
+import { addSingleMenu } from "../../../redux/reducers/restau/menuReducer";
+import Loader from "../../../components/loader/Loader";
+import Toast from "react-native-simple-toast";
 
-
-
-export default function CreateMenu({navigation}) {
+export default function CreateMenu({ navigation }) {
   const [image, setImage] = useState(null);
-  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
-  const uploadImage= async (data)=>{
+  const uploadImage = async (data) => {
     const formData = new FormData();
-    formData.append("image",{
-      uri:image,
-      type:"image/jpeg",
-      name:`${data.menuName}.jpeg`,
-    })
-    formData.append("price",data.price)
-    formData.append("quantity",data.servings)
-    formData.append("name",data.menuName)
-    
-    console.log(formData)
-    try{
-      const response = await dispatch(setMenu(formData)).unwrap()
-      navigation.goBack()
-    }catch(error){
-      console.log(error)
-    }  
-  }
-  const pickImage = async () => {
-    try{
+    formData.append("image", {
+      uri: image,
+      type: "image/jpeg",
+      name: `${data.menuName}.jpeg`,
+    });
+    formData.append("price", data.price);
+    formData.append("quantity", data.servings);
+    formData.append("name", data.menuName);
+    formData.append("username", user.username);
 
-      let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    console.log(formData);
+    try {
+      setLoading(true);
+      const response = await dispatch(addSingleMenu(formData)).unwrap();
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+  const pickImage = async () => {
+    try {
+      let permissionResult =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (permissionResult.granted === false) {
         alert("Permission to access camera roll is required!");
         return;
@@ -58,15 +63,24 @@ export default function CreateMenu({navigation}) {
         aspect: [4, 3],
         quality: 1,
       });
-      
-      console.log(result);
-      
+      Toast.show("This is a styled toast on iOS.", Toast.LONG, {
+        backgroundColor: "blue",
+      });
+      console.log(user.username)
       if (!result.canceled) {
         setImage(result.assets[0].uri);
-        console.log(image)
+        Toast.showWithGravity(
+          'This is a long toast at the top.',
+          Toast.LONG,
+          Toast.TOP,{
+
+            backgroundColor:"#FF812C"
+          }
+        );
+       
       }
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
   const menuUploadSchema = yup.object().shape({
@@ -77,115 +91,149 @@ export default function CreateMenu({navigation}) {
         ({ min }) => `menuName must be atleast ${min} number of characters`
       )
       .required("menuName is required"),
-      price: yup
-      .number()
-      .required("price is required"),
-       servings: yup
-      .number()
-      .required("servings is required")})
+    price: yup.number().required("price is required"),
+    servings: yup.number().required("servings is required"),
+  });
+  if (loading) return <Loader />;
+
   return (
-    
-      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"} >
-        <Formik 
-        
-        initialValues={{menuName:'',price:"",servings:""}} validationSchema={menuUploadSchema}
-        onSubmit={(values)=>uploadImage(values)}
-        >{({handleSubmit,handleBlur,handleChange, values,errors,touched, })=>
-         <>
-        <View style={styles.inputView}>
-          <TextInput
-            placeholder="Menu Name"
-            style={globalStyles.textInput}
-            value={values.menuName}
-            onChangeText={handleChange("menuName") }
-            onBlur={handleBlur("menuName")}
-            />
-        </View>
-        {touched.menuName && errors.menuName && (
-                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
-                      Menu Name is required 
-                    </Text>
-                  )}
-        <View style={styles.inputView}>
-          <TextInput
-            placeholder="Price"
-            style={globalStyles.textInput}
-            keyboardType="numeric"
-            value={values.price}
-            onChangeText={handleChange("price") }
-            onBlur={handleBlur("price")}
-            />
-        </View>
-        {touched.price && errors.price && (
-                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
-                      {errors.price}
-                    </Text>
-                  )}
-        <View style={styles.inputView}>
-          <TextInput
-            placeholder="Servings"
-            style={globalStyles.textInput}
-            value={values.servings}
-            keyboardType="numeric"
-            onChangeText={handleChange("servings") }
-            onBlur={handleBlur("servings")}
-            />
-        </View>
-        {touched.servings && errors.servings && (
-                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
-                      {errors.servings}
-                    </Text>
-                  )}
-        <Text style={globalStyles.textGrey}>Upload Image</Text>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={styles.imageView}
-          onPress={pickImage}
-          >
-          {image? <Image source={{ uri: image }} style={{ width: '100%', height: 200,borderRadius:5 }} />:<Entypo name="camera" size={80} color="grey" />}
-        </TouchableOpacity>
-        <View style={styles.buttonView}>
-          <Button
-            title={<Text style={globalStyles.textLarge}>Upload</Text>}
-            btnWidth="50%"
-            onpress={handleSubmit}
-            />
-        </View>
-            </>
-          }
-            </Formik>
-      </KeyboardAvoidingView>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <Formik
+        initialValues={{ menuName: "", price: "", servings: "" }}
+        validationSchema={menuUploadSchema}
+        onSubmit={(values) => uploadImage(values)}
+      >
+        {({
+          handleSubmit,
+          handleBlur,
+          handleChange,
+          values,
+          errors,
+          touched,
+        }) => (
+          <>
+            <View style={styles.inputView}>
+              <TextInput
+                placeholder="Menu Name"
+                style={globalStyles.textInput}
+                value={values.menuName}
+                onChangeText={handleChange("menuName")}
+                onBlur={handleBlur("menuName")}
+              />
+            </View>
+            {touched.menuName && errors.menuName && (
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: "red",
+                  fontFamily: "Montserrat-Regular",
+                }}
+              >
+                {errors.menuName}
+              </Text>
+            )}
+            <View style={styles.inputView}>
+              <TextInput
+                placeholder="Price"
+                style={globalStyles.textInput}
+                keyboardType="numeric"
+                value={values.price}
+                onChangeText={handleChange("price")}
+                onBlur={handleBlur("price")}
+              />
+            </View>
+            {touched.price && errors.price && (
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: "red",
+                  fontFamily: "Montserrat-Regular",
+                }}
+              >
+                {errors.price}
+              </Text>
+            )}
+            <View style={styles.inputView}>
+              <TextInput
+                placeholder="Servings"
+                style={globalStyles.textInput}
+                value={values.servings}
+                keyboardType="numeric"
+                onChangeText={handleChange("servings")}
+                onBlur={handleBlur("servings")}
+              />
+            </View>
+            {touched.servings && errors.servings && (
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: "red",
+                  fontFamily: "Montserrat-Regular",
+                }}
+              >
+                {errors.servings}
+              </Text>
+            )}
+            <Text style={globalStyles.textGrey}>Upload Image</Text>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              style={styles.imageView}
+              onPress={pickImage}
+            >
+              {image ? (
+                <Image
+                  source={{ uri: image }}
+                  style={{ width: "100%", height: 200, borderRadius: 5 }}
+                />
+              ) : (
+                <Entypo name="camera" size={80} color="grey" />
+              )}
+            </TouchableOpacity>
+            <View style={styles.buttonView}>
+              <Button
+                title={<Text style={globalStyles.textLarge}>Upload</Text>}
+                btnWidth="50%"
+                onpress={handleSubmit}
+              />
+            </View>
+          </>
+        )}
+      </Formik>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     alignItems: "center",
     gap: 10,
     backgroundColor: "#fff",
-    paddingTop:60,
+    paddingTop: 60,
   },
   inputView: {
-    width:'93%',
+    width: "93%",
     backgroundColor: themeColor.grey_0,
-    borderRadius:5,
-    padding:4,
+    borderRadius: 5,
+    padding: 4,
   },
   imageView: {
     width: "93%",
     height: 200,
-    justifyContent:"center",
-    alignItems:"center",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: themeColor.grey_0,
     marginTop: 10,
-    borderRadius:5,
+    borderRadius: 5,
   },
   buttonView: {
     width: "100%",
     position: "absolute",
-    bottom:10,
+    bottom: 10,
     borderTopColor: themeColor.grey_1,
-    alignItems:'center',
+    alignItems: "center",
   },
 });

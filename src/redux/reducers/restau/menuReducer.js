@@ -2,23 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import menuServices from "../../services/restau/menuServices";
 import homeServices from "../../services/restau/homeServices";
 
-export const getMenu = createAsyncThunk("getMenu", async (thunkAPI) => {
-  try {
-    const res = await menuServices.getMenu();
-    return { res };
-  } catch (error) {
-    const message =
-      (error.message && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    thunkAPI.rejectWithValue(message);
-  }
-});
-export const updateMenu = createAsyncThunk(
-  "updateMenu",
+export const getAllMenu = createAsyncThunk(
+  "getAllMenu",
   async (data, thunkAPI) => {
     try {
-      const res = await menuServices.updateMenu(data);
+      const res = await menuServices.getAllMenu(data);
       return { res };
     } catch (error) {
       const message =
@@ -29,23 +17,41 @@ export const updateMenu = createAsyncThunk(
     }
   }
 );
-export const setMenu = createAsyncThunk("setMenu", async (data, thunkAPI) => {
-  try {
-    const res = await menuServices.setMenu(data);
-    // return { res };
-  } catch (error) {
-    const message =
-      (error.message && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    thunkAPI.rejectWithValue(message);
-  }
-});
-export const removeMenu = createAsyncThunk(
-  "deleteMenu",
+export const updateSingleMenu = createAsyncThunk(
+  "updateSingleMenu",
   async (data, thunkAPI) => {
     try {
-      const res = await menuServices.deleteMenu(data);
+      const res = await menuServices.updateSingleMenu(data);
+      return { res };
+    } catch (error) {
+      const message =
+        (error.message && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const addSingleMenu = createAsyncThunk(
+  "addSingleMenu",
+  async (data, thunkAPI) => {
+    try {
+      const res = await menuServices.addSingleMenu(data);
+      return { res };
+    } catch (error) {
+      const message =
+        (error.message && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const deleteSingleMenu = createAsyncThunk(
+  "deleteSingleMenu",
+  async (data, thunkAPI) => {
+    try {
+      const res = await menuServices.deleteSingleMenu(data);
       return { res };
     } catch (error) {
       const message =
@@ -71,27 +77,27 @@ const menuSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getMenu.fulfilled, (state, action) => {
-        return action.payload.res.products
+      .addCase(getAllMenu.fulfilled, (state, action) => {
+        return action.payload.res.products;
       })
-      .addCase(getMenu.rejected, (state, action) => {
+      .addCase(getAllMenu.rejected, (state, action) => {
         // state.loading = false;
       }),
       builder
-        .addCase(setMenu.fulfilled, (state, action) => {})
-        .addCase(setMenu.rejected, (state, action) => {}),
+        .addCase(addSingleMenu.fulfilled, (state, action) => {})
+        .addCase(addSingleMenu.rejected, (state, action) => {}),
       builder
-        .addCase(updateMenu.fulfilled, (state, action) => {
+        .addCase(updateSingleMenu.fulfilled, (state, action) => {
           state.loading = false;
         })
-        .addCase(updateMenu.rejected, (state, action) => {
+        .addCase(updateSingleMenu.rejected, (state, action) => {
           state.loading = false;
         }),
       builder
-        .addCase(removeMenu.fulfilled, (state, action) => {
+        .addCase(deleteSingleMenu.fulfilled, (state, action) => {
           state.loading = false;
         })
-        .addCase(removeMenu.rejected, (state, action) => {
+        .addCase(deleteSingleMenu.rejected, (state, action) => {
           state.loading = false;
         });
   },

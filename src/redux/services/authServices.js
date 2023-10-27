@@ -12,24 +12,22 @@ const signup = async (data) => {
 const signin = async (data) => {
   const response = await axios.post(`${url}/signin`, data);
   if (response.data.accessToken) {
-    const key = "user"
-    const value = response.data.accessToken
-    await SecureStore.setItemAsync(key,value)
+    const key = "user";
+    const value = response.data.accessToken;
+    await SecureStore.setItemAsync(key, value);
   }
-  const token =  await SecureStore.getItemAsync('user')
-  return {...response.data,
-    token:token }
+  const token = await SecureStore.getItemAsync("user");
+  return { ...response.data, token: token };
 };
 
 const logout = async () => {
-  await SecureStore.deleteItemAsync('user')
+  await SecureStore.deleteItemAsync("user");
 };
-
 
 const authServices = {
   signup,
   signin,
-  logout
+  logout,
 };
 
 export default authServices;

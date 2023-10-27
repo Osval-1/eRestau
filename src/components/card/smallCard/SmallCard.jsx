@@ -5,25 +5,30 @@ import themeColor from "../../../../themeColor";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 
-export default function SmallCard({ foodName, distance, price, image }) {
+export default function SmallCard({
+  foodName,
+  distance,
+  price,
+  image,
+  onpress,
+}) {
   return (
     <TouchableOpacity
       style={styles.smallCardContainer}
       activeOpacity={0.6}
-      onPress={() => console.log(foodName)}
+      onPress={onpress}
       delayPressIn={50}
       //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
     >
-      <Image
-        source={require("../../../../assets/images/food.jpg")}
-        style={styles.image}
-      />
+      <Image source={{ uri: image }} style={styles.image} />
       <View>
         <Text style={globalStyles.textHeader}>{foodName}</Text>
       </View>
       <View style={styles.priceView}>
         <Text style={globalStyles.textBody}>{distance}</Text>
-        <Text style={{...globalStyles.textBody, color: themeColor.primary }}>{price}</Text>
+        <Text style={{ ...globalStyles.textBody, color: themeColor.primary }}>
+          {price}FCFA
+        </Text>
       </View>
     </TouchableOpacity>
   );

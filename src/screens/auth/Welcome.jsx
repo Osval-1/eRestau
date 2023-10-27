@@ -8,7 +8,7 @@ const Welcome = ({ navigation }) => {
   
   return (
     <View style={globalStyles.container}>
-      <Text style={styles.wlcmHeader}>
+      <Text style={globalStyles.textLarge}>
         Welcome to <Text style={styles.appTitle}>Foodie!</Text>
       </Text>
       <View>
@@ -17,6 +17,7 @@ const Welcome = ({ navigation }) => {
           sed atque laudantium quos est, quibusdam necessitatibus ipsam
           corrupti, iure architecto explicabo quia modi aliquid ipsum pariatur,
           numquam consequuntur amet.
+          
         </Text>
       </View>
       <View>
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     color: themeColor.primary,
   },
   welcomeText: {
+    ...globalStyles.textBody,
     textAlign: "center",
     marginBottom: 20,
 

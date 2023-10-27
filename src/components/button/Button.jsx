@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity } from "react-native";
 import themeColor from "../../../themeColor";
-import { useNavigation } from "@react-navigation/native";
+import { globalStyles } from "../../styles/global";
+
 
 const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
   return (
@@ -21,7 +22,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             style={{
               color: themeColor.primary,
               textAlign: "center",
-              fontWeight: "bold",
+              ...globalStyles.textHeader
             }}
           >
             {title}
@@ -41,7 +42,8 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             style={{
               color: "white",
               textAlign: "center",
-              fontWeight: "bold",
+              ...globalStyles.textHeader
+
             }}
           >
             {title}
@@ -62,7 +64,8 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             style={{
               color: "white",
               textAlign: "center",
-              fontWeight: "bold",
+              ...globalStyles.textHeader
+              
             }}
           >
             {title}

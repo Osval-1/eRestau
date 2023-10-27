@@ -1,90 +1,30 @@
-import React, { useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import Slider from "../../../components/slider/Slider";
 import Card from "../../../components/card/card/Card";
 import Tag from "../../../components/tag/Tag";
+import { useDispatch, useSelector } from "react-redux";
+import { getRecentlyViewed } from "../../../redux/reducers/user/userReducer";
+
 
 const UserDashboard = ({ navigation }) => {
   //placeholder data for smallCard Component
-  const smallCardData1 = {
-    tag: { name: "Popular Today!", path: "popular" },
-    data: [
-      {
-        id: "0",
-        foodName: "Jellof rice",
-        price: "2000F",
-        distance: "2.3 KM",
-        path: "menu",
-      },
-      {
-        id: "1",
-        foodName: "Eru and Gari",
-        price: "3000F",
-        distance: "5.3 KM",
-        path: "menu",
-      },
-      {
-        id: "2",
-        foodName: "Ndole",
-        price: "4000F",
-        distance: "2.6 KM",
-        path: "menu",
-      },
-      {
-        id: "3",
-        foodName: "Okra Soup",
-        price: "7000F",
-        distance: "8.3 KM",
-        path: "menu",
-      },
-      {
-        id: "4",
-        foodName: "Koki",
-        price: "1000F",
-        distance: "7.3 KM",
-        path: "menu",
-      },
-    ],
-  };
-  const smallCardData2 = {
-    tag: { name: "Recently viewed", path: "recent" },
-    data: [
-      {
-        id: "0",
-        foodName: "Jellof rice",
-        price: "2000F",
-        distance: "2.3 KM",
-        path: "orders",
-      },
-      {
-        id: "1",
-        foodName: "Eru and Gari",
-        price: "3000F",
-        distance: "5.3 KM",
-        path: "orders",
-      },
-      {
-        id: "2",
-        foodName: "Ndole",
-        price: "4000F",
-        distance: "2.6 KM",
-        path: "orders",
-      },
-      {
-        id: "3",
-        foodName: "Okra Soup",
-        price: "7000F",
-        distance: "8.3 KM",
-        path: "orders",
-      },
-      {
-        id: "4",
-        foodName: "Koki",
-        price: "1000F",
-        distance: "7.3 KM",
-        path: "orders",
-      },
-    ],
+
+  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
+  const recentlyViewed = useSelector((state)=>state.user.recentlyViewed)
+  useEffect(()=>{
+    getRecents()
+  },[])
+  const getRecents = async () => {
+    try {
+      setLoading(true)
+      const response = await dispatch(getRecentlyViewed()).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false)
+
   };
   return (
     <View style={styles.container}>
@@ -92,8 +32,8 @@ const UserDashboard = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ marginTop: 10 }}
       >
-        <Slider foodData={smallCardData1} label="Popular Today!" />
-        <Slider foodData={smallCardData2} label="Recomendations" />
+        <Slider itemData={recentlyViewed} label="Recently Today!" onpress={(item)=>navigation.navigate("HomeStack", { screen: "SingleFood",params: { item },})} />
+        {/* <Slider itemData={smallCardData2} label="Recomendations" /> */}
         <View style={{ marginHorizontal: 10 }}>
           <Tag label="Fried plantains" />
           <Card
@@ -108,6 +48,7 @@ const UserDashboard = ({ navigation }) => {
             onpress={() =>
               navigation.navigate("HomeStack", { screen: "SingleFood" })
             }
+            image="https://newalzironbucket.s3.amazonaws.com/1698169579868-Achu.jpeg"
           />
         </View>
       </ScrollView>
@@ -117,6 +58,7 @@ const UserDashboard = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
     backgroundColor: "#fff",
   },
 });

@@ -68,7 +68,7 @@ export const authSlice = createSlice({
       builder
         .addCase(signin.fulfilled, (state, action) => {
           state.user = action.payload.res;
-          state.userToken = action.payload.res.token
+          state.userToken = action.payload.res.token;
         })
         .addCase(signin.pending, (state, action) => {
           state.loading = true;
@@ -77,8 +77,7 @@ export const authSlice = createSlice({
           state.loading = false;
         }),
       builder.addCase(logout.fulfilled, (state) => {
-        state.userToken = ''
-        // state.user = ""
+        state.userToken = "";
       });
   },
 });

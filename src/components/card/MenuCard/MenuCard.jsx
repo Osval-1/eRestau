@@ -5,24 +5,22 @@ import { globalStyles } from "../../../styles/global";
 import Button from "../../../components/button/Button";
 import { Entypo, Feather, EvilIcons, FontAwesome } from "@expo/vector-icons";
 
-export default function MenuCard({ icon, label, price }) {
+export default function MenuCard({ icon, label, price, image }) {
   return (
     <View style={styles.cardView}>
       <View style={styles.imageView}>
-        <Image
-          source={require("../../../../assets/images/food.jpg")}
-          style={styles.image}
-        />
+        <Image source={{ uri: image }} style={styles.image} />
       </View>
       <View style={styles.textView}>
-          <Text style={globalStyles.textHeader}>{label}</Text>
-          {price && <Text style={{color:themeColor.primary}}>{price}</Text>}
-          <Button
-            title={<Text style={globalStyles.textHeader}>Add to Cart</Text>}
-            btnWidth="100%"
-          />
-        </View>
-        <View style={styles.amountView}>
+        <Text style={globalStyles.textHeader}>{label}</Text>
+        {price && (
+          <Text style={{ ...globalStyles.textBody, color: themeColor.primary }}>
+            {price}FCFA
+          </Text>
+        )}
+        <Button title="View" btnWidth="100%" />
+      </View>
+      {/* <View style={styles.amountView}>
           <TouchableOpacity>
             <Entypo name="plus" size={24} color={themeColor.primary} />
           </TouchableOpacity>
@@ -30,7 +28,7 @@ export default function MenuCard({ icon, label, price }) {
           <TouchableOpacity>
             <Entypo name="minus" size={24} color={themeColor.primary} />
           </TouchableOpacity>
-        </View>
+        </View> */}
     </View>
   );
 }
@@ -40,7 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     gap: 10,
-    alignItems:"center",
+    alignItems: "center",
     height: 120,
   },
   imageView: {
@@ -55,19 +53,17 @@ const styles = StyleSheet.create({
   textView: {
     flex: 2,
     justifyContent: "space-between",
-    alignItems:'center',
-    gap:6,
-
+    alignItems: "flex-start",
+    gap: 6,
   },
   amountView: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-between",
-    alignItems:'center',
-    height:"85%",
+    alignItems: "center",
+    height: "85%",
     borderRadius: 5,
-    borderWidth:1,
+    borderWidth: 1,
     borderColor: "#EFEDED",
-    
   },
 });

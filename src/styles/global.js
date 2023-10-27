@@ -56,6 +56,11 @@ export const globalStyles = StyleSheet.create({
     fontFamily:"Montserrat-Regular"
 
   },
+  textSmall: {
+    fontSize: 10,
+    fontWeight: "400",
+    fontFamily:"Montserrat-Regular",
+  },
   textGrey: {
     color: themeColor.grey_2,
     fontSize: 14,

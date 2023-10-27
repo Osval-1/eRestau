@@ -63,6 +63,13 @@ export default function PaymentMethod({navigation}) {
                 onChangeText={(value) => console.log(value)}
               />
       </View>
+      <View style={globalStyles.inputView}>
+      <TextInput
+                style={globalStyles.textInput}
+                placeholder="Current Location"
+                onChangeText={(value) => console.log(value)}
+              />
+      </View>
       <Button title={<Text style={globalStyles.textLarge}>PAY</Text>} btnWidth ={"50%"} onpress={()=>navigation.navigate("Payment Review")}/>
     </View>
   )

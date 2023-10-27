@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { useCallback } from 'react';
 import { Provider as PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
+import { MenuProvider } from 'react-native-popup-menu';
 import store from "./src/redux/store";
 import { Provider } from "react-redux";
 import { ToastProvider } from "react-native-paper-toast";
@@ -34,7 +35,9 @@ export default function App() {
         <PaperProvider>
           <NavigationContainer>
             <ToastProvider>
+              <MenuProvider>
               <RootStack onlayout={onLayoutRootView} />
+              </MenuProvider>
             </ToastProvider>
           </NavigationContainer>
         </PaperProvider>
