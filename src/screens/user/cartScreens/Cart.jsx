@@ -60,8 +60,8 @@ const Cart = ({ navigation }) => {
             <Button
               title={<Text style={globalStyles.textLarge}>Order</Text>}
               btnWidth="100%"
-              onpress={() =>
-                placeOrder()
+              onpress={
+                () => placeOrder()
                 // navigation.navigate("CartStack", { screen: "Payment Method" })
               }
             />
@@ -105,22 +105,6 @@ const Cart = ({ navigation }) => {
                       />
                     </MenuTrigger>
                     <MenuOptions>
-                      {/* <MenuOption
-        onSelect={() => alert(`Save`)}
-        customStyles={{
-          optionWrapper: {
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 10,
-            borderRadius: 5,
-            backgroundColor: themeColor.grey_0,
-          },
-        }}
-      >
-        <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
-          Edit
-        </Text>
-      </MenuOption> */}
                       <MenuOption
                         onSelect={() => dispatch(deleteFromCart(item.id))}
                         customStyles={{

@@ -7,15 +7,17 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Feather } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import { globalStyles } from "../../../styles/global";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
 
 export default function Card({ onpress, label, image, price }) {
+  const navigation = useNavigation();
   return (
     <ScrollView>
       <TouchableOpacity
@@ -46,14 +48,14 @@ export default function Card({ onpress, label, image, price }) {
             </View>
             <Pressable
               style={styles.spaceText}
-              onPress={() => console.log("pressed")}
+              onPress={() => navigation.navigate("SearchFood")}
             >
-              {/* <Feather
+              <Feather
                 name="external-link"
                 size={24}
                 color={themeColor.primary}
-              /> */}
-              {/* <Text style={{ color: themeColor.primary }}>Directions</Text> */}
+              />
+              <Text style={{ color: themeColor.primary }}>Directions</Text>
               <Text
                 style={{ ...globalStyles.textBody, color: themeColor.primary }}
               >

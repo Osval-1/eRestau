@@ -6,6 +6,8 @@ import {
 import SingleFood from "../../screens/user/homeScreens/SingleFood";
 import Header from "../../components/header/header/Header";
 import SearchFood from "../../screens/user/homeScreens/SearchFood";
+import UserMap from "../../screens/user/homeScreens/UserMap";
+import SearchHeader from "../../components/header/searchHeader/SearchHeader";
 
 const HomeStackScreen = createStackNavigator();
 
@@ -35,10 +37,17 @@ const HomeStack = () => {
       />
       <HomeStackScreen.Screen
         options={{
-          headerTitle: () => <Header name=" SearchFood" />,
+          headerTitle: () => <SearchHeader/>
         }}
         name="SearchFood"
         component={SearchFood}
+      />
+      <HomeStackScreen.Screen
+        options={{
+          headerTitle: () => <Header name=" Map" />,
+        }}
+        name="UserMap"
+        component={UserMap}
       />
     </HomeStackScreen.Navigator>
   );

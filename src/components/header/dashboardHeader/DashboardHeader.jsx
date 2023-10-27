@@ -1,13 +1,11 @@
-import { StyleSheet, View, TextInput, Image,Dimensions} from "react-native";
+import { StyleSheet, View, TextInput, Image, Dimensions } from "react-native";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import React from "react";
 import { globalStyles } from "../../../styles/global";
 
-const screenWidth = Dimensions.get('window').width;
+const screenWidth = Dimensions.get("window").width;
 export default function DashboardHeader() {
-  
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -18,7 +16,7 @@ export default function DashboardHeader() {
               width: 40,
               height: 30,
             }}
-            />
+          />
         </View>
         <View style={styles.inputContainer}>
           <AntDesign name="search1" size={20} color={themeColor.grey_1} />
@@ -26,7 +24,7 @@ export default function DashboardHeader() {
             placeholder="Search Restaurants..."
             onChangeText={(value) => console.log(value)}
             style={globalStyles.textInput}
-            />
+          />
         </View>
         <View>
           <FontAwesome5 name="bell" size={24} color="black" />
@@ -37,17 +35,17 @@ export default function DashboardHeader() {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    alignItems:'center',
-    justifyContent:'center'
-    ,paddingTop:8,
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 8,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 10,
-    width:screenWidth,
+    width: screenWidth,
     backgroundColor: "#fff",
     borderBottomWidth: 4,
     borderBottomColor: themeColor.primary,
@@ -59,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
-    backgroundColor:themeColor.grey_0,
+    backgroundColor: themeColor.grey_0,
     borderRadius: 5,
     padding: 4,
   },

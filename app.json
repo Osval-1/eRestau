@@ -28,7 +28,10 @@
     },"plugin":[
       "expo-image-picker",
       {
-        "photosPermission": "The app accesses your photos to let you upload them."
+        "photosPermission": "Allow E-Restou to access your storage."
+      }, "expo-location",
+      {
+        "locationAlwaysAndWhenInUsePermission": "Allow E-Restou to use your location."
       }
     ]
   }

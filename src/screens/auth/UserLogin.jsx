@@ -21,6 +21,9 @@ import Loader from "../../components/loader/Loader";
 import { useToast } from "react-native-paper-toast";
 import MessageQueue from "react-native/Libraries/BatchedBridge/MessageQueue";
 
+//To Do
+// change the text of other headers to be orange like this page
+
 const UserLogin = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,14 +32,13 @@ const UserLogin = ({ navigation }) => {
   const toaster = useToast();
 
   const handlesignin = async (data) => {
-
     try {
       setLoading(true);
-      const response = await dispatch(signin(data)).unwrap();     
+      const response = await dispatch(signin(data)).unwrap();
     } catch (error) {
       console.log(error);
-      toaster.show({ message: error.message, type: "error", position: "top" });
       toaster.show({ message: error, type: "error", position: "top" });
+      toaster.show({ message: error.message, type: "error", position: "top" });
       setLoading(false);
     }
     setLoading(false);
@@ -53,7 +55,7 @@ const UserLogin = ({ navigation }) => {
     password: yup
       .string()
       .min(8, ({ min }) => `password must be atleast ${min} characters`)
-      .matches(/^(\S+$)/, 'password cannot contain blankspaces')
+      .matches(/^(\S+$)/, "password cannot contain blankspaces")
       .required("password is required"),
   });
   if (loading) {
@@ -72,7 +74,11 @@ const UserLogin = ({ navigation }) => {
           />
         </View>
         <View>
-          <Text style={{...globalStyles.textLarge,color:themeColor.primary}}>Login</Text>
+          <Text
+            style={{ ...globalStyles.textLarge, color: themeColor.primary }}
+          >
+            Login
+          </Text>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -109,7 +115,13 @@ const UserLogin = ({ navigation }) => {
                     />
                   </View>
                   {touched.username && errors.username && (
-                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.username}
                     </Text>
                   )}
@@ -139,7 +151,13 @@ const UserLogin = ({ navigation }) => {
                     </TouchableOpacity>
                   </View>
                   {touched.password && errors.password && (
-                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.password}
                     </Text>
                   )}
@@ -182,7 +200,6 @@ const styles = StyleSheet.create({
     color: themeColor.primary,
     marginBottom: 10,
     ...globalStyles.textBody,
-
   },
   orText: {
     textAlign: "center",
@@ -190,7 +207,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     ...globalStyles.textBody,
-
   },
 });
 
