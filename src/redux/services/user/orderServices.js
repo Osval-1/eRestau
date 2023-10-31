@@ -4,8 +4,10 @@ import authHeader from "../authHeader"
 
 const url = `${config.ENDPOINT}/api/user/order`
 
-const getOrder= async ()=>{
-    const response = await axios.post(url,data,{headers:await authHeader()})
+const getOrder= async (data)=>{
+    const response = await axios.get(`${url}/getOrderUser/${data}`,
+        // { headers: await authHeader() }
+    )
     return response.data
  }
  

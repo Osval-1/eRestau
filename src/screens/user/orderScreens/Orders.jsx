@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import FoodCard from "../../../components/card/foodCard/FoodCard";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Orders = () => {
   return (

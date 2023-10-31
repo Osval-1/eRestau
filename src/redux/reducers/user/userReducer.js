@@ -44,9 +44,9 @@ export const getSingleProduct = createAsyncThunk(
     }
   }
 );
-export const getOrder = createAsyncThunk("getOrders", async (thunkAPI) => {
+export const getOrders = createAsyncThunk("getOrders", async (data,thunkAPI) => {
   try {
-    const res = await orderServices.getOrder();
+    const res = await orderServices.getOrder(data);
     return { res };
   } catch (error) {
     const message =
@@ -69,7 +69,7 @@ export const editProfile = createAsyncThunk("editProfile", async (thunkAPI) => {
   }
 });
 
-const initialState = { recentlyViewed: [] };
+const initialState = { recentlyViewed: [],orders:[] };
 
 const userSlice = createSlice({
   name: "user",
@@ -98,10 +98,11 @@ const userSlice = createSlice({
           state.loading = false;
         }),
       builder
-        .addCase(getOrder.fulfilled, (state, action) => {
-          state.loading = false;
+        .addCase(getOrders.fulfilled, (state, action) => {
+          state.orders = action.payload.res
+
         })
-        .addCase(getOrder.rejected, (state, action) => {
+        .addCase(getOrders.rejected, (state, action) => {
           state.loading = false;
         }),
       builder

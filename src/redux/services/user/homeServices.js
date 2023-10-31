@@ -10,22 +10,23 @@ const getRecentlyViewed = async () => {
   );
   return response.data;
 };
-const Search = async () => {
-  const response = await axios.post(url+"search" ,data,
-  //  { headers: await authHeader() }
-   );
-  return response.data;
-};
+// const Search = async () => {
+//   const response = await axios.get("http://192.168.43.200:9000/search" ,data,
+//   //  { headers: await authHeader() }
+//   );
+//   return response.data;
+// };
 const getSingleProduct = async (data) => {
   const response = await axios.post(url + "singleProduct", data, 
   // {
-  //   headers: await authHeader(),
-  // }
+    //   headers: await authHeader(),
+    // }
   );
   return response.data;
 };
+// to replace this with the original when it gets implemented in the backend
 const search = async (data) => {
-  const response = await axios.post(url + "search", data,
+  const response = await axios.get(`http://192.168.43.200:9000/search?${data}` ,
   //  {
   //   headers: await authHeader(),
   // }

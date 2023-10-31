@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
 
 export default function SearchFood() {
-  const dispatch = useDispatch();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

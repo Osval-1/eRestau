@@ -9,7 +9,7 @@ const Welcome = ({ navigation }) => {
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.textLarge}>
-        Welcome to <Text style={styles.appTitle}>Foodie!</Text>
+        Welcome to <Text style={styles.appTitle}>E-Restou!</Text>
       </Text>
       <View>
         <Text style={styles.welcomeText}>
