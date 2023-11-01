@@ -17,7 +17,7 @@ const Orders = () => {
   useFocusEffect(
     useCallback(() => {
       getOrdersAsync();
-      console.log(orders)
+      console.log(orders);
     }, [])
   );
 
@@ -38,7 +38,7 @@ const Orders = () => {
         contentContainerStyle={{ marginTop: 20 }}
         showsVerticalScrollIndicator={false}
       >
-         {!orders[0] ? (
+        {!orders[0] ? (
           <View style={styles.container}>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Text style={globalStyles.textHeader}>No orders found</Text>
@@ -56,9 +56,10 @@ const Orders = () => {
                   amount={items.quantity}
                   label={items.productName}
                   image={items.image}
-                  expectedTime="30 mins ago"
-                  userName="User1"
-                  location={"Tarred Malingo"}
+                  location={items.ownerLocation}
+                  price={items.price}
+                  // expectedTime="30 mins ago"
+                  userName={items.ownerName}
                 />
               );
             })}

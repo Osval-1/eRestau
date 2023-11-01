@@ -80,9 +80,6 @@ const menuSlice = createSlice({
       .addCase(getAllMenu.fulfilled, (state, action) => {
         return action.payload.res.products;
       })
-      .addCase(getAllMenu.rejected, (state, action) => {
-        // state.loading = false;
-      }),
       builder
         .addCase(addSingleMenu.fulfilled, (state, action) => {})
         .addCase(addSingleMenu.rejected, (state, action) => {}),
@@ -95,10 +92,8 @@ const menuSlice = createSlice({
         }),
       builder
         .addCase(deleteSingleMenu.fulfilled, (state, action) => {
-          state.loading = false;
         })
         .addCase(deleteSingleMenu.rejected, (state, action) => {
-          state.loading = false;
         });
   },
 });

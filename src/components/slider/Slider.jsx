@@ -19,12 +19,13 @@ export default function Slider({ itemData, onpress, label }) {
         style={styles.flatlistView}
         data={itemData}
         renderItem={({ item }) => {
-          const { name, price, distance, image } = item;
+          const { name, price, ownerName, image } = item;
           return (
             <SmallCard
               foodName={name}
               price={price}
               image={image}
+              owner={ownerName}
               onpress={() => onpress(item)}
             />
           );

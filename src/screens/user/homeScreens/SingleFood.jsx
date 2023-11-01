@@ -56,6 +56,7 @@ export default function SingleFood({ navigation, route }) {
   useEffect(() => {
     getMenu();
     dispatch(resetCount())
+    console.log(item)
   }, []);
   // Todo
   // reset count each time the page is accessed
@@ -91,7 +92,12 @@ export default function SingleFood({ navigation, route }) {
                     price: item.price,
                     owner: item.owner._id,
                     id: user.id,
-                    image:item.image
+                    image: item.image,
+                    ownerName: item.ownerName,
+                    username: user.username,
+                    ownerLocation: item.ownerLocation,
+                    customerLocation: user.location,
+                    
                   })
                 )
               }

@@ -49,8 +49,9 @@ export default function Menus({ navigation }) {
   };
   const deleteSingleMenuAsync = async (data) => {
     try {
-      console.log(data)
       const response = await dispatch(deleteSingleMenu(data)).unwrap();
+      getMenu();
+
     } catch (error) {
       console.log(error);
     }

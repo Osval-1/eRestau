@@ -7,7 +7,7 @@ import themeColor from "../../../../themeColor";
 
 export default function SmallCard({
   foodName,
-  distance,
+  owner,
   price,
   image,
   onpress,
@@ -25,9 +25,9 @@ export default function SmallCard({
         <Text style={{ ...globalStyles.textHeader,textAlign:'left' }}>{foodName}</Text>
       </View>
       <View style={styles.priceView}>
-        <Text style={globalStyles.textBody}>{distance}</Text>
+        <Text style={globalStyles.textGrey}>{owner}</Text>
         <Text style={{ ...globalStyles.textBody, color: themeColor.primary }}>
-          {price}FCFA
+          {price}F
         </Text>
       </View>
     </TouchableOpacity>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     width: 170,
     backgroundColor: "#fff",
     alignItems: "flex-start",
-    gap: 6,
+    // gap: 6,
     marginHorizontal: 2,
     marginBottom: 10,
     padding: 8,
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   priceView: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems:'center',
     width: "100%",
   },
 });

@@ -85,6 +85,8 @@ const Cart = ({ navigation }) => {
                 label={item.productName}
                 price={item.price}
                 image={item.image}
+                location={item.ownerLocation}
+                userName={item.ownerName}
                 // expectedTime={item.expectedTime}
                 // currentStatus={item.currentStatus}
                 // date={item.date}

@@ -55,9 +55,9 @@ const Orders = () => {
                   amount={items.quantity}
                   label={items.productName}
                   image={items.image}
+                  location={items.customerLocation}
+                  userName={items.customerName}
                   expectedTime="30 mins ago"
-                  userName="User1"
-                  location={"Tarred Malingo"}
                 />
               );
             })}

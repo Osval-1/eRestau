@@ -31,7 +31,11 @@ const cartSlice = createSlice({
         price: action.payload.price,
         createdBy: action.payload.owner,
         orderedBy: action.payload.id,
-        image:action.payload.image,
+        image: action.payload.image,
+        ownerName: action.payload.ownerName,
+        customerName: action.payload.username,
+        ownerLocation: action.payload.ownerLocation,
+        customerLocation:action.payload.customerLocation,
         status:"pending"
       };
       state.count = 1
