@@ -78,7 +78,7 @@ const RestauRegistration = ({ navigation }) => {
           />
         </View>
         <View>
-          <Text style={globalStyles.textLarge}>Restaurant</Text>
+          <Text style={{ ...globalStyles.textLarge, color: themeColor.primary }}>Restaurant</Text>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}

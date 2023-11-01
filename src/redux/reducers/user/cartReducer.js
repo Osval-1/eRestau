@@ -46,17 +46,21 @@ const cartSlice = createSlice({
     decrementCount: (state, action) => {
       state.count -= 1;
     },
+    resetCount: (state, action) => {
+      state.count = 1;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(setCart.fulfilled, (state, action) => {
-        state.loading = false;
+        state.cart = []
+        state.count = 1
       })
       .addCase(setCart.rejected, (state, action) => {
         state.loading = false;
       });
   },
 });
-export const { addToCart, deleteFromCart, incrementCount, decrementCount } =
+export const { addToCart, deleteFromCart, incrementCount, decrementCount,resetCount } =
   cartSlice.actions;
 export default cartSlice.reducer;

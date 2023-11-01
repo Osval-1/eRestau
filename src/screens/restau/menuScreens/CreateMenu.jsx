@@ -63,20 +63,11 @@ export default function CreateMenu({ navigation }) {
         aspect: [4, 3],
         quality: 1,
       });
-      Toast.show("This is a styled toast on iOS.", Toast.LONG, {
-        backgroundColor: "blue",
-      });
+
       console.log(user.username)
       if (!result.canceled) {
         setImage(result.assets[0].uri);
-        Toast.showWithGravity(
-          'This is a long toast at the top.',
-          Toast.LONG,
-          Toast.TOP,{
-
-            backgroundColor:"#FF812C"
-          }
-        );
+        
        
       }
     } catch (error) {

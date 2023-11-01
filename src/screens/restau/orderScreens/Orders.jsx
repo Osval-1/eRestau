@@ -5,26 +5,26 @@ import FoodCard from "../../../components/card/foodCard/FoodCard";
 import { useFocusEffect } from "@react-navigation/native";
 import { getOrders } from "../../../redux/reducers/restau/restauReducer";
 import Loader from "../../../components/loader/Loader";
-
 import { useDispatch, useSelector } from "react-redux";
 
 const Orders = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state)=>state.auth.user)
-
+  const user = useSelector((state) => state.auth.user);
+  const orders = useSelector((state) => state.restau.orders);
 
   useFocusEffect(
     useCallback(() => {
-      getOrders();
+      getOrdersAsync();
     }, [])
   );
 
-  const getOrders = async () => {
+  const getOrdersAsync = async () => {
     try {
       setLoading(true);
-      const response = await dispatch(getAllMenu(user.id)).unwrap();
-      console.log(response);
+      console.log(user.id);
+      const response = await dispatch(getOrders(user.id)).unwrap();
+      console.log(response.res);
     } catch (error) {
       console.log(error);
     }
@@ -37,13 +37,32 @@ const Orders = () => {
         contentContainerStyle={{ marginTop: 20 }}
         showsVerticalScrollIndicator={false}
       >
-        <FoodCard
-          amount="3x"
-          label="Roasted Tilapia"
-          expectedTime="30 mins ago"
-          userName="User1"
-          location={"Tarred Malingo"}
-        />
+        {!orders[0] ? (
+          <View style={styles.container}>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text style={globalStyles.textHeader}>No orders found</Text>
+              <Text style={globalStyles.textBody}>
+                Orders can be viewed here
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <ScrollView>
+            {orders.map((items) => {
+              return (
+                <FoodCard
+                  key={items._id}
+                  amount={items.quantity}
+                  label={items.productName}
+                  image={items.image}
+                  expectedTime="30 mins ago"
+                  userName="User1"
+                  location={"Tarred Malingo"}
+                />
+              );
+            })}
+          </ScrollView>
+        )}
       </ScrollView>
     </View>
   );

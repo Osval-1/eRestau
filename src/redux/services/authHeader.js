@@ -12,7 +12,7 @@ export const getToken = async (key) => {
 //generate authorization header
 export default async function authheader() {
   try {
-    const usertoken = await getToken("user");
+    const usertoken = await getToken("userToken");
     if (usertoken) {
       return { "x-access-token": usertoken };
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext  } from "react";
 import {
   createStackNavigator,
   TransitionPresets,
@@ -9,10 +9,14 @@ import UserLogin from "../screens/auth/UserLogin";
 import UserRegistration from "../screens/auth/UserRegistration";
 import RestauRegistration from "../screens/auth/RestauRegistration";
 import ForgotPassword from "../screens/auth/Forgotpassword";
+import { AuthContext } from "../context/AuthContext";
+
 
 const AuthStackScreen = createStackNavigator();
 
 const AuthStack = () => {
+  const { isFirstLaunch } = useContext(AuthContext);
+
   return (
     <AuthStackScreen.Navigator
       screenOptions={() => ({
@@ -20,59 +24,65 @@ const AuthStack = () => {
         ...TransitionPresets.SlideFromRightIOS,
       })}
     >
-      {/* WELCOME SCREEN */}
-      <AuthStackScreen.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="Welcome"
-        component={Welcome}
-      ></AuthStackScreen.Screen>
+      {isFirstLaunch ? (
+        <AuthStackScreen.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="UserLogin"
+          component={UserLogin}
+        />
+      ) : (
+        <>
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Welcome"
+            component={Welcome}
+          />
 
-      {/* REGISTER OPTION SCREEN */}
-      <AuthStackScreen.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="RegisterOption"
-        component={RegisterOption}
-      ></AuthStackScreen.Screen>
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="RegisterOption"
+            component={RegisterOption}
+          />
 
-      {/* USER LOGIN SCREEN */}
-      <AuthStackScreen.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="UserLogin"
-        component={UserLogin}
-      ></AuthStackScreen.Screen>
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="UserLogin"
+            component={UserLogin}
+          />
 
-      {/* USER REGISTER SCREEN */}
-      <AuthStackScreen.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="UserRegistration"
-        component={UserRegistration}
-      ></AuthStackScreen.Screen>
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="UserRegistration"
+            component={UserRegistration}
+          />
 
-      {/* RESTAU REGISTER SCREEN */}
-      <AuthStackScreen.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="RestauRegistration"
-        component={RestauRegistration}
-      ></AuthStackScreen.Screen>
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="RestauRegistration"
+            component={RestauRegistration}
+          />
 
-      {/* FORGOT PASSWORD SCREEN */}
-      <AuthStackScreen.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="ForgotPassword"
-        component={ForgotPassword}
-      ></AuthStackScreen.Screen>
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="ForgotPassword"
+            component={ForgotPassword}
+          />
+        </>
+      )}
     </AuthStackScreen.Navigator>
   );
 };

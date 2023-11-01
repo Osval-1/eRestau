@@ -73,7 +73,7 @@ const UserRegistration = ({ navigation }) => {
           />
         </View>
         <View>
-          <Text style={globalStyles.textLarge}>Customer</Text>
+          <Text style={{ ...globalStyles.textLarge, color: themeColor.primary }}>Customer</Text>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}

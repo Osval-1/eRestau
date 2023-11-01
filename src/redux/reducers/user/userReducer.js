@@ -44,18 +44,21 @@ export const getSingleProduct = createAsyncThunk(
     }
   }
 );
-export const getOrders = createAsyncThunk("getOrders", async (data,thunkAPI) => {
-  try {
-    const res = await orderServices.getOrder(data);
-    return { res };
-  } catch (error) {
-    const message =
-      (error.message && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    thunkAPI.rejectWithValue(message);
+export const getOrders = createAsyncThunk(
+  "user/getOrders",
+  async (data, thunkAPI) => {
+    try {
+      const res = await orderServices.getOrder(data);
+      return { res };
+    } catch (error) {
+      const message =
+        (error.message && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 export const editProfile = createAsyncThunk("editProfile", async (thunkAPI) => {
   try {
     const res = await homeServices.editProfile();
@@ -69,7 +72,7 @@ export const editProfile = createAsyncThunk("editProfile", async (thunkAPI) => {
   }
 });
 
-const initialState = { recentlyViewed: [],orders:[] };
+const initialState = { recentlyViewed: [], orders: [] };
 
 const userSlice = createSlice({
   name: "user",
@@ -99,8 +102,7 @@ const userSlice = createSlice({
         }),
       builder
         .addCase(getOrders.fulfilled, (state, action) => {
-          state.orders = action.payload.res
-
+          state.orders = action.payload.res;
         })
         .addCase(getOrders.rejected, (state, action) => {
           state.loading = false;

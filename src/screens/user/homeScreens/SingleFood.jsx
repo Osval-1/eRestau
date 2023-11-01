@@ -19,6 +19,7 @@ import {
   incrementCount,
   decrementCount,
   addToCart,
+  resetCount
 } from "../../../redux/reducers/user/cartReducer";
 import MenuCard from "../../../components/card/MenuCard/MenuCard";
 
@@ -30,6 +31,7 @@ export default function SingleFood({ navigation, route }) {
     state.menu.filter((menus) => menus._id != item._id)
   );
   const count = useSelector((state) => state.cart.count);
+  const user = useSelector((state)=>state.auth.user)
   const getMenu = async () => {
     try {
       setLoading(true);
@@ -53,6 +55,7 @@ export default function SingleFood({ navigation, route }) {
   };
   useEffect(() => {
     getMenu();
+    dispatch(resetCount())
   }, []);
   // Todo
   // reset count each time the page is accessed
@@ -87,7 +90,7 @@ export default function SingleFood({ navigation, route }) {
                     name: item.name,
                     price: item.price,
                     owner: item.owner._id,
-                    id: item._id,
+                    id: user.id,
                     image:item.image
                   })
                 )

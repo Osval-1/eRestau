@@ -19,7 +19,6 @@ import { useDispatch } from "react-redux";
 import { signin } from "../../redux/reducers/authReducer";
 import Loader from "../../components/loader/Loader";
 import { useToast } from "react-native-paper-toast";
-import MessageQueue from "react-native/Libraries/BatchedBridge/MessageQueue";
 
 //To Do
 // change the text of other headers to be orange like this page
@@ -41,7 +40,7 @@ const UserLogin = ({ navigation }) => {
       toaster.show({ message: error.message, type: "error", position: "top" });
       setLoading(false);
     }
-    setLoading(false);
+    setTimeout(()=>setLoading(false),2000)
   };
 
   const loginValidatonSchema = yup.object().shape({

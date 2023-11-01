@@ -18,11 +18,11 @@ export default function SmallCard({
       activeOpacity={0.6}
       onPress={onpress}
       delayPressIn={50}
-      //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
+      //delayPressIn ={50} to delay the touchableOpacity from highlighting on scrolling
     >
       <Image source={{ uri: image }} style={styles.image} />
       <View>
-        <Text style={globalStyles.textHeader}>{foodName}</Text>
+        <Text style={{ ...globalStyles.textHeader,textAlign:'left' }}>{foodName}</Text>
       </View>
       <View style={styles.priceView}>
         <Text style={globalStyles.textBody}>{distance}</Text>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   smallCardContainer: {
     width: 170,
     backgroundColor: "#fff",
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: 6,
     marginHorizontal: 2,
     marginBottom: 10,

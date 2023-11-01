@@ -12,19 +12,22 @@ import {
   MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
-import React, { useCallback,useState } from "react";
-import { AntDesign,Entypo } from "@expo/vector-icons";
+import React, { useCallback, useState } from "react";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import FoodCard from "../../../components/card/foodCard/FoodCard";
 import { useDispatch, useSelector } from "react-redux";
 import { globalStyles } from "../../../styles/global";
-import { getAllMenu } from "../../../redux/reducers/restau/menuReducer";
+import {
+  getAllMenu,
+  deleteSingleMenu,
+} from "../../../redux/reducers/restau/menuReducer";
 import Loader from "../../../components/loader/Loader";
 
 export default function Menus({ navigation }) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const menu = useSelector((state) => state.menu);
-  const user = useSelector((state)=>state.auth.user)
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   // everytime user navigates to this screen,fetch the menu from server
@@ -36,29 +39,29 @@ export default function Menus({ navigation }) {
 
   const getMenu = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await dispatch(getAllMenu(user.id)).unwrap();
-      console.log(response)
+      // console.log(response.res);
     } catch (error) {
       console.log(error);
     }
-    setLoading(false)
-
+    setLoading(false);
   };
-  const deleteMenu=async()=>{
-    try{
-      const response = await dispatch(getAllMenu()).unwrap();
-    }catch(error){
+  const deleteSingleMenuAsync = async (data) => {
+    try {
+      console.log(data)
+      const response = await dispatch(deleteSingleMenu(data)).unwrap();
+    } catch (error) {
       console.log(error);
     }
-  }
-  const editMenu=async()=>{
-    try{
+  };
+  const editMenu = async () => {
+    try {
       const response = await dispatch(getAllMenu()).unwrap();
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -74,34 +77,41 @@ export default function Menus({ navigation }) {
             </View>
           </View>
         ) : (
-               
           <ScrollView>
-              {menu.map((items) => {
-                return (
-                  <FoodCard
-                              key={items._id}
-                              label={items.name}
-                              servings={items.quantity}
-                              price={items.price}
-                              image={items.image}
-                              popup={
-                                <Menu>
-                  <MenuTrigger 
-                  customStyles={{
-                              triggerWrapper: {
-                                top: 5,
-                                right: 10,
-                              },
-                            }}>
-                              
-                    <Entypo
-                      name="dots-three-vertical"
-                      size={24}
-                      color="black"
-                      />
-                    </MenuTrigger>
-                    <MenuOptions>
-                      <MenuOption
+            {menu.map((items) => {
+              return (
+                <FoodCard
+                  key={items._id}
+                  label={items.name}
+                  servings={items.quantity}
+                  price={items.price}
+                  image={items.image}
+                  popup={
+                    <Menu>
+                      <MenuTrigger
+                        customStyles={{
+                          triggerWrapper: {
+                            top: 5,
+                            right: 10,
+                          },
+                        }}
+                      >
+                        <Entypo
+                          name="dots-three-vertical"
+                          size={24}
+                          color="black"
+                        />
+                      </MenuTrigger>
+                      <MenuOptions>
+                        {/* TO DO
+                        delete all menus at once
+                        filter the menus
+                        edit menus
+                        
+                        
+                        */}
+
+                        {/* <MenuOption
                         onSelect={() => alert(`Save`)}
                         customStyles={{
                           optionWrapper: {
@@ -116,33 +126,33 @@ export default function Menus({ navigation }) {
                         <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
                           Edit
                         </Text>
-                      </MenuOption>
-                      <MenuOption
-                        onSelect={() => alert(`Save`)}
-                        customStyles={{
-                          optionWrapper: {
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: 10,
-                            borderRadius: 5,
-                            backgroundColor: themeColor.grey_0,
-                          },
-                        }}
+                      </MenuOption> */}
+                        <MenuOption
+                          onSelect={() => deleteSingleMenuAsync(
+                           items.key)}
+                          customStyles={{
+                            optionWrapper: {
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: 10,
+                              borderRadius: 5,
+                              backgroundColor: themeColor.grey_0,
+                            },
+                          }}
                         >
-                        <View>
-                          <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
-                            Delete
-                          </Text>
-                        </View>
-                      </MenuOption>
-                    </MenuOptions>
-              </Menu>
-                              }
-                              />
-              
-                );
-              })}
+                          <View>
+                            <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
+                              Delete
+                            </Text>
+                          </View>
+                        </MenuOption>
+                      </MenuOptions>
+                    </Menu>
+                  }
+                />
+              );
+            })}
           </ScrollView>
         )}
       </ScrollView>

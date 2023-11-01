@@ -32,6 +32,13 @@
       }, "expo-location",
       {
         "locationAlwaysAndWhenInUsePermission": "Allow E-Restou to use your location."
+      }, "expo-notifications",
+      {
+        "icon": "./assets/favicon.png",
+        "color": "#ffffff",
+        "sounds": [
+          "./assets/sounds/notification.wav"
+        ]
       }
     ]
   }

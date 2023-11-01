@@ -23,7 +23,7 @@ async function updateSingleMenu(data) {
   return response.data;
 }
 async function addSingleMenu(data) {
-  const response = await axios.post(url + "image", data, {
+  const response = await axios.post(url + "createProduct", data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
