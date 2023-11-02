@@ -39,7 +39,7 @@
         "sounds": [
           "./assets/sounds/notification.wav"
         ]
-      }
+      },"@react-native-firebase/app"
     ]
   }
 }

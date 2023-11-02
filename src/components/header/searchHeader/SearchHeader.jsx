@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     width: (screenWidth / 10) * 6,
     borderRadius: 5,
     padding: 4,
-    ...globalStyles.textBody,
+    ...globalStyles.textHeader,
   },
   text: {
     ...globalStyles.textLarge,

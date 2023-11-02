@@ -1,11 +1,12 @@
-import { StyleSheet, View, TextInput, Image, Dimensions } from "react-native";
+import { StyleSheet, View, TextInput, Image, Dimensions ,TouchableOpacity,Text} from "react-native";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import React from "react";
 import { globalStyles } from "../../../styles/global";
+import { useNavigation } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
-export default function DashboardHeader() {
+export default function DashboardHeader({onpress}) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -18,14 +19,12 @@ export default function DashboardHeader() {
             }}
           />
         </View>
-        <View style={styles.inputContainer}>
+        <TouchableOpacity style={styles.inputContainer} onPress={onpress} activeOpacity={0.9}>
           <AntDesign name="search1" size={20} color={themeColor.grey_1} />
-          <TextInput
-            placeholder="Search Restaurants..."
-            onChangeText={(value) => console.log(value)}
-            style={globalStyles.textInput}
-          />
-        </View>
+          <Text
+            style={globalStyles.textGrey}
+          >Search  </Text>
+        </TouchableOpacity>
         <View>
           <FontAwesome5 name="bell" size={24} color="black" />
         </View>

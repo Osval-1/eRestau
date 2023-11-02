@@ -22,9 +22,7 @@ const Orders = () => {
   const getOrdersAsync = async () => {
     try {
       setLoading(true);
-      console.log(user.id);
       const response = await dispatch(getOrders(user.id)).unwrap();
-      console.log(response.res);
     } catch (error) {
       console.log(error);
     }

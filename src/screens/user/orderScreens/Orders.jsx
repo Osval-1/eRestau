@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import FoodCard from "../../../components/card/foodCard/FoodCard";
@@ -17,16 +16,13 @@ const Orders = () => {
   useFocusEffect(
     useCallback(() => {
       getOrdersAsync();
-      console.log(orders);
     }, [])
   );
 
   const getOrdersAsync = async () => {
     try {
       setLoading(true);
-      console.log(user.id);
       const response = await dispatch(getOrders(user.id)).unwrap();
-      console.log(response.res);
     } catch (error) {
       console.log(error);
     }

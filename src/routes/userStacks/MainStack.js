@@ -15,6 +15,8 @@ import UserDashboard from "../../screens/user/homeScreens/UserDashboard";
 import Profile from "../../screens/user/profileScreens/Profile";
 import Orders from "../../screens/user/orderScreens/Orders";
 import Cart from "../../screens/user/cartScreens/Cart";
+import { useNavigation } from "@react-navigation/native";
+
 
 import Header from "../../components/header/header/Header";
 
@@ -22,11 +24,13 @@ const Tabs = createMaterialBottomTabNavigator();
 const MainStackScreens = createStackNavigator();
 
 // find title for headers apart from the home dashboard for tab navigator
-function getHeaderTitle(route) {
+function getHeaderTitle(route,navigation) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   switch (routeName) {
     case "Home":
-      return <DashboardHeader />;
+      return <DashboardHeader onpress={()=>navigation.navigate("HomeStack", {
+        screen: "SearchFood",
+      })} />;
     case "Profile":
       return <Header name="Profile" />;
     case "Orders":
@@ -42,6 +46,7 @@ function getHeaderTitle(route) {
 }
 // Make tab navigator as top level then redirect to stack navigator as recomended by react navigaton docs
 const MainStackTabs = () => {
+
   return (
     <Tabs.Navigator
       barStyle={{
@@ -115,13 +120,15 @@ const MainStackTabs = () => {
 
 // nesting tabs in stack navigator to ensure bottom tabs appear on all top pages only
 const MainStack = () => {
+  const navigation = useNavigation()
+
   return (
     <MainStackScreens.Navigator>
       <MainStackScreens.Screen
         name="MainStackTabs"
         component={MainStackTabs}
         options={({ route }) => ({
-          headerTitle: () => getHeaderTitle(route),
+          headerTitle: () => getHeaderTitle(route,navigation),
           headerStyle: {
             shadowColor: "#000000",
             shadowOpacity: 0.8,
