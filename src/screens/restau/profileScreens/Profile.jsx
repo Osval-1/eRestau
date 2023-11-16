@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import Button from "../../../components/button/Button";
-import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, AntDesign,FontAwesome } from "@expo/vector-icons";
 import Tile from "../../../components/tile/Tile";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/reducers/authReducer";
@@ -29,7 +29,7 @@ const Profile = ({ navigation }) => {
           />
         </TouchableOpacity>
         <View style={styles.infoView}>
-          <Text style={globalStyles.textLarge}>{user.username}</Text>
+          <Text style={{...globalStyles.textLarge,textTransform:"capitalize"}}>{user.username}</Text>
           <Text style={[globalStyles.textGrey, globalStyles.textBody]}>
             {user.location}
           </Text>

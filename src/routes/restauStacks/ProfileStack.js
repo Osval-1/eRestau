@@ -3,7 +3,6 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import Profile from "../../screens/restau/profileScreens/Profile";
 import Header from "../../components/header/header/Header";
 import Settings from "../../screens/restau/profileScreens/Settings";
 import Notifications from "../../screens/restau/profileScreens/Notifications";
@@ -27,13 +26,7 @@ const ProfileStack = () => {
         },
       })}
     >
-      <ProfileStackScreen.Screen
-        options={{
-          headerTitle: () => <Header name="Profile" />,
-        }}
-        name="Profilestack"
-        component={Profile}
-      />
+
       <ProfileStackScreen.Screen
         options={{
           headerTitle: () => <Header name="Settings" />,

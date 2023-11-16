@@ -26,7 +26,7 @@ const getSingleProduct = async (data) => {
 };
 // to replace this with the original when it gets implemented in the backend
 const search = async (data) => {
-  const response = await axios.get(`http://192.168.43.200:9000/search?${data}` ,
+  const response = await axios.get(`http://192.168.43.200:9000/search?q=${data}` ,
   //  {
   //   headers: await authHeader(),
   // }

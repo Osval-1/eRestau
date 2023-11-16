@@ -72,12 +72,16 @@ export const editProfile = createAsyncThunk("editProfile", async (thunkAPI) => {
   }
 });
 
-const initialState = { recentlyViewed: [], orders: [] };
+const initialState = { recentlyViewed: [], orders: [] ,search:[],loading:false};
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSearch:(state)=>{
+      state.search = []
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getRecentlyViewed.fulfilled, (state, action) => {
@@ -88,7 +92,10 @@ const userSlice = createSlice({
       }),
       builder
         .addCase(search.fulfilled, (state, action) => {
-          state.loading = false;
+          state.search= action.payload.res
+          state.loading = false
+        }).addCase(search.pending, (state, action) => {
+          state.loading = true
         })
         .addCase(search.rejected, (state, action) => {
           state.loading = false;
@@ -117,5 +124,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
+export const {clearSearch} = userSlice.actions;
 export default userSlice.reducer;

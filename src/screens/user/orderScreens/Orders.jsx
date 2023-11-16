@@ -37,7 +37,7 @@ const Orders = () => {
         {!orders[0] ? (
           <View style={styles.container}>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Text style={globalStyles.textHeader}>No orders found</Text>
+              <Text style={globalStyles.textHeader}>No Orders</Text>
               <Text style={globalStyles.textBody}>
                 Orders can be viewed here
               </Text>

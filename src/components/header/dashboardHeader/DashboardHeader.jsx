@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 export default function DashboardHeader({onpress}) {
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -25,9 +26,14 @@ export default function DashboardHeader({onpress}) {
             style={globalStyles.textGrey}
           >Search  </Text>
         </TouchableOpacity>
-        <View>
+      <TouchableOpacity onPress={()=>{
+        navigation.navigate("ProfileStack",{screen:"Notifications"})
+      }}>
+          <View style={styles.notificationView}>
+             <Text style={styles.notificationText}>1</Text>
+          </View>
           <FontAwesome5 name="bell" size={24} color="black" />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -60,4 +66,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 4,
   },
+  notificationView:{
+    width:15,
+    height:15,
+    backgroundColor:'red',
+    justifyContent:"center",
+    alignItems:"center",
+    borderRadius:999,
+    position:"absolute",
+    zIndex:999,
+  },notificationText:{
+    fontSize:10,
+    color:"#fff"
+  }
+
 });

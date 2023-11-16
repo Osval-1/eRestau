@@ -27,10 +27,20 @@ const Cart = ({ navigation }) => {
   }, [cart]);
   const totalPrice = () => {
     let totalprice = 0;
+    let totaldeliveries = 0;
+    // use a set so that the ids do not repeat
+    let totalDeliveryIds = new Set();
+    // calculate the price for the entire cart
     cart.forEach(
       (item) => (totalprice = totalprice + item.price * item.quantity)
     );
-    setTotal(totalprice);
+    //get the seperate ids involved in the process
+    cart.forEach((item) => totalDeliveryIds.add(item.createdBy));
+    //calculate the delivery fees for the cart
+    totalDeliveryIds.forEach(
+      (item) => (totaldeliveries = totaldeliveries + 500)
+    );
+    setTotal(totalprice + totaldeliveries);
   };
   const placeOrder = async () => {
     if (!cart[0]) {
@@ -50,7 +60,10 @@ const Cart = ({ navigation }) => {
   if (loading) return <Loader />;
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ marginTop: 20 }}>
+      <ScrollView
+        contentContainerStyle={{ marginTop: 20 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.amountView}>
           <View style={styles.textView}>
             <Text style={globalStyles.textHeader}>Total</Text>

@@ -12,6 +12,9 @@ export default ({ children }) => {
   const dispatch = useDispatch();
   const detectFirstLaunch = async () => {
     let firstLaunch = await SecureStore.getItemAsync("FIRST_LAUNCH");
+    if(!firstLaunch){
+      await SecureStore.setItemAsync("FIRST_LAUNCH", "true");
+    }
     setIsFirstLaunch(firstLaunch);
   };
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useCallback } from 'react';
 import { Provider as PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
+import 'react-native-gesture-handler';
 import { MenuProvider } from 'react-native-popup-menu';
 import store from "./src/redux/store";
 import { Provider } from "react-redux";

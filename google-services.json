@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "866430126707",
+    "project_id": "e-restou-alziron",
+    "storage_bucket": "e-restou-alziron.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866430126707:android:7574eb27d33432654cf806",
+        "android_client_info": {
+          "package_name": "com.alziron.e_restau"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwQBgMFKuB5AaiKxAC9LCRe9-zdC771h0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

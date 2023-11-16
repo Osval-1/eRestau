@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/stack";
 import Settings from "../../screens/user/profileScreens/Settings";
 import Header from "../../components/header/header/Header";
+import Notifications from "../../screens/user/profileScreens/Notifications"
 
 const ProfileStackScreen = createStackNavigator();
 
@@ -31,6 +32,13 @@ const ProfileStack = () => {
         }}
         name="Settings"
         component={Settings}
+      />
+       <ProfileStackScreen.Screen
+        options={{
+          headerTitle: () => <Header name="Notifications" />,
+        }}
+        name="Notifications"
+        component={Notifications}
       />
     </ProfileStackScreen.Navigator>
   );

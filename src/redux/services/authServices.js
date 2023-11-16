@@ -3,11 +3,9 @@ import config from "../../../project.config.js";
 import * as SecureStore from "expo-secure-store";
 
 const url = `${config.ENDPOINT}/api/auth`;
-const firstLaunch = true;
 
 const signup = async (data) => {
   const response = await axios.post(`${url}/signup`, data);
-  await SecureStore.setItemAsync("FIRST_LAUNCH", true);
   return response.data;
 };
 const signin = async (data) => {
