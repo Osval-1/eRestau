@@ -1,4 +1,4 @@
-import React, {useContext,useEffect  } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   createStackNavigator,
   TransitionPresets,
@@ -9,14 +9,13 @@ import UserLogin from "../screens/auth/UserLogin";
 import UserRegistration from "../screens/auth/UserRegistration";
 import RestauRegistration from "../screens/auth/RestauRegistration";
 import ForgotPassword from "../screens/auth/Forgotpassword";
+import DeliverySystem from "../screens/auth/DeliverySystem";
 import { AuthContext } from "../context/AuthContext";
-
 
 const AuthStackScreen = createStackNavigator();
 
 const AuthStack = () => {
   const { isFirstLaunch } = useContext(AuthContext);
-
   return (
     <AuthStackScreen.Navigator
       screenOptions={() => ({
@@ -25,13 +24,51 @@ const AuthStack = () => {
       })}
     >
       {isFirstLaunch ? (
-        <AuthStackScreen.Screen
-          options={{
-            headerShown: false,
-          }}
-          name="UserLogin"
-          component={UserLogin}
-        />
+        <>
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="UserLogin"
+            component={UserLogin}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="DeliverySystem"
+            component={DeliverySystem}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="RegisterOption"
+            component={RegisterOption}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="UserRegistration"
+            component={UserRegistration}
+          />
+
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="RestauRegistration"
+            component={RestauRegistration}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="ForgotPassword"
+            component={ForgotPassword}
+          />
+        </>
       ) : (
         <>
           <AuthStackScreen.Screen
@@ -73,7 +110,13 @@ const AuthStack = () => {
             name="RestauRegistration"
             component={RestauRegistration}
           />
-
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="DeliverySystem"
+            component={DeliverySystem}
+          />
           <AuthStackScreen.Screen
             options={{
               headerShown: false,

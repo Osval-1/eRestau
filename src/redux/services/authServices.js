@@ -3,6 +3,7 @@ import config from "../../../project.config.js";
 import * as SecureStore from "expo-secure-store";
 
 const url = `${config.ENDPOINT}/api/auth`;
+axios.defaults.timeout = 2000;
 
 const signup = async (data) => {
   const response = await axios.post(`${url}/signup`, data);
@@ -17,13 +18,11 @@ const signin = async (data) => {
       username: response.data.username,
       phone: response.data.phone,
     });
-    console.log(userData);
     await SecureStore.setItemAsync("userToken", response.data.accessToken);
     await SecureStore.setItemAsync("userRole", response.data.roles[0]);
     await SecureStore.setItemAsync("userData", userData);
+    return response.data;
   }
-  console.log(response.data);
-  return response.data;
 };
 
 const logout = async () => {

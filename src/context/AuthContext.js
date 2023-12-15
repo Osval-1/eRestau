@@ -10,25 +10,15 @@ export default ({ children }) => {
   const [userRole, setUserRole] = useState("");
   const [authenticated, setAuthenticated] = useState(null);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
   const detectFirstLaunch = async () => {
     let firstLaunch = await SecureStore.getItemAsync("FIRST_LAUNCH");
-    if(!firstLaunch){
+    if (!firstLaunch) {
       await SecureStore.setItemAsync("FIRST_LAUNCH", "true");
     }
     setIsFirstLaunch(firstLaunch);
   };
 
-  // const role = useSelector((state) => state.auth.userRole);
-  // const token = useSelector((state) => state.auth.token);
-  // const user = useSelector((state) => state.auth.user);
-  const user = useSelector((state) => state.auth);
-
-  // useEffect(() => {
-  //   detectFirstLaunch();
-  //   dispatch(getTokenAsync());
-  //   setUserRole(role);
-  //   setAuthenticated(token);
-  // }, [role, user]);
   useEffect(() => {
     detectFirstLaunch();
     dispatch(getTokenAsync());

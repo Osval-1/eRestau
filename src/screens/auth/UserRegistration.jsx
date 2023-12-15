@@ -19,12 +19,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../redux/reducers/authReducer";
 import { useToast } from "react-native-paper-toast";
 import Loader from "../../components/loader/Loader";
+import { saveLoginInfo } from "../../redux/reducers/authReducer";
 
 const UserRegistration = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
   const toaster = useToast();
+
   const handleSignup = async (data) => {
     try {
       setLoading(true);
@@ -33,7 +36,13 @@ const UserRegistration = ({ navigation }) => {
     } catch (error) {
       console.log(error);
       toaster.show({ message: error, type: "error", position: "top" });
-      toaster.show({ message: error.message, type: "error", position: "top" });
+      if (error.message) {
+        toaster.show({
+          message: "No Internet,Please check your connection!",
+          type: "error",
+          position: "top",
+        });
+      }
       setLoading(false);
       return;
     }
@@ -48,12 +57,14 @@ const UserRegistration = ({ navigation }) => {
         ({ min }) => `username must be atleast ${min} number of characters`
       )
       .required("username is required"),
-    phone: yup.string().matches(/^(\S+$)/, 'phone number cannot contain blankspaces')
-    .required("phone number is reqiured "),
+    phone: yup
+      .string()
+      .matches(/^(\S+$)/, "phone number cannot contain blankspaces")
+      .required("phone number is reqiured "),
     password: yup
       .string()
       .min(8, ({ min }) => `password must be atleast ${min} characters`)
-      .matches(/^(\S+$)/, 'password cannot contain blankspaces')
+      .matches(/^(\S+$)/, "password cannot contain blankspaces")
       .required("password is required"),
     location: yup.string().required("location is required"),
   });
@@ -73,7 +84,11 @@ const UserRegistration = ({ navigation }) => {
           />
         </View>
         <View>
-          <Text style={{ ...globalStyles.textLarge, color: themeColor.primary }}>Customer</Text>
+          <Text
+            style={{ ...globalStyles.textLarge, color: themeColor.primary }}
+          >
+            Customer
+          </Text>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -117,7 +132,13 @@ const UserRegistration = ({ navigation }) => {
                     />
                   </View>
                   {touched.username && errors.username && (
-                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.username}
                     </Text>
                   )}
@@ -138,7 +159,13 @@ const UserRegistration = ({ navigation }) => {
                     />
                   </View>
                   {touched.phone && errors.phone && (
-                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.phone}
                     </Text>
                   )}
@@ -159,7 +186,13 @@ const UserRegistration = ({ navigation }) => {
                     />
                   </View>
                   {errors.location && touched.location && (
-                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.location}
                     </Text>
                   )}
@@ -189,7 +222,13 @@ const UserRegistration = ({ navigation }) => {
                     </TouchableOpacity>
                   </View>
                   {errors.password && touched.password && (
-                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.password}
                     </Text>
                   )}

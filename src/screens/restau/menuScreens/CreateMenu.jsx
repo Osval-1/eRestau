@@ -18,12 +18,14 @@ import * as ImagePicker from "expo-image-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addSingleMenu } from "../../../redux/reducers/restau/menuReducer";
 import Loader from "../../../components/loader/Loader";
-import Toast from "react-native-simple-toast";
+import { useToast } from "react-native-paper-toast";
+
 
 export default function CreateMenu({ navigation }) {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const toaster = useToast();
   const user = useSelector((state) => state.auth.user);
 
   const uploadImage = async (data) => {
@@ -42,9 +44,17 @@ export default function CreateMenu({ navigation }) {
     try {
       setLoading(true);
       const response = await dispatch(addSingleMenu(formData)).unwrap();
+      if (response){
+        toaster.show({ message:"Menu Created", type: "success", position: "top" });
+      }
       navigation.goBack();
     } catch (error) {
       console.log(error);
+      toaster.show({ message: error, type: "error", position: "top" });
+      if(error.message){
+        toaster.show({ message:"No Internet,Please check your connection!", type: "error", position: "top" });
+      }
+
     }
     setLoading(false);
   };

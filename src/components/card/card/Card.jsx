@@ -50,12 +50,12 @@ export default function Card({ onpress, label, image, price }) {
               style={styles.spaceText}
               onPress={() => navigation.navigate("SearchFood")}
             >
-              <Feather
+              {/* <Feather
                 name="external-link"
                 size={24}
                 color={themeColor.primary}
-              />
-              <Text style={{ color: themeColor.primary }}>Directions</Text>
+              /> */}
+              {/* <Text style={{ color: themeColor.primary }}>Directions</Text> */}
               <Text
                 style={{ ...globalStyles.textBody, color: themeColor.primary }}
               >

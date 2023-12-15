@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import Button from "../../../components/button/Button";
@@ -6,18 +6,28 @@ import { Ionicons, MaterialIcons, AntDesign ,FontAwesome} from "@expo/vector-ico
 import Tile from "../../../components/tile/Tile";
 import { useDispatch , useSelector} from "react-redux";
 import { logout} from "../../../redux/reducers/authReducer";
+import Loader from "../../../components/loader/Loader";
+
 
 const Profile = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
+
   const user = useSelector((state)=>state.auth.user)
 
   const dispatch =  useDispatch()
   const handlelogout= async () => {
     try {
-       await dispatch(logout()).unwrap();
+      setLoading(true)
+      await dispatch(logout()).unwrap();
+      setLoading(false)
     } catch (error) {
       console.log(error);
+      setLoading(false)
     }
   };
+  if(loading){
+    return <Loader/>
+  }
 
   return (
     <View style={styles.container}>

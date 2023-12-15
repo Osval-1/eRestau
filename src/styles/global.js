@@ -38,7 +38,7 @@ export const globalStyles = StyleSheet.create({
     width: "93%",
   },
   //typography styles
-
+  
   textLarge: {
     fontSize: 20,
     letterSpacing: 0.5,

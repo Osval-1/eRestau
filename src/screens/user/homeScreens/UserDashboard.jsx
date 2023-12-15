@@ -48,6 +48,8 @@ const UserDashboard = ({ navigation }) => {
             onpress={() =>
               navigation.navigate("HomeStack", { screen: "SingleFood" })
             }
+            image="https://newalzironbucket.s3.amazonaws.com/1698169579868-Achu.jpeg"
+
           />
           <Tag label="Jellof rice" />
           <Card

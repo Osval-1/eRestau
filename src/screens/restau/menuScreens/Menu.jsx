@@ -41,7 +41,6 @@ export default function Menus({ navigation }) {
     try {
       setLoading(true);
       const response = await dispatch(getAllMenu(user.id)).unwrap();
-      // console.log(response.res);
     } catch (error) {
       console.log(error);
     }

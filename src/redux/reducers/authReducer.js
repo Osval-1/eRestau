@@ -11,7 +11,7 @@ export const signup = createAsyncThunk(
         (error.message && error.response.data && error.response.data.message) ||
         error.message ||
         error.toString();
-
+        console.log(message)
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -24,10 +24,15 @@ export const signin = createAsyncThunk(
       const res = await authServices.signin(data);
       return { res };
     } catch (error) {
+      if(error.code === 'ECONNABORTED'){
+        const errorMessage = "connection timed out ,Please check your internet connection"
+   return thunkAPI.rejectWithValue(errorMessage);    
+     }
       const message =
         (error.message && error.response.data && error.response.data.message) ||
         error.message ||
         error.toString();
+        console.log(message)
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -64,12 +69,19 @@ export const getTokenAsync = createAsyncThunk(
   }
 );
 
-const initialState = { user: "", userRole: "", token: ""};
+const initialState = { user: "", userRole: "", token: "",error:'',loginInfo:''};
 
 export const authSlice = createSlice({
   name: "authentication",
   initialState,
-  reducers: {},
+  reducers: {
+    saveLoginInfo:(state,action)=>{
+      state.loginInfo = {...action.payload}
+    },
+    updateDeliveryInfo:(state,action)=>{
+      state.loginInfo = {...state.loginInfo,hasDelivery:action.payload}
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(signin.fulfilled, (state, action) => {
       state.user = action.payload.res;
@@ -78,6 +90,9 @@ export const authSlice = createSlice({
         state.user = "";
         state.userRole = "";
         state.token = "";
+      })
+      .addCase(logout.rejected, (state,action) => {
+        state.error = action.error.message;
       }),
       builder.addCase(getTokenAsync.fulfilled, (state, action) => {
         if (!state.user) {
@@ -89,6 +104,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const {} = authSlice.actions;
+export const {saveLoginInfo,updateDeliveryInfo} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -15,7 +15,7 @@ import Button from "../../components/button/Button";
 import { Formik } from "formik";
 import * as yup from "yup";
 import themeColor from "../../../themeColor";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { signin } from "../../redux/reducers/authReducer";
 import Loader from "../../components/loader/Loader";
 import { useToast } from "react-native-paper-toast";
@@ -28,16 +28,21 @@ const UserLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const errors = useSelector(state=>state.auth.error)
   const toaster = useToast();
 
   const handlesignin = async (data) => {
     try {
       setLoading(true);
-      const response = await dispatch(signin(data)).unwrap();
+      const res = await dispatch(signin(data)).unwrap();
+      toaster.show({ message: "Login Successfull!", type: "success", position: "top" });
+
     } catch (error) {
       console.log(error);
       toaster.show({ message: error, type: "error", position: "top" });
-      toaster.show({ message: error.message, type: "error", position: "top" });
+      if(error.message){
+        toaster.show({ message:"No Internet,Please check your connection!", type: "error", position: "top" });
+      }
       setLoading(false);
     }
     setTimeout(()=>setLoading(false),2000)

@@ -15,8 +15,15 @@ import themeColor from "../../../../themeColor";
 import { deleteFromCart } from "../../../redux/reducers/user/cartReducer";
 import { setCart } from "../../../redux/reducers/user/cartReducer";
 import Loader from "../../../components/loader/Loader";
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 const Cart = ({ navigation }) => {
+
+  // --------------------
+  function ratingCompleted(rating){
+    console.log("Rating is: " + rating)
+  }
+  // --------------------
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const cart = useSelector((state) => state.cart.cart);
@@ -147,6 +154,14 @@ const Cart = ({ navigation }) => {
           })
         )}
       </ScrollView>
+
+<Rating
+  type='star'
+  ratingCount={5}
+  imageSize={20}
+  showRating
+  onFinishRating={ratingCompleted}
+/>
     </View>
   );
 };

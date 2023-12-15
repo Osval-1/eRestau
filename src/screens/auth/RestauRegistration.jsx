@@ -16,33 +16,38 @@ import themeColor from "../../../themeColor";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { signup } from "../../redux/reducers/authReducer";
+import { saveLoginInfo, signup } from "../../redux/reducers/authReducer";
 import { useToast } from "react-native-paper-toast";
 import Loader from "../../components/loader/Loader";
 
 
 const RestauRegistration = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
+
   const dispatch = useDispatch();
   const toaster = useToast();
+
   const handleSignup = async (data) => {
-    setLoading(true);
+    // setLoading(true);
 
-    try {
-      const res = await dispatch(signup(data)).unwrap();
-      toaster.show({ message: res.message, type: "success", position: "top" });
-      navigation.navigate("UserLogin");
-    } catch (error) {
-      console.log(error);
-      toaster.show({ message: error, type: "error", position: "top" });
-      toaster.show({ message: error.message, type: "error", position: "top" });
-      setLoading(false);
-      return;
-    }
-    setLoading(false);
+    // try {
+    //   const res = await dispatch(signup(data)).unwrap();
+    //   toaster.show({ message: res.message, type: "success", position: "top" });
+    //   navigation.navigate("UserLogin");
+    // } catch (error) {
+    //   console.log(error);
 
+    //   toaster.show({ message:error, type: "error", position: "top" });
+    //   if(error.message){
+    //     toaster.show({ message:"No Internet,Please check your connection!", type: "error", position: "top" });
+    //   }
+    //   setLoading(false);
+    //   return;
+    // }
+    // setLoading(false);
+    dispatch(saveLoginInfo(data))
+   navigation.navigate("DeliverySystem")
   };
   const signupvalidationSchema = yup.object().shape({
     username: yup
@@ -53,8 +58,11 @@ const RestauRegistration = ({ navigation }) => {
       )
       .required("username is required"),
     phone: yup.string()
+    .min(9, ({ min }) => `phone number must be atleast ${min} characters`)
+    .max(9, ({ max }) => `phone number must be atmost ${max} characters`)
     .matches(/^(\S+$)/, 'phone number cannot contain blankspaces')
     .required("phone number is reqiured "),
+
     password: yup
       .string()
       .min(8, ({ min }) => `password must be atleast ${min} characters`)
