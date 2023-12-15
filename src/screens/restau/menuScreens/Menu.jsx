@@ -34,6 +34,7 @@ export default function Menus({ navigation }) {
   useFocusEffect(
     useCallback(() => {
       getMenu();
+      console.log(menu)
     }, [])
   );
 
@@ -50,7 +51,6 @@ export default function Menus({ navigation }) {
     try {
       const response = await dispatch(deleteSingleMenu(data)).unwrap();
       getMenu();
-
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +66,6 @@ export default function Menus({ navigation }) {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* {loading && <Loader/>} */}
         {!menu[0] ? (
           <View style={styles.container}>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -86,6 +85,7 @@ export default function Menus({ navigation }) {
                   servings={items.quantity}
                   price={items.price}
                   image={items.image}
+                  userName={items.ownerName}
                   popup={
                     <Menu>
                       <MenuTrigger
@@ -128,8 +128,7 @@ export default function Menus({ navigation }) {
                         </Text>
                       </MenuOption> */}
                         <MenuOption
-                          onSelect={() => deleteSingleMenuAsync(
-                           items.key)}
+                          onSelect={() => deleteSingleMenuAsync(items.key)}
                           customStyles={{
                             optionWrapper: {
                               flexDirection: "row",

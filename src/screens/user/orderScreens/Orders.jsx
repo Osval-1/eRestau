@@ -16,6 +16,7 @@ const Orders = () => {
   useFocusEffect(
     useCallback(() => {
       getOrdersAsync();
+      console.log(user)
     }, [])
   );
 
@@ -23,6 +24,7 @@ const Orders = () => {
     try {
       setLoading(true);
       const response = await dispatch(getOrders(user.id)).unwrap();
+      console.log(response.res)
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +56,6 @@ const Orders = () => {
                   image={items.image}
                   location={items.ownerLocation}
                   price={items.price}
-                  // expectedTime="30 mins ago"
                   userName={items.ownerName}
                 />
               );

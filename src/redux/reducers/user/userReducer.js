@@ -109,7 +109,7 @@ const userSlice = createSlice({
         }),
       builder
         .addCase(getOrders.fulfilled, (state, action) => {
-          state.orders = action.payload.res;
+          state.orders = action.payload.res.order;
         })
         .addCase(getOrders.rejected, (state, action) => {
           state.loading = false;

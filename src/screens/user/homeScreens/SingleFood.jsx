@@ -4,7 +4,6 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Card from "../../../components/card/card/Card";
@@ -22,16 +21,22 @@ import {
   resetCount,
 } from "../../../redux/reducers/user/cartReducer";
 import MenuCard from "../../../components/card/MenuCard/MenuCard";
+import { useToast } from "react-native-paper-toast";
+
 
 export default function SingleFood({ navigation, route }) {
   const { item } = route.params;
   const [loading, setLoading] = useState(false);
+
+  const toaster = useToast();
   const dispatch = useDispatch();
+
   const menu = useSelector((state) =>
     state.menu.filter((menus) => menus._id != item._id)
   );
   const count = useSelector((state) => state.cart.count);
   const user = useSelector((state) => state.auth.user);
+
   const getMenu = async () => {
     try {
       setLoading(true);
@@ -48,11 +53,29 @@ export default function SingleFood({ navigation, route }) {
     dispatch(incrementCount());
   };
   const decrementcount = () => {
-    if (count === 0) {
+    if (count === 1) {
       return;
     }
     dispatch(decrementCount());
   };
+  // const pushToCart= async()=>{
+  //   dispatch(
+  //     addToCart({
+  //       amount: count,
+  //       name: item.name,
+  //       price: item.price,
+  //       owner: item.owner._id,
+  //       id: user.id,
+  //       image: item.image,
+  //       ownerName: item.ownerName,
+  //       username: user.username,
+  //       ownerLocation: item.ownerLocation,
+  //       customerLocation: user.location,
+  //     })
+  //   )
+  //     // navigation.goBack()        
+   
+  // }
   useEffect(() => {
     getMenu();
     dispatch(resetCount());
@@ -84,7 +107,7 @@ export default function SingleFood({ navigation, route }) {
             <Button
               title="Add to Cart"
               btnWidth="100%"
-              onpress={() =>
+              onpress={()=>{
                 dispatch(
                   addToCart({
                     amount: count,
@@ -99,7 +122,11 @@ export default function SingleFood({ navigation, route }) {
                     customerLocation: user.location,
                   })
                 )
-              }
+      toaster.show({ message:"Order added to Cart", type: "success", position: "top" });
+
+      // navigation.goBack()        
+
+              }}
             />
           </View>
         </View>

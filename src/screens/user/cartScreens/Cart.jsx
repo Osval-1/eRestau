@@ -16,22 +16,29 @@ import { deleteFromCart } from "../../../redux/reducers/user/cartReducer";
 import { setCart } from "../../../redux/reducers/user/cartReducer";
 import Loader from "../../../components/loader/Loader";
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import { useToast } from "react-native-paper-toast";
+
 
 const Cart = ({ navigation }) => {
 
   // --------------------
-  function ratingCompleted(rating){
-    console.log("Rating is: " + rating)
-  }
+  // function ratingCompleted(rating){
+  //   console.log("Rating is: " + rating)
+  // }
   // --------------------
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+
   const cart = useSelector((state) => state.cart.cart);
+
+  const toaster = useToast();
   const dispatch = useDispatch();
+
   useEffect(() => {
     console.log(cart);
     totalPrice();
   }, [cart]);
+
   const totalPrice = () => {
     let totalprice = 0;
     let totaldeliveries = 0;
@@ -58,7 +65,9 @@ const Cart = ({ navigation }) => {
       setLoading(true);
       const response = await dispatch(setCart(cart)).unwrap();
       console.log(response);
-      navigation.navigate("CartStack", { screen: "Payment Method" });
+      // toaster.show({ message:"Orders passed", type: "success", position: "top" });
+      // navigation.navigate("CartStack", { screen: "Payment Method" });
+      // navigation.navigate("HomeStack", { screen: "UserDashboard" });
     } catch (error) {
       console.log(error);
     }
@@ -154,14 +163,13 @@ const Cart = ({ navigation }) => {
           })
         )}
       </ScrollView>
-
-<Rating
+{/* <Rating
   type='star'
   ratingCount={5}
   imageSize={20}
   showRating
   onFinishRating={ratingCompleted}
-/>
+/> */}
     </View>
   );
 };
