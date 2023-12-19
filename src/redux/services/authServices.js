@@ -7,6 +7,10 @@ axios.defaults.timeout = 2000;
 
 const signup = async (data) => {
   const response = await axios.post(`${url}/signup`, data);
+  let firstLaunch = await SecureStore.getItemAsync("FIRST_LAUNCH");
+  if (!firstLaunch) {
+    await SecureStore.setItemAsync("FIRST_LAUNCH", "true");
+  }
   return response.data;
 };
 const signin = async (data) => {
@@ -18,6 +22,10 @@ const signin = async (data) => {
       username: response.data.username,
       phone: response.data.phone,
     });
+    let firstLaunch = await SecureStore.getItemAsync("FIRST_LAUNCH");
+    if (!firstLaunch) {
+      await SecureStore.setItemAsync("FIRST_LAUNCH", "true");
+    }
     await SecureStore.setItemAsync("userToken", response.data.accessToken);
     await SecureStore.setItemAsync("userRole", response.data.roles[0]);
     await SecureStore.setItemAsync("userData", userData);

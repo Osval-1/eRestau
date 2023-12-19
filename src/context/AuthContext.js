@@ -13,9 +13,6 @@ export default ({ children }) => {
   const user = useSelector((state) => state.auth);
   const detectFirstLaunch = async () => {
     let firstLaunch = await SecureStore.getItemAsync("FIRST_LAUNCH");
-    if (!firstLaunch) {
-      await SecureStore.setItemAsync("FIRST_LAUNCH", "true");
-    }
     setIsFirstLaunch(firstLaunch);
   };
 
