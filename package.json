@@ -35,6 +35,7 @@
     "react-native": "0.72.6",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-maps": "1.7.1",
+    "react-native-modal": "^13.0.1",
     "react-native-paper": "^5.10.1",
     "react-native-paper-toast": "^1.2.3",
     "react-native-popup-menu": "^0.16.1",

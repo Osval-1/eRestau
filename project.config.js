@@ -1,5 +1,6 @@
 export default {
-  ENDPOINT: "http://192.168.43.200:8080",
+  ENDPOINT: "http://erestau-1-fe20b31e5f3b.herokuapp.com",
+  // ENDPOINT: "http://192.168.43.200:8080",
   // ENDPOINT: "http://192.168.43.150:9000",
   API_VERSION: "v1",
 };

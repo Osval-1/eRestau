@@ -5,10 +5,23 @@ import FoodCard from "../../../components/card/foodCard/FoodCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { getOrders } from "../../../redux/reducers/user/userReducer";
+import themeColor from "../../../../themeColor";
+import Modal from "react-native-modal";
+import { MaterialIcons } from '@expo/vector-icons';
 import Loader from "../../../components/loader/Loader";
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
+import { AntDesign, Entypo } from "@expo/vector-icons";
+
 
 const Orders = () => {
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false)
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const orders = useSelector((state) => state.user.orders);
@@ -16,7 +29,6 @@ const Orders = () => {
   useFocusEffect(
     useCallback(() => {
       getOrdersAsync();
-      console.log(user)
     }, [])
   );
 
@@ -30,6 +42,7 @@ const Orders = () => {
     }
     setLoading(false);
   };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -57,11 +70,56 @@ const Orders = () => {
                   location={items.ownerLocation}
                   price={items.price}
                   userName={items.ownerName}
+                  popup={
+                    <Menu>
+                      <MenuTrigger
+                        customStyles={{
+                          triggerWrapper: {
+                            top: 5,
+                            right: 10,
+                          },
+                        }}
+                      >
+                        <Entypo
+                          name="dots-three-vertical"
+                          size={24}
+                          color="black"
+                        />
+                        {/* <MaterialIcons name="approval" size={24} color="black" /> */}
+                      </MenuTrigger>
+                      <MenuOptions>
+                        <MenuOption
+                          onSelect={() =>console.log(user)}
+                          customStyles={{
+                            optionWrapper: {
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: 10,
+                              borderRadius: 5,
+                              backgroundColor: themeColor.grey_0,
+                            },
+                          }}
+                        >
+                          <View>
+                            <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
+                              Validate
+                            </Text>
+                          </View>
+                        </MenuOption>
+                      </MenuOptions>
+                    </Menu>
+                  }
                 />
               );
             })}
           </ScrollView>
         )}
+        {/* <Modal isVisible={true}>
+        <View style={{ flex: 1 }}>
+          <Text>Hello!</Text>
+          </View>
+      </Modal> */}
       </ScrollView>
     </View>
   );

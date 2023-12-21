@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "eRestau",
-    "slug": "eRestau",
+    "name": "e-restou",
+    "slug": "e-restou",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/eRestau-icon.png",
+    "icon": "./assets/images/alziron-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/eRestau-splash.png",
+      "image": "./assets/images/alzironsplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/eRestau-adaptative-icon.png",
+        "foregroundImage": "./assets/images/alziron-icon.png",
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "./google-services.json",
@@ -61,7 +61,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "fae1235c-d03a-419a-a70c-39a50fd7018c"
+        "projectId": "8b527f0b-f6b4-420d-beb5-ab3a8ed520f5"
       }
     }
   }
