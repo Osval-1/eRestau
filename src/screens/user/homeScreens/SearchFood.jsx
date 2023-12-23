@@ -11,6 +11,7 @@ export default function SearchFood() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearSearch());
+    console.log(searchResults)
   }, []);
 
   const searchResults = useSelector((state) => state.user.search);

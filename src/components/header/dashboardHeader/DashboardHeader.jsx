@@ -1,4 +1,12 @@
-import { StyleSheet, View, TextInput, Image, Dimensions ,TouchableOpacity,Text} from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import React from "react";
@@ -6,31 +14,36 @@ import { globalStyles } from "../../../styles/global";
 import { useNavigation } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
-export default function DashboardHeader({onpress}) {
-  const navigation = useNavigation()
+export default function DashboardHeader({ onpress }) {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
           <Image
-            source={require("../../../../assets/images/alziron-logo.png")}
+            source={require("../../../../assets/images/eRestau-icon.png")}
             style={{
               width: 40,
               height: 30,
             }}
           />
         </View>
-        <TouchableOpacity style={styles.inputContainer} onPress={onpress} activeOpacity={0.9}>
+        <TouchableOpacity
+          style={styles.inputContainer}
+          onPress={onpress}
+          activeOpacity={0.9}
+        >
           <AntDesign name="search1" size={20} color={themeColor.grey_1} />
-          <Text
-            style={globalStyles.textGrey}
-          >Search  </Text>
+          <Text style={globalStyles.textGrey}>Search </Text>
         </TouchableOpacity>
-      <TouchableOpacity onPress={()=>{
-        navigation.navigate("ProfileStack",{screen:"Notifications"})
-      }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("ProfileStack", { screen: "Notifications" });
+          }}
+        >
           <View style={styles.notificationView}>
-             <Text style={styles.notificationText}>1</Text>
+            <Text style={styles.notificationText}>1</Text>
           </View>
           <FontAwesome5 name="bell" size={24} color="black" />
         </TouchableOpacity>
@@ -66,18 +79,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 4,
   },
-  notificationView:{
-    width:15,
-    height:15,
-    backgroundColor:'red',
-    justifyContent:"center",
-    alignItems:"center",
-    borderRadius:999,
-    position:"absolute",
-    zIndex:999,
-  },notificationText:{
-    fontSize:10,
-    color:"#fff"
-  }
-
+  notificationView: {
+    width: 15,
+    height: 15,
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 999,
+    position: "absolute",
+    zIndex: 999,
+  },
+  notificationText: {
+    fontSize: 10,
+    color: "#fff",
+  },
 });

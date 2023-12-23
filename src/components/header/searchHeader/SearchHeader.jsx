@@ -12,44 +12,53 @@ import React, { useState } from "react";
 import { globalStyles } from "../../../styles/global";
 import { useDispatch, useSelector } from "react-redux";
 import { search } from "../../../redux/reducers/user/userReducer";
-
-
+import { useToast } from "react-native-paper-toast";
 
 const screenWidth = Dimensions.get("window").width;
 
 export default function SearchHeader() {
-    const [placeholder, setPlaceholder] = useState("Search here");
-    const [inputText, setInputText] = useState('')
-    const dispatch = useDispatch();
-    const handleSearch = async (data) => {
-      try {
-          // setLoading(true);
-          console.log(inputText)
-          const response = await dispatch(search(inputText)).unwrap();
-          console.log(response)
-      } catch (error) {
-        console.log(error);
-        // toaster.show({ message: error, type: "error", position: "top" });
-        // toaster.show({ message: error.message, type: "error", position: "top" });
-        // setLoading(false);
+  const [placeholder, setPlaceholder] = useState("Search here");
+  const [inputText, setInputText] = useState("");
+
+  const toaster = useToast();
+  const dispatch = useDispatch();
+
+  const handleSearch = async (data) => {
+    try {
+      // setLoading(true);
+      console.log(inputText);
+      const response = await dispatch(search(inputText)).unwrap();
+      console.log(response);
+      console.log(response.ok);
+    } catch (error) {
+      console.log(error);
+      toaster.show({ message: error, type: "error", position: "top" });
+      if (error.message) {
+        toaster.show({
+          message: error.message,
+          type: "error",
+          position: "top",
+        });
       }
+      // setLoading(false);
+    }
     //   setLoading(false);
-    };
+  };
   return (
     <View style={styles.container}>
       <View style={styles.container}>
         <TextInput
-                  style={styles.inputView}
-                  value={inputText}
-                  onChangeText={(value) =>{ 
-                      setInputText(value)
-                      setPlaceholder("")}
-                  }
+          style={styles.inputView}
+          value={inputText}
+          onChangeText={(value) => {
+            setInputText(value);
+            setPlaceholder("");
+          }}
           autoFocus={true}
         />
         <Text style={styles.positionText}>{placeholder}</Text>
       </View>
-      <TouchableOpacity activeOpacity={0.6} onPress={()=>handleSearch()}>
+      <TouchableOpacity activeOpacity={0.6} onPress={() => handleSearch()}>
         <Text style={styles.text}>Search</Text>
       </TouchableOpacity>
     </View>

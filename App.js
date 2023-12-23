@@ -44,6 +44,7 @@ export default function App() {
             <ToastProvider>
               <MenuProvider>
                 <RootStack onlayout={onLayoutRootView} />
+                <StatusBar style="dark" />
               </MenuProvider>
             </ToastProvider>
           </NavigationContainer>
