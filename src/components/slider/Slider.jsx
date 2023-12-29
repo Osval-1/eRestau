@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function Slider({ itemData, onpress, label }) {
   const navigation = useNavigation();
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{marginVertical:10}}> 
       <View style={{ paddingHorizontal: 10 }}>
         <Tag label={label} />
       </View>

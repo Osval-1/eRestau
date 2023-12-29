@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView,Text } from "react-native";
 import Slider from "../../../components/slider/Slider";
 import Card from "../../../components/card/card/Card";
 import Tag from "../../../components/tag/Tag";
@@ -30,6 +30,9 @@ const UserDashboard = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ marginTop: 10 }}
       >
+        <View>
+          <Text>asdfghjkl;</Text>
+        </View>
         <Slider
           itemData={recentlyViewed}
           label="Recently Today!"

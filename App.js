@@ -22,7 +22,6 @@ SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 5000);
 
 export default function App() {
-  // const [loading, setLoading] = useState(false)
   const [fontsLoaded, fontError] = useFonts({
     "Montserrat-Bold": require("./assets/fonts/Montserrat-Bold.ttf"),
     "Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),

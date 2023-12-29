@@ -77,17 +77,17 @@ const UserRegistration = ({ navigation }) => {
       contentContainerStyle={{ flex: 1 }}
     >
       <View style={globalStyles.container}>
-        <View style={styles.imageView}>
+        {/* <View style={styles.imageView}>
           <Image
             source={require("../../../assets/images/signup.png")}
             style={styles.image}
           />
-        </View>
+        </View> */}
         <View>
           <Text
             style={{ ...globalStyles.textLarge, color: themeColor.primary }}
           >
-            Customer
+            Customer Registration
           </Text>
         </View>
         <KeyboardAvoidingView
@@ -232,7 +232,9 @@ const UserRegistration = ({ navigation }) => {
                       {errors.password}
                     </Text>
                   )}
+ <View style={{marginTop:60}}>
 
+</View>
                   <Button
                     title={"Sign Up"}
                     onpress={handleSubmit}
