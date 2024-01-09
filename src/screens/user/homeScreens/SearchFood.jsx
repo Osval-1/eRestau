@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import { useDispatch, useSelector } from "react-redux";
-import FoodCard from "../../../components/card/foodCard/FoodCard";
 import { clearSearch } from "../../../redux/reducers/user/userReducer";
+import MenuCard from "../../../components/card/MenuCard/MenuCard";
 import Loader from "../../../components/loader/Loader";
 
-export default function SearchFood() {
-  // the search header component in userhomeStack handles the searching and this one handles displaying the data
+export default function SearchFood({navigation}) {
+  // the search header component in userhomeStack handles the searching and this one  displays the data
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearSearch());
-    console.log(searchResults)
+    console.log(searchResults);
   }, []);
 
   const searchResults = useSelector((state) => state.user.search);
@@ -31,16 +31,21 @@ export default function SearchFood() {
         </View>
       ) : (
         <ScrollView>
-          {searchResults.map((items) => {
+          {searchResults.map((item) => {
             return (
-              <FoodCard
-                key={items._id}
-                label={items.name}
-                image={items.image}
-                location={items.ownerLocation}
-                price={items.price}
-                // expectedTime="30 mins ago"
-                userName={items.ownerName}
+              <MenuCard
+                key={item._id}
+                label={item.name}
+                image={item.image}
+                location={item.ownerLocation}
+                price={item.price}
+                ownerName={item.owner}
+                onpress={() =>
+                  navigation.navigate("HomeStack", {
+                    screen: "SingleFood",
+                    params: { item },
+                  })
+                }
               />
             );
           })}

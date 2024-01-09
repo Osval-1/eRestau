@@ -5,31 +5,26 @@ import { globalStyles } from "../../../styles/global";
 import Button from "../../../components/button/Button";
 import { Entypo, Feather, EvilIcons, FontAwesome } from "@expo/vector-icons";
 
-export default function MenuCard({ icon, label, price, image }) {
+export default function MenuCard({ label, price, image, onpress,location,ownerName }) {
+  // this card is the touch responsive version of the foodcard
   return (
-    <View style={styles.cardView}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      onPress={onpress}
+      delayPressIn={50}
+      style={styles.cardView}
+    >
       <View style={styles.imageView}>
         <Image source={{ uri: image }} style={styles.image} />
       </View>
       <View style={styles.textView}>
         <Text style={globalStyles.textHeader}>{label}</Text>
-        {price && (
-          <Text style={{ ...globalStyles.textBody, color: themeColor.primary }}>
-            {price}FCFA
-          </Text>
-        )}
-        <Button title="View" btnWidth="100%" />
+        <Text style={{ ...globalStyles.textBody, color: themeColor.primary }}>
+          {price}FCFA
+        </Text>
+        <Text style={globalStyles.textGrey}>{location}</Text>
       </View>
-      {/* <View style={styles.amountView}>
-          <TouchableOpacity>
-            <Entypo name="plus" size={24} color={themeColor.primary} />
-          </TouchableOpacity>
-          <Text style={globalStyles.textLarge}>2</Text>
-          <TouchableOpacity>
-            <Entypo name="minus" size={24} color={themeColor.primary} />
-          </TouchableOpacity>
-        </View> */}
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -56,14 +51,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     gap: 6,
   },
-  amountView: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: "85%",
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#EFEDED",
-  },
+  // amountView: {
+  //   flex: 1,
+  //   flexDirection: "column",
+  //   justifyContent: "space-between",
+  //   alignItems: "center",
+  //   height: "85%",
+  //   borderRadius: 5,
+  //   borderWidth: 1,
+  //   borderColor: "#EFEDED",
+  // },
 });

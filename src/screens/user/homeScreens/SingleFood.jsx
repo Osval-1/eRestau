@@ -23,7 +23,6 @@ import {
 import MenuCard from "../../../components/card/MenuCard/MenuCard";
 import { useToast } from "react-native-paper-toast";
 
-
 export default function SingleFood({ navigation, route }) {
   const { item } = route.params;
   const [loading, setLoading] = useState(false);
@@ -40,7 +39,7 @@ export default function SingleFood({ navigation, route }) {
   const getMenu = async () => {
     try {
       setLoading(true);
-      const response = await dispatch(getAllMenu(item.owner._id)).unwrap();
+      const response = await dispatch(getAllMenu(item.owner)).unwrap();
     } catch (error) {
       console.log(error);
     }
@@ -58,31 +57,13 @@ export default function SingleFood({ navigation, route }) {
     }
     dispatch(decrementCount());
   };
-  // const pushToCart= async()=>{
-  //   dispatch(
-  //     addToCart({
-  //       amount: count,
-  //       name: item.name,
-  //       price: item.price,
-  //       owner: item.owner._id,
-  //       id: user.id,
-  //       image: item.image,
-  //       ownerName: item.ownerName,
-  //       username: user.username,
-  //       ownerLocation: item.ownerLocation,
-  //       customerLocation: user.location,
-  //     })
-  //   )
-  //     // navigation.goBack()        
-   
-  // }
+
   useEffect(() => {
     getMenu();
     dispatch(resetCount());
     console.log(item);
   }, []);
-  // Todo
-  // reset count each time the page is accessed
+  //                    !!!TODO
   // implement loading for the menu fetching on the page
   return (
     <View style={styles.container}>
@@ -95,19 +76,19 @@ export default function SingleFood({ navigation, route }) {
         />
         <View style={styles.orderView}>
           <View style={styles.amountView}>
-            <TouchableOpacity onPress={incrementcount}>
-              <Entypo name="plus" size={24} color={themeColor.primary} />
-            </TouchableOpacity>
-            <Text style={globalStyles.textLarge}>{count}</Text>
             <TouchableOpacity onPress={decrementcount}>
               <Entypo name="minus" size={24} color={themeColor.primary} />
+            </TouchableOpacity>
+            <Text style={globalStyles.textLarge}>{count}</Text>
+            <TouchableOpacity onPress={incrementcount}>
+              <Entypo name="plus" size={24} color={themeColor.primary} />
             </TouchableOpacity>
           </View>
           <View style={styles.buttonView}>
             <Button
               title="Add to Cart"
               btnWidth="100%"
-              onpress={()=>{
+              onpress={() => {
                 dispatch(
                   addToCart({
                     amount: count,
@@ -121,11 +102,12 @@ export default function SingleFood({ navigation, route }) {
                     ownerLocation: item.ownerLocation,
                     customerLocation: user.location,
                   })
-                )
-      toaster.show({ message:"Order added to Cart", type: "success", position: "top" });
-
-      // navigation.goBack()        
-
+                );
+                toaster.show({
+                  message: "Order added to Cart",
+                  type: "success",
+                  position: "top",
+                });
               }}
             />
           </View>
@@ -147,13 +129,23 @@ export default function SingleFood({ navigation, route }) {
             </View>
           </View>
         ) : (
-          menu.map((item) => {
+          menu.map((menuItem) => {
+            //   TODO
+            // find a better way to implement the passing of data
+            // this is a workaround to make the item destructuring from route.params work
+            var item = menuItem
             return (
               <MenuCard
-                key={item._id}
-                label={item.name}
-                image={item.image}
-                price={item.price}
+                key={menuItem._id}
+                label={menuItem.name}
+                image={menuItem.image}
+                price={menuItem.price}
+                onpress={() =>
+                  navigation.navigate("HomeStack", {
+                    screen: "SingleFood",
+                    params: { item },
+                  })
+                }
               />
             );
           })

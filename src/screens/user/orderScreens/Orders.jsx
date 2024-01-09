@@ -70,46 +70,46 @@ const Orders = () => {
                   location={items.ownerLocation}
                   price={items.price}
                   userName={items.ownerName}
-                  popup={
-                    <Menu>
-                      <MenuTrigger
-                        customStyles={{
-                          triggerWrapper: {
-                            top: 5,
-                            right: 10,
-                          },
-                        }}
-                      >
-                        <Entypo
-                          name="dots-three-vertical"
-                          size={24}
-                          color="black"
-                        />
-                        {/* <MaterialIcons name="approval" size={24} color="black" /> */}
-                      </MenuTrigger>
-                      <MenuOptions>
-                        <MenuOption
-                          onSelect={() =>console.log(user)}
-                          customStyles={{
-                            optionWrapper: {
-                              flexDirection: "row",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              padding: 10,
-                              borderRadius: 5,
-                              backgroundColor: themeColor.grey_0,
-                            },
-                          }}
-                        >
-                          <View>
-                            <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
-                              Validate
-                            </Text>
-                          </View>
-                        </MenuOption>
-                      </MenuOptions>
-                    </Menu>
-                  }
+                  // popup={
+                  //   <Menu>
+                  //     <MenuTrigger
+                  //       customStyles={{
+                  //         triggerWrapper: {
+                  //           top: 5,
+                  //           right: 10,
+                  //         },
+                  //       }}
+                  //     >
+                  //       <Entypo
+                  //         name="dots-three-vertical"
+                  //         size={24}
+                  //         color="black"
+                  //       />
+                  //       {/* <MaterialIcons name="approval" size={24} color="black" /> */}
+                  //     </MenuTrigger>
+                  //     <MenuOptions>
+                  //       <MenuOption
+                  //         onSelect={() =>console.log(user)}
+                  //         customStyles={{
+                  //           optionWrapper: {
+                  //             flexDirection: "row",
+                  //             alignItems: "center",
+                  //             justifyContent: "center",
+                  //             padding: 10,
+                  //             borderRadius: 5,
+                  //             backgroundColor: themeColor.grey_0,
+                  //           },
+                  //         }}
+                  //       >
+                  //         <View>
+                  //           <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
+                  //             Validate
+                  //           </Text>
+                  //         </View>
+                  //       </MenuOption>
+                  //     </MenuOptions>
+                  //   </Menu>
+                  // }
                 />
               );
             })}

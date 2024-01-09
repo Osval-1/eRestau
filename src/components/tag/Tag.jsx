@@ -21,7 +21,6 @@ export default function tag({label,onpress}) {
 
 const styles = StyleSheet.create({
     tag: {
-        paddingHorizontal: 20,
         paddingVertical: 2,
       },
       cardHeader: {
