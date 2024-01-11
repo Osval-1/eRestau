@@ -79,6 +79,7 @@ export default function Menus({ navigation }) {
           <ScrollView>
             {menu.map((items) => {
               return (
+              
                 <FoodCard
                   key={items._id}
                   label={items.name}
@@ -128,7 +129,7 @@ export default function Menus({ navigation }) {
                         </Text>
                       </MenuOption> */}
                         <MenuOption
-                          onSelect={() => deleteSingleMenuAsync(items.key)}
+                          onSelect={() => deleteSingleMenuAsync(items._id)}
                           customStyles={{
                             optionWrapper: {
                               flexDirection: "row",

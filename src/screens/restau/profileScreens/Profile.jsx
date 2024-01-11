@@ -33,10 +33,12 @@ const Profile = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.ProfileView}>
         <TouchableOpacity activeOpacity={0.6} style={styles.imageView}>
-          <Image
+          {/* <Image
             source={require("../../../../assets/images/restaurant.jpg")}
             style={styles.image}
-          />
+          /> */}
+          <FontAwesome name="user-circle" size={120} color="silver" style={styles.image} />
+
         </TouchableOpacity>
         <View style={styles.infoView}>
           <Text style={{...globalStyles.textLarge,textTransform:"capitalize"}}>{user.username}</Text>

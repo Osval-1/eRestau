@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import themeColor from "../../../../themeColor";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { globalStyles } from "../../../styles/global";
 import { useDispatch, useSelector } from "react-redux";
 import { search } from "../../../redux/reducers/user/userReducer";
@@ -16,18 +16,33 @@ import { useToast } from "react-native-paper-toast";
 
 const screenWidth = Dimensions.get("window").width;
 
+// TODO 
+// re-implement search by category in a more eficeint and clean way
+/*  */
+
 export default function SearchHeader() {
   const [placeholder, setPlaceholder] = useState("Search here");
   const [inputText, setInputText] = useState("");
 
   const toaster = useToast();
   const dispatch = useDispatch();
+  const category = useSelector((state) =>
+  state.user.category
+);
 
+useEffect(()=>{
+  if(category){
+    setInputText(category)
+    setPlaceholder("")
+    handleSearch(category)
+  }
+  console.log(category)
+},[])
   const handleSearch = async (data) => {
     try {
       // setLoading(true);
       console.log(inputText);
-      const response = await dispatch(search(inputText)).unwrap();
+      const response = await dispatch(search(data)).unwrap();
       console.log(response);
       console.log(response.ok);
     } catch (error) {
@@ -40,9 +55,7 @@ export default function SearchHeader() {
           position: "top",
         });
       }
-      // setLoading(false);
     }
-    //   setLoading(false);
   };
   return (
     <View style={styles.container}>
@@ -58,7 +71,7 @@ export default function SearchHeader() {
         />
         <Text style={styles.positionText}>{placeholder}</Text>
       </View>
-      <TouchableOpacity activeOpacity={0.6} onPress={() => handleSearch()}>
+      <TouchableOpacity activeOpacity={0.6} onPress={() => handleSearch(inputText)}>
         <Text style={styles.text}>Search</Text>
       </TouchableOpacity>
     </View>

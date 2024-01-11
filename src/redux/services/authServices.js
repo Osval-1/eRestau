@@ -3,7 +3,7 @@ import config from "../../../project.config.js";
 import * as SecureStore from "expo-secure-store";
 
 const url = `${config.ENDPOINT}/api/auth`;
-axios.defaults.timeout = 2000;
+axios.defaults.timeout = 20000;
 
 const signup = async (data) => {
   const response = await axios.post(`${url}/signup`, data);

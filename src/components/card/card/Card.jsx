@@ -16,7 +16,15 @@ import React from "react";
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 //delayPressIn ={100} to delay the touchableOpacity from highlighting on scrolling
 
-export default function Card({ onpress, label, image, price }) {
+export default function Card({
+  onpress,
+  label,
+  image,
+  price,
+  location,
+  category,
+  ownerName,
+}) {
   const navigation = useNavigation();
   return (
     <ScrollView>
@@ -34,17 +42,23 @@ export default function Card({ onpress, label, image, price }) {
           <View style={styles.spaceText}>
             <View style={styles.spaceText}>
               {/* <EvilIcons name="location" size={24} color="black" /> */}
-              <Text style={globalStyles.textBody}>Tarred Malingo</Text>
+              <Text style={globalStyles.textBody}>{location}</Text>
             </View>
             <View style={styles.spaceText}>
-              <FontAwesome name="star" size={20} color="gold" />
-              <Text style={globalStyles.textBody}>4.7</Text>
+              {/* <FontAwesome name="star" size={20} color="gold" />
+              <Text style={globalStyles.textBody}>4.7</Text> */}
+              <Text style={styles.categoryText}>{category}</Text>
             </View>
           </View>
           <View style={styles.spaceText}>
             <View style={styles.spaceText}>
               {/* <FontAwesome name="road" size={20} color="black" /> */}
-              <Text style={globalStyles.textBody}>2.7KM</Text>
+              {/* <Text style={globalStyles.textBody}>2.7KM</Text> */}
+              <Text
+                style={{ ...globalStyles.textBody, color: themeColor.grey_2 }}
+              >
+                {ownerName}
+              </Text>
             </View>
             <Pressable
               style={styles.spaceText}
@@ -94,5 +108,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     gap: 4,
+  },
+  categoryText: {
+    ...globalStyles.textBody,
+    backgroundColor: themeColor.grey_0,
+    color: themeColor.grey_2,
+    padding:2,
+    borderRadius:5,
+    
   },
 });

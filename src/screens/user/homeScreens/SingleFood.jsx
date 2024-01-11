@@ -73,6 +73,9 @@ export default function SingleFood({ navigation, route }) {
           label={item.name}
           image={item.image}
           price={item.price}
+          location={item.ownerLocation}
+          category={item.category}
+          ownerName={item.ownerName}
         />
         <View style={styles.orderView}>
           <View style={styles.amountView}>

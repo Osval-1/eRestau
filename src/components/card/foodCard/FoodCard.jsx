@@ -46,7 +46,7 @@ export default function FoodCard({
           {ownerName && <Text style={globalStyles.textGrey}>{ownerName}</Text>}
           {location && (
             <Text
-              style={{ ...globalStyles.textBody, color: themeColor.primary }}
+              style={{ ...globalStyles.textBody, color: themeColor.grey_2 }}
             >
               {location}
             </Text>

@@ -6,8 +6,16 @@ import {
   Image,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Dimensions,
+  Keyboard,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
 import { globalStyles } from "../../../styles/global";
 import themeColor from "../../../../themeColor";
 import Button from "../../../components/button/Button";
@@ -20,15 +28,32 @@ import { addSingleMenu } from "../../../redux/reducers/restau/menuReducer";
 import Loader from "../../../components/loader/Loader";
 import { useToast } from "react-native-paper-toast";
 
+const screenWidth = Dimensions.get("window").width;
 
 export default function CreateMenu({ navigation }) {
+
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [catError , setCatError ] = useState(false)
+  const [category, setCategory] = useState("");
+  
+
   const dispatch = useDispatch();
   const toaster = useToast();
   const user = useSelector((state) => state.auth.user);
 
+  useEffect(() => {
+    console.log(category);
+  });
+
   const uploadImage = async (data) => {
+   
+    setCatError(false)
+    
+    if(!category){
+      setCatError(true)
+      return 
+    }
     const formData = new FormData();
     formData.append("image", {
       uri: image,
@@ -36,7 +61,7 @@ export default function CreateMenu({ navigation }) {
       name: `${data.menuName}.jpeg`,
     });
     formData.append("price", data.price);
-    formData.append("quantity", data.servings);
+    formData.append("category",category);
     formData.append("name", data.menuName);
     formData.append("username", user.username);
 
@@ -44,17 +69,24 @@ export default function CreateMenu({ navigation }) {
     try {
       setLoading(true);
       const response = await dispatch(addSingleMenu(formData)).unwrap();
-      if (response){
-        toaster.show({ message:"Menu Created", type: "success", position: "top" });
+      if (response) {
+        toaster.show({
+          message: "Menu Created",
+          type: "success",
+          position: "top",
+        });
       }
       navigation.goBack();
     } catch (error) {
       console.log(error);
       toaster.show({ message: error, type: "error", position: "top" });
-      if(error.message){
-        toaster.show({ message:"No Internet,Please check your connection!", type: "error", position: "top" });
+      if (error.message) {
+        toaster.show({
+          message: "No Internet,Please check your connection!",
+          type: "error",
+          position: "top",
+        });
       }
-
     }
     setLoading(false);
   };
@@ -74,11 +106,9 @@ export default function CreateMenu({ navigation }) {
         quality: 1,
       });
 
-      console.log(user.username)
+      console.log(user.username);
       if (!result.canceled) {
         setImage(result.assets[0].uri);
-        
-       
       }
     } catch (error) {
       console.log(error);
@@ -93,8 +123,38 @@ export default function CreateMenu({ navigation }) {
       )
       .required("menuName is required"),
     price: yup.number().required("price is required"),
-    servings: yup.number().required("servings is required"),
+    // category: yup.string().required("please choose a category"),
   });
+
+  const CheckedOption = (props) => (
+    <MenuOption
+      onSelect={() => setCategory(props.label)}
+      customStyles={{
+        optionWrapper: {
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 10,
+          borderRadius: 5,
+          // top:10,
+          elevation: 1,
+          backgroundColor: "#fff",
+          width: screenWidth * 0.9,
+        },
+      }}
+    >
+      <Text
+        style={{
+          fontFamily: "Montserrat-SemiBold",
+          width: screenWidth * 0.9,
+          padding: 5,
+        }}
+      >
+        {props.label}
+      </Text>
+    </MenuOption>
+  );
+
   if (loading) return <Loader />;
 
   return (
@@ -103,7 +163,7 @@ export default function CreateMenu({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <Formik
-        initialValues={{ menuName: "", price: "", servings: "" }}
+        initialValues={{ menuName: "", price: "", category:category }}
         validationSchema={menuUploadSchema}
         onSubmit={(values) => uploadImage(values)}
       >
@@ -157,17 +217,47 @@ export default function CreateMenu({ navigation }) {
                 {errors.price}
               </Text>
             )}
-            <View style={styles.inputView}>
-              <TextInput
+            <Menu>
+              <MenuTrigger
+                customStyles={{
+                  triggerWrapper: {
+                    top: 5,
+                    // right: 10,
+                    width: screenWidth * 0.93,
+                    backgroundColor: themeColor.grey_0,
+                    borderRadius: 5,
+                    padding: 8,
+                  },
+                }}
+              >
+                <TouchableOpacity onPress={()=>Keyboard.dismiss()}>
+                  {/* <TextInput
                 placeholder="Servings"
                 style={globalStyles.textInput}
                 value={values.servings}
                 keyboardType="numeric"
                 onChangeText={handleChange("servings")}
                 onBlur={handleBlur("servings")}
-              />
-            </View>
-            {touched.servings && errors.servings && (
+              /> */}
+                  {category ? (
+                    <Text>{category}</Text>
+                  ) : (
+                    <Text style={globalStyles.textGrey}>Category</Text>
+                  )}
+                </TouchableOpacity>
+              </MenuTrigger>
+              <MenuOptions>
+                <CheckedOption label="all" />
+                <CheckedOption label="salad" />
+                <CheckedOption label="local" />
+                <CheckedOption label="pizza" />
+                <CheckedOption label="burgers" />
+                <CheckedOption label="sandwich" />
+                <CheckedOption label="snacks" />
+              </MenuOptions>
+            </Menu>
+
+            {catError&& (
               <Text
                 style={{
                   fontSize: 10,
@@ -175,7 +265,7 @@ export default function CreateMenu({ navigation }) {
                   fontFamily: "Montserrat-Regular",
                 }}
               >
-                {errors.servings}
+                please choose a category
               </Text>
             )}
             <Text style={globalStyles.textGrey}>Upload Image</Text>

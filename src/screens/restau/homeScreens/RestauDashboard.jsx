@@ -19,6 +19,7 @@ import messaging from "@react-native-firebase/messaging";
 
 const RestauDashboard = ({ navigation }) => {
   const menu = useSelector((state) => state.menu);
+  
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
     const enabled =

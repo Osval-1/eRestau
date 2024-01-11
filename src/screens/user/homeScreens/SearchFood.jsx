@@ -6,11 +6,17 @@ import { clearSearch } from "../../../redux/reducers/user/userReducer";
 import MenuCard from "../../../components/card/MenuCard/MenuCard";
 import Loader from "../../../components/loader/Loader";
 
-export default function SearchFood({navigation}) {
+export default function SearchFood({navigation,route}) {
+
+  // TODO 
+// re-implement search by category in a more eficeint and clean way
+
+
   // the search header component in userhomeStack handles the searching and this one  displays the data
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearSearch());
+
     console.log(searchResults);
   }, []);
 
