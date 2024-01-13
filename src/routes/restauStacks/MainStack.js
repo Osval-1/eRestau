@@ -20,6 +20,7 @@ import Profile from "../../screens/restau/profileScreens/Profile";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import DashboardHeader from "../../components/header/dashboardHeader/DashboardHeader";
+import RestauDashboardHeader from "../../components/header/restauDashboardHeader/RestauDashboardHeader"
 import Header from "../../components/header/header/Header";
 
 const Tabs = createMaterialBottomTabNavigator();
@@ -31,7 +32,7 @@ function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   switch (routeName) {
     case "Home":
-      return <DashboardHeader />;
+      return <RestauDashboardHeader/>;
     case "Profile":
       return <Header name="Profile" />;
     case "Order":
@@ -70,6 +71,7 @@ function MainStackTabs() {
             tabBarIcon: ({ color }) => (
               <Entypo color={color} name="home" size={24} />
             ),
+            headerShown:false,
           };
         }}
         component={RestauDashboard}
@@ -128,15 +130,16 @@ const MainStack = ({ route }) => {
         component={MainStackTabs}
         options={({ route }) => ({
           headerTitle: () => getHeaderTitle(route),
-          headerStyle: {
-            shadowColor: "#000000",
-            shadowOpacity: 0.8,
-            shadowRadius: 3,
-            shadowOffset: {
-              height: 1,
-              width: 1,
-            },
-          },
+          // headerStyle: {
+          //   shadowColor: "#000000",
+          //   shadowOpacity: 0.8,
+          //   shadowRadius: 3,
+          //   shadowOffset: {
+          //     height: 1,
+          //     width: 1,
+          //   },
+          // },
+          // headerShown:false
         })}
       />
       <MainStackScreens.Group screenOptions={{ headerShown: false }}>

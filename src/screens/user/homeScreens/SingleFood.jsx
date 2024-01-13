@@ -97,7 +97,7 @@ export default function SingleFood({ navigation, route }) {
                     amount: count,
                     name: item.name,
                     price: item.price,
-                    owner: item.owner._id,
+                    owner: item.owner,
                     id: user.id,
                     image: item.image,
                     ownerName: item.ownerName,

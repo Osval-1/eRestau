@@ -29,6 +29,18 @@ export const search = createAsyncThunk("search", async (data, thunkAPI) => {
     thunkAPI.rejectWithValue(message);
   }
 });
+export const uploadToken = createAsyncThunk("uploadToken", async (data, thunkAPI) => {
+  try {
+    const res = await homeServices.uploadToken(data);
+    return { res };
+  } catch (error) {
+    const message =
+      (error.message && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    thunkAPI.rejectWithValue(message);
+  }
+});
 export const getSingleProduct = createAsyncThunk(
   "getSingleProduct",
   async (data, thunkAPI) => {
@@ -101,6 +113,16 @@ const userSlice = createSlice({
         })
         .addCase(search.rejected, (state, action) => {
           state.loading = false;
+        }),
+      builder
+        .addCase(uploadToken.fulfilled, (state, action) => {
+          // state.search= action.payload.res
+          // state.loading = false
+        }).addCase(uploadToken.pending, (state, action) => {
+          // state.loading = true
+        })
+        .addCase(uploadToken.rejected, (state, action) => {
+          // state.loading = false;
         }),
       builder
         .addCase(getSingleProduct.fulfilled, (state, action) => {

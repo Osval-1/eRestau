@@ -65,11 +65,13 @@ const Cart = ({ navigation }) => {
       setLoading(true);
       const response = await dispatch(setCart(cart)).unwrap();
       console.log(response);
-      // toaster.show({ message:"Orders passed", type: "success", position: "top" });
+      toaster.show({ message:"Orders passed", type: "success", position: "top" });
       // navigation.navigate("CartStack", { screen: "Payment Method" });
       // navigation.navigate("HomeStack", { screen: "UserDashboard" });
     } catch (error) {
       console.log(error);
+      toaster.show({ message:"No Internet,Please check your connection!", type: "error", position: "top" });
+
     }
     setLoading(false);
   };

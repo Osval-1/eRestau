@@ -4,6 +4,7 @@ import authHeader from "../authHeader";
 
 const url = `${config.ENDPOINT}/api/user`;
  const searchUrl = `${config.ENDPOINT}/api/product`
+ const tokenUrl =`${config.ENDPOINT}` 
 
 const getRecentlyViewed = async () => {
   const response = await axios.get(`${config.ENDPOINT}/api/product/getDashboard`,
@@ -30,10 +31,15 @@ const search = async (data) => {
   );
   return response.data;
 };
+const uploadToken = async (data) => {
+  const response = await axios.post(`${tokenUrl}/api/create-user-token`, data);
+  return response.data;
+};
 
 const homeServices = {
   getRecentlyViewed,
   getSingleProduct,
   search,
+  uploadToken
 };
 export default homeServices;

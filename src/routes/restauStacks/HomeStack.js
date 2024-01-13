@@ -28,6 +28,7 @@ const HomeStack = () => {
       <HomeStackScreen.Screen
         options={{
           headerTitle: () => <DashboardHeader />,
+          // headerShown:false
         }}
         name="restauDashboard"
         component={RestauDashboard}

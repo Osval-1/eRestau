@@ -230,7 +230,6 @@ export default function CreateMenu({ navigation }) {
                   },
                 }}
               >
-                <TouchableOpacity onPress={()=>Keyboard.dismiss()}>
                   {/* <TextInput
                 placeholder="Servings"
                 style={globalStyles.textInput}
@@ -244,7 +243,6 @@ export default function CreateMenu({ navigation }) {
                   ) : (
                     <Text style={globalStyles.textGrey}>Category</Text>
                   )}
-                </TouchableOpacity>
               </MenuTrigger>
               <MenuOptions>
                 <CheckedOption label="all" />
