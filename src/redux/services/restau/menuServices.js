@@ -3,6 +3,7 @@ import config from "../../../../project.config";
 import authHeader from "../authHeader";
 
 const url = `${config.ENDPOINT}/api/product/`;
+axios.defaults.timeout = 20000;
 
 async function getAllMenu(data) {
   const response = await axios.get(
@@ -15,11 +16,7 @@ async function getAllMenu(data) {
 }
 async function updateSingleMenu(data) {
   const response = await axios.patch(
-    url + data
-    //  {
-    //   headers: await authHeader(),
-    // }
-  );
+    url + data);
   return response.data;
 }
 async function addSingleMenu(data) {
@@ -31,12 +28,7 @@ async function addSingleMenu(data) {
   return response.data;
 }
 async function deleteSingleMenu(data) {
-  const response = await axios.delete(
-    url + data
-    //  {
-    //   headers: await authHeader(),
-    // }
-  );
+  const response = await axios.delete(url + data);
   return response.data;
 }
 

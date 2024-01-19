@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import NotificationTile from '../../../components/notification/NotificationTile'
+// import * as SQLite from "expo-sqlite";
+
 
 export default function Notification() {
   return (

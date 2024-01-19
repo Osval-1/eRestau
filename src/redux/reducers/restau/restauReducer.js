@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import homeServices from "../../services/restau/homeServices";
 import orderServices from "../../services/restau/orderServices";
 
-export const getDashboard = createAsyncThunk(
-  "restauDashboard",
-  async (thunkAPI) => {
+export const getRestauDashboard = createAsyncThunk(
+  "getRestauDashboard",
+  async (data,thunkAPI) => {
     try {
-      const res = await homeServices.getDashboard();
+      const res = await orderServices.getRestauDashboard(data);
       return { res };
     } catch (error) {
       const message =
@@ -47,6 +47,7 @@ export const editProfile = createAsyncThunk(
 
 const initialState = {
   orders: [],
+  completedOrders:[]
 };
 
 const restauSlice = createSlice({
@@ -55,15 +56,16 @@ const restauSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getDashboard.fulfilled, (state, action) => {
+      .addCase(getRestauDashboard.fulfilled, (state, action) => {
         state.loading = false;
+        state.completedOrders = action.payload.res.orders
       })
-      .addCase(getDashboard.rejected, (state, action) => {
+      .addCase(getRestauDashboard.rejected, (state, action) => {
         state.loading = false;
       }),
       builder
         .addCase(getOrders.fulfilled, (state, action) => {
-          state.orders= action.payload.res.food;
+          state.orders= action.payload.res.orders;
         })
         .addCase(getOrders.rejected, (state, action) => {
           state.loading = false;

@@ -15,9 +15,8 @@ const RegisterOption = ({ navigation }) => {
             style={styles.image}
           />
         </View>
-        <Text style={styles.text}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut impedit
-          hic maxime repudiandae!
+        <Text style={{...globalStyles.textHeader,marginBottom:10}}>
+          Register as a Customer Or Restaurant
         </Text>
         <View style={{gap:10}}>
           <Button

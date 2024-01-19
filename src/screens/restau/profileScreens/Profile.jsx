@@ -54,13 +54,13 @@ const Profile = ({ navigation }) => {
           />
         </View>
       </View>
-      <Tile
+      {/* <Tile
         label="Settings"
         icon={<Ionicons name="settings" size={34} color="black" />}
         onpress={() =>
           navigation.navigate("ProfileStack", { screen: "Settings" })
         }
-      />
+      /> */}
       <Tile
         label="Notifications"
         icon={<Ionicons name="notifications" size={34} color="black" />}
@@ -68,17 +68,22 @@ const Profile = ({ navigation }) => {
           navigation.navigate("ProfileStack", { screen: "Notifications" })
           }
       />
-      <Tile
+      {/* <Tile
         label="Location"
         icon={<Ionicons name="location" size={34} color="black" />}
-      />
-      <Tile
+      /> */}
+      {/* <Tile
         label="Favourites"
         icon={<MaterialIcons name="favorite" size={34} color="black" />}
-      />
+      /> */}
       <Tile
         label="About"
-        icon={<Ionicons name="information-circle" size={34} color="black" />}
+        icon={<Ionicons name="information-circle" size={34} color="black" 
+        onpress={() =>
+          navigation.navigate("ProfileStack", { screen: "About" })
+        }  
+        />
+      }
       />
       <Tile
         label="Logout"

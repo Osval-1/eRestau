@@ -20,7 +20,6 @@ import { saveLoginInfo, signup } from "../../redux/reducers/authReducer";
 import { useToast } from "react-native-paper-toast";
 import Loader from "../../components/loader/Loader";
 
-
 const RestauRegistration = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -46,8 +45,8 @@ const RestauRegistration = ({ navigation }) => {
     //   return;
     // }
     // setLoading(false);
-    dispatch(saveLoginInfo(data))
-   navigation.navigate("DeliverySystem")
+    dispatch(saveLoginInfo(data));
+    navigation.navigate("DeliverySystem");
   };
   const signupvalidationSchema = yup.object().shape({
     username: yup
@@ -57,16 +56,17 @@ const RestauRegistration = ({ navigation }) => {
         ({ min }) => `username must be atleast ${min} number of characters`
       )
       .required("username is required"),
-    phone: yup.string()
-    .min(9, ({ min }) => `phone number must be atleast ${min} characters`)
-    .max(9, ({ max }) => `phone number must be atmost ${max} characters`)
-    .matches(/^(\S+$)/, 'phone number cannot contain blankspaces')
-    .required("phone number is reqiured "),
+    phone: yup
+      .string()
+      .min(9, ({ min }) => `phone number must be atleast ${min} characters`)
+      .max(9, ({ max }) => `phone number must be atmost ${max} characters`)
+      .matches(/^(\S+$)/, "phone number cannot contain blankspaces")
+      .required("phone number is reqiured "),
 
     password: yup
       .string()
       .min(8, ({ min }) => `password must be atleast ${min} characters`)
-      .matches(/^(\S+$)/, 'password cannot contain blankspaces')
+      .matches(/^(\S+$)/, "password cannot contain blankspaces")
       .required("password is required"),
     location: yup.string().required("location is required"),
   });
@@ -86,7 +86,11 @@ const RestauRegistration = ({ navigation }) => {
           />
         </View> */}
         <View>
-          <Text style={{ ...globalStyles.textLarge, color: themeColor.primary }}>Restaurant Registration</Text>
+          <Text
+            style={{ ...globalStyles.textLarge, color: themeColor.primary }}
+          >
+            Restaurant Registration
+          </Text>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -129,7 +133,13 @@ const RestauRegistration = ({ navigation }) => {
                     />
                   </View>
                   {touched.username && errors.username && (
-                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.username}
                     </Text>
                   )}
@@ -150,7 +160,13 @@ const RestauRegistration = ({ navigation }) => {
                     />
                   </View>
                   {touched.phone && errors.phone && (
-                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.phone}
                     </Text>
                   )}
@@ -169,7 +185,13 @@ const RestauRegistration = ({ navigation }) => {
                     />
                   </View>
                   {errors.location && touched.location && (
-                    <Text style={{ fontSize: 10, color: "red",fontFamily:"Montserrat-Regular" }}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.location}
                     </Text>
                   )}
@@ -181,7 +203,7 @@ const RestauRegistration = ({ navigation }) => {
                       color={themeColor.primary}
                     />
                     <TextInput
-                      style={(globalStyles.textInput, { width: "82%",})}
+                      style={(globalStyles.textInput, { width: "82%" })}
                       placeholder="*********"
                       secureTextEntry={showPassword ? false : true}
                       value={values.password}
@@ -199,13 +221,43 @@ const RestauRegistration = ({ navigation }) => {
                     </TouchableOpacity>
                   </View>
                   {errors.password && touched.password && (
-                    <Text style={{ fontSize: 10, color: "red" ,fontFamily:"Montserrat-Regular"}}>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                      }}
+                    >
                       {errors.password}
                     </Text>
                   )}
-                  <View style={{marginTop:60}}>
-
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.licenseText}>I agree to the </Text>
+                    <TouchableOpacity onPress={()=>navigation.navigate("Terms$Conditions")}>
+                      <Text
+                        style={{
+                          ...styles.licenseText,
+                          color: themeColor.primary,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        terms $ conditions{" "}
+                      </Text>
+                    </TouchableOpacity>
+                    <Text style={styles.licenseText}>and </Text>
+                    <TouchableOpacity onPress={()=>navigation.navigate("PrivacyPolicy")}>
+                      <Text
+                        style={{
+                          ...styles.licenseText,
+                          color: themeColor.primary,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        privacy policy{" "}
+                      </Text>
+                    </TouchableOpacity>
                   </View>
+                  <View style={{ marginTop: 60 }}></View>
                   <Button
                     title={"Sign Up"}
                     onpress={handleSubmit}
@@ -241,7 +293,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontWeight: "bold",
     ...globalStyles.textBody,
-    
+  },
+  licenseText: {
+    ...globalStyles.textBody,
+    fontSize: 10,
   },
 });
 

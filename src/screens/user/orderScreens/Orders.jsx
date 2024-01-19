@@ -29,6 +29,7 @@ const Orders = () => {
   useFocusEffect(
     useCallback(() => {
       getOrdersAsync();
+      console.log(user,orders)
     }, [])
   );
 
@@ -69,7 +70,7 @@ const Orders = () => {
                   image={items.image}
                   location={items.ownerLocation}
                   price={items.price}
-                  userName={items.ownerName}
+                  ownerName={items.ownerName}
                   // popup={
                   //   <Menu>
                   //     <MenuTrigger

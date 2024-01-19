@@ -23,6 +23,7 @@ export default function MenuCard({ label, price, image, onpress,location,ownerNa
           {price}FCFA
         </Text>
         <Text style={globalStyles.textGrey}>{location}</Text>
+        <Text style={globalStyles.textGrey}>{ownerName}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -33,8 +34,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     gap: 10,
-    alignItems: "center",
+    alignItems: "flex-start",
     height: 120,
+    marginTop:10,
   },
   imageView: {
     flex: 2,
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 2,
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     alignItems: "flex-start",
     gap: 6,
   },

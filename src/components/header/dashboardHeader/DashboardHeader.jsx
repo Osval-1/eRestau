@@ -24,7 +24,7 @@ export default function DashboardHeader({ onpress }) {
           <Image
             source={require("../../../../assets/images/eRestau-icon.png")}
             style={{
-              width: 40,
+              width: 70,
               height: 30,
             }}
           />
@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderBottomWidth: 4,
     borderBottomColor: themeColor.primary,
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
+    paddingRight:10,
     paddingBottom: 14,
   },
   inputContainer: {

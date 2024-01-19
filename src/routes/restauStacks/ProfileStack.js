@@ -6,6 +6,8 @@ import {
 import Header from "../../components/header/header/Header";
 import Settings from "../../screens/restau/profileScreens/Settings";
 import Notifications from "../../screens/restau/profileScreens/Notifications";
+import About from "../../screens/restau/profileScreens/About"
+
 
 const ProfileStackScreen = createStackNavigator();
 
@@ -40,6 +42,13 @@ const ProfileStack = () => {
         }}
         name="Notifications"
         component={Notifications}
+      />
+     <ProfileStackScreen.Screen
+        options={{
+          headerTitle: () => <Header name="About" />,
+        }}
+        name="About"
+        component={About}
       />
     </ProfileStackScreen.Navigator>
   );

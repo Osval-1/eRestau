@@ -69,6 +69,7 @@ export default function CreateMenu({ navigation }) {
     try {
       setLoading(true);
       const response = await dispatch(addSingleMenu(formData)).unwrap();
+      console.log(response)
       if (response) {
         toaster.show({
           message: "Menu Created",
@@ -81,8 +82,10 @@ export default function CreateMenu({ navigation }) {
       console.log(error);
       toaster.show({ message: error, type: "error", position: "top" });
       if (error.message) {
+        console.log(error.message)
         toaster.show({
           message: "No Internet,Please check your connection!",
+          // message: error.message,
           type: "error",
           position: "top",
         });

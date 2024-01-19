@@ -34,7 +34,7 @@ export default function Menus({ navigation }) {
   useFocusEffect(
     useCallback(() => {
       getMenu();
-      console.log(menu)
+      console.log("menu",menu)
     }, [])
   );
 
@@ -42,6 +42,7 @@ export default function Menus({ navigation }) {
     try {
       setLoading(true);
       const response = await dispatch(getAllMenu(user.id)).unwrap();
+      // console.log(response.res)
     } catch (error) {
       console.log(error);
     }
@@ -78,15 +79,14 @@ export default function Menus({ navigation }) {
         ) : (
           <ScrollView>
             {menu.map((items) => {
-              return (
-              
+              return ( 
                 <FoodCard
                   key={items._id}
                   label={items.name}
-                  servings={items.quantity}
+                  // servings={items.quantity}
                   price={items.price}
                   image={items.image}
-                  userName={items.ownerName}
+                  ownerName={items.ownerName}
                   popup={
                     <Menu>
                       <MenuTrigger
@@ -104,30 +104,6 @@ export default function Menus({ navigation }) {
                         />
                       </MenuTrigger>
                       <MenuOptions>
-                        {/* TO DO
-                        delete all menus at once
-                        filter the menus
-                        edit menus
-                        
-                        
-                        */}
-
-                        {/* <MenuOption
-                        onSelect={() => alert(`Save`)}
-                        customStyles={{
-                          optionWrapper: {
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: 10,
-                            borderRadius: 5,
-                            backgroundColor: themeColor.grey_0,
-                          },
-                        }}
-                      >
-                        <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
-                          Edit
-                        </Text>
-                      </MenuOption> */}
                         <MenuOption
                           onSelect={() => deleteSingleMenuAsync(items._id)}
                           customStyles={{

@@ -61,6 +61,7 @@ export const getOrders = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const res = await orderServices.getOrder(data);
+      console.log(res)
       return { res };
     } catch (error) {
       const message =
@@ -92,6 +93,7 @@ const userSlice = createSlice({
   reducers: {
     clearSearch:(state)=>{
       state.search = []
+      state.category=""
     },searchCategory:(state,action)=>{
       state.category = action.payload
     }

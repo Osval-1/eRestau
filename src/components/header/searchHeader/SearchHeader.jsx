@@ -12,6 +12,7 @@ import React, { useState,useEffect } from "react";
 import { globalStyles } from "../../../styles/global";
 import { useDispatch, useSelector } from "react-redux";
 import { search } from "../../../redux/reducers/user/userReducer";
+import { clearSearch } from "../../../redux/reducers/user/userReducer";
 import { useToast } from "react-native-paper-toast";
 
 const screenWidth = Dimensions.get("window").width;
@@ -35,7 +36,9 @@ useEffect(()=>{
     setInputText(category)
     setPlaceholder("")
     handleSearch(category)
-  }
+  }else(
+    dispatch(clearSearch())
+  )
   console.log(category)
 },[])
   const handleSearch = async (data) => {

@@ -7,17 +7,17 @@ import themeColor from "../../../themeColor";
 const Welcome = ({ navigation }) => {
   
   return (
-    <View style={globalStyles.container}>
+    <View style={{...globalStyles.container,paddingHorizontal:10}}>
       <Text style={globalStyles.textLarge}>
         Welcome to <Text style={styles.appTitle}>eRestau!</Text>
       </Text>
       <View>
+        <Text style={{...globalStyles.textHeader,textAlign:"center",marginBottom:10,marginTop:20}}>
+          #1 Food ordering app in cameroon
+        </Text>
         <Text style={styles.welcomeText}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse veniam
-          sed atque laudantium quos est, quibusdam necessitatibus ipsam
-          corrupti, iure architecto explicabo quia modi aliquid ipsum pariatur,
-          numquam consequuntur amet.
-          
+        Browse diverse cuisines, customize your meal, and place orders with ease.
+Enjoy swift delivery to your doorstep and track your order in real-time
         </Text>
       </View>
       <View>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   wlcmHeader: {
     fontWeight: "bold",
     fontSize: 18,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   appTitle: {
     color: themeColor.primary,
@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
     ...globalStyles.textBody,
     textAlign: "center",
     marginBottom: 20,
+    letterSpacing:0.2,
+    lineHeight:18,
+    fontSize:14
 
   },
 });

@@ -7,25 +7,28 @@ import {
   Platform,
   Button,
 } from "react-native";
-import Slider from "../../../components/slider/Slider";
-import Card from "../../../components/card/card/Card";
 import { useDispatch, useSelector } from "react-redux";
-import config from "../../../../project.config";
-import { getMenu} from "../../../redux/reducers/restau/menuReducer";
+import { getRestauDashboard } from "../../../redux/reducers/restau/restauReducer";
 import { uploadToken } from "../../../redux/reducers/user/userReducer";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
-
 import Constants from "expo-constants";
 import messaging from "@react-native-firebase/messaging";
 import { globalStyles } from "../../../styles/global";
+import * as SecureStore from "expo-secure-store";
+
 
 const RestauDashboard = ({ navigation }) => {
+ const [income, setIncome] = useState(0)
+ const [totalDishes, setTotalDishes] = useState(0)
+ const [customers, setCustomers] = useState(0)
+
   const dispatch = useDispatch()
-  const menu = useSelector((state) => state.menu);
+  //reimplement so that the redux store is accessed only once with user and use user.username to send token
   const username = useSelector((state) =>state.auth.user.username )
+  const user = useSelector((state)=>state.auth.user)
+  const completedOrders = useSelector((state)=>state.restau.completedOrders)
   
 
   const requestUserPermission = async () => {
@@ -39,28 +42,57 @@ const RestauDashboard = ({ navigation }) => {
     }
   };
 
-  const sendToken = async (data) => {
+  const sendToken = async (data) => { 
     try {
-      const response = await dispatch(uploadToken(data)).unwrap();
-      console.log(response,"dfghjkl")
+      // const  notificationKey = await SecureStore.getItemAsync("notificationKey")
+      // if(notificationKey){
+        //   return
+        // }
+        // await SecureStore.setItemAsync("notificationKey",data.token)
+        const response = await dispatch(uploadToken(data)).unwrap();
+        // console.log(data.username,data.token,response)
     } catch (error) {
       console.log(error);
     }
   };
+  const getRestauDashboardAsync = async () => { 
+    try {
+        const response = await dispatch(getRestauDashboard(user.id)).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+    
+  const computeDashboardInfo = ()=>{
+    const income = completedOrders.reduce((total,order)=>order.quantity*order.price+total,0)
+    const totalDishes = completedOrders.reduce((total,order)=>order.quantity+total,0)
+    const customers  = new Set()
+    const getCustomers =  completedOrders.forEach((order)=>{
+      customers.add(order.orderedBy)
+    })
+    // give the size of the set
+    setCustomers(customers.size)
+    setIncome(income)
+    setTotalDishes(totalDishes)
+  }
 
+  useEffect(()=>{
+    computeDashboardInfo()
+  },[completedOrders])
   useEffect(() => {
+    getRestauDashboardAsync()
     if (requestUserPermission()) {
       messaging()
         .getToken()
         .then((token) => sendToken({token,username}))
     }
-    console.log(username)
     // Set up the notification handler for the app
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowAlert: true,
         shouldPlaySound: true,
         shouldSetBadge: true,
+      
       }),
     });
 
@@ -147,64 +179,54 @@ const RestauDashboard = ({ navigation }) => {
   }, []);
   return (
     <View style={styles.container}>
-      {/* <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ marginTop: 10 }}
-      >
-        <Slider
-          itemData={menu}
-          label="Menu"
-          onpress={() => navigation.navigate("Menu")}
-        />
-
-      </ScrollView> */}
       <View style={styles.dashboardView}>
         <Text
-          style={{ ...globalStyles.textBody, fontSize: 30, marginBottom: 20 }}
+          style={{ ...globalStyles.textBody, fontSize: 30, marginBottom: 20 ,textTransform:'capitalize'}}
         >
-          Hi Username
+          Hi {username}
         </Text>
-        <Text style={{...globalStyles.textHeader,fontSize:20,marginBottom:20}}>50 000 XAF</Text>
+        {/* <Text style={{...globalStyles.textHeader,fontSize:20,marginBottom:20}}>50 000 XAF</Text> */}
         <Text style={globalStyles.textBody}>
           What would you like to do today?
         </Text>
         <View style={styles.cardContainer}>
-          <View style={{ ...styles.cardView, backgroundColor: "#837bcae6" }}>
+          <View style={{ ...styles.cardView, backgroundColor: "#bab0fae6" }}>
             <MaterialIcons name="delivery-dining" size={48} color="black" />
             <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
               Completed deliveries
             </Text>
-            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>50</Text>
+            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>{completedOrders.length}</Text>
           </View>
-          <View style={{ ...styles.cardView, backgroundColor: "#B1DE52" }}>
+          <View style={{ ...styles.cardView, backgroundColor: "#d5f889" }}>
+         
+          <MaterialIcons
+            name="account-balance-wallet"
+            size={48}
+            color="black"
+          />
+            <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
+              Income generated
+            </Text>
+            <Text style={{ ...globalStyles.textLarge, fontSize: 25 }}>{income} XAF</Text>
+          </View>
+          <View style={{ ...styles.cardView, backgroundColor: "#D9EADA" }}>
           <MaterialCommunityIcons
             name="account-group"
             size={48}
             color="black"
           />
             <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
-              Completed deliveries
+              Customers
             </Text>
-            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>50</Text>
+            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>{customers}</Text>
           </View>
-          <View style={{ ...styles.cardView, backgroundColor: "#D9EADA" }}>
-            <MaterialIcons
-            name="account-balance-wallet"
-            size={48}
-            color="black"
-          />
-            <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
-              Completed deliveries
-            </Text>
-            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>50</Text>
-          </View>
-          <View style={{ ...styles.cardView, backgroundColor: "#F3C41F" }}>
+          <View style={{ ...styles.cardView, backgroundColor: "#ffe483" }}>
           <MaterialCommunityIcons name="account-cash" size={48} color="black" />
 
             <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
-              Completed deliveries
+              Dishes Sold 
             </Text>
-            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>50</Text>
+            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>{totalDishes}</Text>
           </View>
         </View>
         
@@ -223,7 +245,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   cardContainer: {
-    marginTop: 20,
+    marginTop: 40,
     flexDirection:"row",
     gap:10,
     flexWrap:"wrap",

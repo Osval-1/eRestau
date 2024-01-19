@@ -10,6 +10,8 @@ import UserRegistration from "../screens/auth/UserRegistration";
 import RestauRegistration from "../screens/auth/RestauRegistration";
 import ForgotPassword from "../screens/auth/Forgotpassword";
 import DeliverySystem from "../screens/auth/DeliverySystem";
+import PrivacyPolicy from "../screens/auth/PrivacyPolicy";
+import Terms$Conditions from "../screens/auth/Terms$Conditions";
 import { AuthContext } from "../context/AuthContext";
 import * as SecureStore from "expo-secure-store";
 
@@ -56,7 +58,7 @@ const AuthStack = () => {
             }}
             name="UserRegistration"
             component={UserRegistration}
-          />
+          /> 
 
           <AuthStackScreen.Screen
             options={{
@@ -71,6 +73,20 @@ const AuthStack = () => {
             }}
             name="ForgotPassword"
             component={ForgotPassword}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="PrivacyPolicy"
+            component={PrivacyPolicy}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Terms$Conditions"
+            component={Terms$Conditions}
           />
         </>
       ) : (
@@ -127,6 +143,20 @@ const AuthStack = () => {
             }}
             name="ForgotPassword"
             component={ForgotPassword}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="PrivacyPolicy"
+            component={PrivacyPolicy}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Terms$Conditions"
+            component={Terms$Conditions}
           />
         </>
       )}

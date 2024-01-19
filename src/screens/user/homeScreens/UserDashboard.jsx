@@ -21,6 +21,9 @@ import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import messaging from "@react-native-firebase/messaging";
 import { searchCategory } from "../../../redux/reducers/user/userReducer";
+import { uploadToken } from "../../../redux/reducers/user/userReducer";
+import * as SecureStore from "expo-secure-store";
+
 
 // TODO
 // re-implement search by category in a more eficeint and clean way
@@ -41,6 +44,21 @@ const UserDashboard = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const recentlyViewed = useSelector((state) => state.user.recentlyViewed);
+  const username = useSelector((state) =>state.auth.user.username )
+
+  const sendToken = async (data) => { 
+    try {
+      // const  notificationKey = await SecureStore.getItemAsync("notificationKey")
+      // if(notificationKey){
+        //   return
+        // }
+        // await SecureStore.setItemAsync("notificationKey",data.token)
+        const response = await dispatch(uploadToken(data)).unwrap();
+        console.log(data.username,data.token,response)
+      } catch (error) {
+        console.log(error);
+    }
+  };
 
   useEffect(() => {
     getRecents();
@@ -58,7 +76,8 @@ const UserDashboard = ({ navigation }) => {
     if (requestUserPermission()) {
       messaging()
         .getToken()
-        .then((token) => console.log(token));
+        .then((token) => sendToken({token,username}))
+
     }
     // Set up the notification handler for the app
     Notifications.setNotificationHandler({
@@ -189,6 +208,14 @@ const UserDashboard = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ marginTop: 10 }}
       >
+        <Text
+          style={{ ...globalStyles.textBody, fontSize: 30, marginBottom: 20,textTransform:'capitalize' }}
+        >
+          Hi {username}
+        </Text>
+        <Text style={{...globalStyles.textBody,marginBottom:10}}>
+          What would you like today?
+        </Text>
         <Text style={{ ...globalStyles.textLarge, marginHorizontal: 10 }}>
           Categories
         </Text>
@@ -199,6 +226,7 @@ const UserDashboard = ({ navigation }) => {
           horizontal
           contentContainerStyle={styles.categoryContainer}
           showsHorizontalScrollIndicator={false}
+          contentInsetAdjustmentBehavior="automatic"
         >
           {/* <CategoryOption label={"burger"} src={require("../../../../assets/images/burger.jpg")}/> */}
           {categories.map((item) => {

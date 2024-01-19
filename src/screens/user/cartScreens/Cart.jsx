@@ -71,7 +71,15 @@ const Cart = ({ navigation }) => {
     } catch (error) {
       console.log(error);
       toaster.show({ message:"No Internet,Please check your connection!", type: "error", position: "top" });
-
+      if (error.message) {
+        console.log(error.message)
+        toaster.show({
+          message: "No Internet,Please check your connection!",
+          // message: error.message,
+          type: "error",
+          position: "top",
+        });
+      }
     }
     setLoading(false);
   };

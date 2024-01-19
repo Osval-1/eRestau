@@ -16,7 +16,6 @@ export default function SearchFood({navigation,route}) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearSearch());
-
     console.log(searchResults);
   }, []);
 
@@ -36,7 +35,7 @@ export default function SearchFood({navigation,route}) {
           </View>
         </View>
       ) : (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false} >
           {searchResults.map((item) => {
             return (
               <MenuCard
@@ -45,7 +44,7 @@ export default function SearchFood({navigation,route}) {
                 image={item.image}
                 location={item.ownerLocation}
                 price={item.price}
-                ownerName={item.owner}
+                ownerName={item.ownerName}
                 onpress={() =>
                   navigation.navigate("HomeStack", {
                     screen: "SingleFood",

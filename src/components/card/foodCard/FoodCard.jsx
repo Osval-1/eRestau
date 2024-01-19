@@ -35,7 +35,7 @@ export default function FoodCard({
             </Text>
           )}
           {servings && (
-            <Text style={{ ...globalStyles.textGrey }}>
+            <Text style={{ ...globalStyles.textGrey}}>
               {servings} servings
             </Text>
           )}
@@ -43,7 +43,7 @@ export default function FoodCard({
           {expectedTime && (
             <Text style={globalStyles.textGrey}>{expectedTime} mins</Text>
           )}
-          {ownerName && <Text style={globalStyles.textGrey}>{ownerName}</Text>}
+          {ownerName && <Text style={{...globalStyles.textBody,textTransform:"capitalize"}}>{ownerName}</Text>}
           {location && (
             <Text
               style={{ ...globalStyles.textBody, color: themeColor.grey_2 }}
