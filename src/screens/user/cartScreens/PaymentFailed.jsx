@@ -10,7 +10,7 @@ export default function PaymentFailed() {
       <View style={styles.textView}>
       <Text style={globalStyles.textLarge}>Payment Failed</Text>
       </View>
-      <Button title={<Text style={globalStyles.textLarge}>Retry</Text>} onpress={()=>navigation.goBack()}/>
+      <Button title="Retry" onpress={()=>navigation.goBack()}/>
     </View>
   )
 }

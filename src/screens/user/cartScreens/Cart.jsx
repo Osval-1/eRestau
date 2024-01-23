@@ -17,7 +17,7 @@ import { setCart } from "../../../redux/reducers/user/cartReducer";
 import Loader from "../../../components/loader/Loader";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { useToast } from "react-native-paper-toast";
-
+import { getTotal } from "../../../redux/reducers/user/cartReducer";
 
 const Cart = ({ navigation }) => {
 
@@ -42,20 +42,25 @@ const Cart = ({ navigation }) => {
   const totalPrice = () => {
     let totalprice = 0;
     let totaldeliveries = 0;
+
     // use a set so that the ids do not repeat
     let totalDeliveryIds = new Set();
+
     // calculate the price for the entire cart
     cart.forEach(
       (item) => (totalprice = totalprice + item.price * item.quantity)
     );
+
     //get the seperate ids involved in the process
-    cart.forEach((item) => totalDeliveryIds.add(item.createdBy));
+    // cart.forEach((item) => totalDeliveryIds.add(item.createdBy));
+
     //calculate the delivery fees for the cart
-    totalDeliveryIds.forEach(
-      (item) => (totaldeliveries = totaldeliveries + 500)
-    );
-    setTotal(totalprice + totaldeliveries);
+    // totalDeliveryIds.forEach(
+    //   (item) => (totaldeliveries = totaldeliveries + 500)
+    // );
+    setTotal(totalprice);
   };
+
   const placeOrder = async () => {
     if (!cart[0]) {
       return;
@@ -97,12 +102,18 @@ const Cart = ({ navigation }) => {
           </View>
           <View style={styles.container}>
             <Button
-              title={<Text style={globalStyles.textLarge}>Order</Text>}
+              title="Order"
               btnWidth="100%"
               onpress={
-                () => placeOrder()
-                // navigation.navigate("CartStack", { screen: "Payment Method" })
-              }
+                () => {
+                  // placeOrder()
+                  if(!cart[0]){
+      toaster.show({ message:"Empty Cart, Please place an order ", type: "error", position: "top" });
+                    return
+                  }
+                  dispatch(getTotal(total))
+                navigation.navigate("CartStack", { screen: "Payment Method" })
+              }}
             />
           </View>
         </View>

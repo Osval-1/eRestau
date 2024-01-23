@@ -23,7 +23,7 @@
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "./google-services.json",
-      "package": "com.alziron.Erestau",
+      "package": "com.alziron.e_restau",
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.ACCESS_COARSE_LOCATION",
@@ -50,7 +50,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/favicon.png",
+          "icon": "./assets/images/eRestau-icon.png",
           "color": "#ffffff",
           "sounds": [
             "./assets/sounds/notification.wav"

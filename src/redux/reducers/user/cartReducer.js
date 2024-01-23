@@ -17,6 +17,13 @@ export const setCart = createAsyncThunk("setCart", async (data, thunkAPI) => {
 const initialState = {
   count: 1,
   cart: [],
+  deliveryInfo:{
+    paymentMethod:'',
+    paymentPhone:'',
+    customerLocation:''
+  },
+  total:0,
+  // deliveryFees:"",
 };
 
 const cartSlice = createSlice({
@@ -53,18 +60,27 @@ const cartSlice = createSlice({
     resetCount: (state, action) => {
       state.count = 1;
     },
+    getTotal:(state,action)=>{
+      state.total = action.payload
+    },
+    getPaymentInfo:(state,action)=>{
+      state.deliveryInfo.paymentMethod = action.payload.paymentMethod
+      state.deliveryInfo.paymentPhone = action.payload.paymentPhone
+      state.deliveryInfo.customerLocation = action.payload.customerLocation
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(setCart.fulfilled, (state, action) => {
         state.cart = []
         state.count = 1
+        state.total = 0
       })
       .addCase(setCart.rejected, (state, action) => {
         state.loading = false;
       });
   },
 });
-export const { addToCart, deleteFromCart, incrementCount, decrementCount,resetCount } =
+export const { addToCart, deleteFromCart, incrementCount, decrementCount,resetCount,getTotal,getPaymentInfo } =
   cartSlice.actions;
 export default cartSlice.reducer;

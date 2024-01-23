@@ -50,7 +50,7 @@ const RestauDashboard = ({ navigation }) => {
         // }
         // await SecureStore.setItemAsync("notificationKey",data.token)
         const response = await dispatch(uploadToken(data)).unwrap();
-        // console.log(data.username,data.token,response)
+        console.log(data.username,data.token,response)
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +58,7 @@ const RestauDashboard = ({ navigation }) => {
   const getRestauDashboardAsync = async () => { 
     try {
         const response = await dispatch(getRestauDashboard(user.id)).unwrap();
+        console.log(username)
     } catch (error) {
       console.log(error);
     }
@@ -79,8 +80,10 @@ const RestauDashboard = ({ navigation }) => {
   useEffect(()=>{
     computeDashboardInfo()
   },[completedOrders])
+
   useEffect(() => {
     getRestauDashboardAsync()
+
     if (requestUserPermission()) {
       messaging()
         .getToken()

@@ -30,8 +30,8 @@ export default function SearchFood({navigation,route}) {
       {!searchResults[0] ? (
         <View style={{ marginTop: 10 }}>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text style={globalStyles.textHeader}>No search results found</Text>
-            {/* <Text style={globalStyles.textBody}>Please try search something else</Text> */}
+            <Text style={globalStyles.textHeader}>No searchResults found</Text>
+            <Text style={globalStyles.textBody}>Orders can be viewed here</Text>
           </View>
         </View>
       ) : (

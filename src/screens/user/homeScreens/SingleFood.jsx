@@ -89,7 +89,7 @@ export default function SingleFood({ navigation, route }) {
           </View>
           <View style={styles.buttonView}>
             <Button
-              title="Add to Cart"
+              title={<Text style={globalStyles.textHeader}>Add to cart</Text>}
               btnWidth="100%"
               onpress={() => {
                 dispatch(

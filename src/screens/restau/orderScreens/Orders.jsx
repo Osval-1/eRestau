@@ -16,7 +16,6 @@ const Orders = () => {
   useFocusEffect(
     useCallback(() => {
       getOrdersAsync();
-      console.log("ordersRedux",orders)
     }, [])
   );
 
@@ -55,8 +54,8 @@ const Orders = () => {
                   label={items.productName}
                   image={items.image}
                   location={items.customerLocation}
-                  userName={items.customerName}
-                  expectedTime="30 mins ago"
+                  price={items.price}
+                  ownerName={items.customerName}
                 />
               );
             })}

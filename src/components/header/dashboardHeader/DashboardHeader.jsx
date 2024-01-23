@@ -38,9 +38,9 @@ export default function DashboardHeader({ onpress }) {
           <Text style={globalStyles.textGrey}>Search </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          // onPress={() => {
-          //   navigation.navigate("ProfileStack", { screen: "Notifications" });
-          // }}
+          onPress={() => {
+            navigation.navigate("ProfileStack", { screen: "Notifications" });
+          }}
         >
           <View style={styles.notificationView}>
             <Text style={styles.notificationText}>1</Text>

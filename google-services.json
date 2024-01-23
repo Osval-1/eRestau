@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "708979096286",
-    "project_id": "erestau-1",
-    "storage_bucket": "erestau-1.appspot.com"
+    "project_number": "866430126707",
+    "project_id": "e-restou-alziron",
+    "storage_bucket": "e-restou-alziron.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:708979096286:android:0b0c091ec585193ea5204f",
+        "mobilesdk_app_id": "1:866430126707:android:7574eb27d33432654cf806",
         "android_client_info": {
-          "package_name": "com.alziron.Erestau"
+          "package_name": "com.alziron.e_restau"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBz1jBEwE2_zitb9iL4qtK7qSnzO9KznjY"
+          "current_key": "AIzaSyAwQBgMFKuB5AaiKxAC9LCRe9-zdC771h0"
         }
       ],
       "services": {

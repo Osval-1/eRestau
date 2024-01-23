@@ -10,7 +10,7 @@ export default function PaymentSuccessful({navigation}) {
       <View style={styles.textView}>
       <Text style={globalStyles.textLarge}>Payment Successful</Text>
       </View>
-      <Button title={<Text style={globalStyles.textLarge}>Home</Text>} onpress={()=>navigation.navigate("MainStackTabs",{screen:"Home"})}/>
+      <Button title="Home" onpress={()=>navigation.navigate("MainStackTabs",{screen:"Home"})}/>
     </View>
   )
 }

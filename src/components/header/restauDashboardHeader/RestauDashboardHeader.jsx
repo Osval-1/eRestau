@@ -15,9 +15,9 @@ const RestauDashboardHeader = () => {
         />
       </View>
       <TouchableOpacity
-          // onPress={() => {
-          //   navigation.navigate("ProfileStack", { screen: "Notifications" });
-          // }}
+          onPress={() => {
+            navigation.navigate("ProfileStack", { screen: "Notifications" });
+          }}
         >
           <View style={styles.notificationView}>
             <Text style={styles.notificationText}>1</Text>

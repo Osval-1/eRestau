@@ -26,7 +26,7 @@ import * as SecureStore from "expo-secure-store";
 
 
 // TODO
-// re-implement search by category in a more eficeint and clean way
+// re-implement search by category in a more efficeint and clean way
 
 const UserDashboard = ({ navigation }) => {
   const requestUserPermission = async () => {
