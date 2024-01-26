@@ -2,11 +2,11 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { globalStyles } from "../../../styles/global";
 
-export default function Header({ name, icon }) {
+export default function Header({ name, icon,onpress }) {
   return (
     <View style={styles.container}>
       <Text style={globalStyles.textLarge}>{name}</Text>
-      <TouchableOpacity activeOpacity={0.6}>{icon}</TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.6} onPress={onpress}>{icon}</TouchableOpacity>
     </View>
   );
 }

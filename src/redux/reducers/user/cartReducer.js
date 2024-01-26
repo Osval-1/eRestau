@@ -20,10 +20,9 @@ const initialState = {
   deliveryInfo:{
     paymentMethod:'',
     paymentPhone:'',
-    customerLocation:''
+    date:""
   },
   total:0,
-  // deliveryFees:"",
 };
 
 const cartSlice = createSlice({
@@ -65,8 +64,8 @@ const cartSlice = createSlice({
     },
     getPaymentInfo:(state,action)=>{
       state.deliveryInfo.paymentMethod = action.payload.paymentMethod
-      state.deliveryInfo.paymentPhone = action.payload.paymentPhone
-      state.deliveryInfo.customerLocation = action.payload.customerLocation
+      state.deliveryInfo.paymentPhone = action.payload.phone
+      state.deliveryInfo.date = action.payload.date
     },
   },
   extraReducers: (builder) => {

@@ -22,7 +22,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             style={{
               color: themeColor.primary,
               textAlign: "center",
-              ...globalStyles.textLarge
+              ...globalStyles.textHeader
             }}
           >
             {title}
@@ -42,7 +42,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             style={{
               color: "white",
               textAlign: "center",
-              ...globalStyles.textLarge
+              ...globalStyles.textHeader
 
             }}
           >
@@ -64,7 +64,7 @@ const Button = ({ title, btnWidth, outlined, maxWidth, onpress, disabled }) => {
             style={{
               color: "white",
               textAlign: "center",
-              ...globalStyles.textLarge
+              ...globalStyles.textHeader
               
             }}
           >

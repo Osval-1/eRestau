@@ -39,6 +39,7 @@ export const addSingleMenu = createAsyncThunk(
       const res = await menuServices.addSingleMenu(data);
       return { res };
     } catch (error) {
+      console.log("reducer",error.msg)
       const message =
         (error.message && error.response.data && error.response.data.message) ||
         error.message ||

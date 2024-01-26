@@ -27,6 +27,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSingleMenu } from "../../../redux/reducers/restau/menuReducer";
 import Loader from "../../../components/loader/Loader";
 import { useToast } from "react-native-paper-toast";
+import VerificationAlertModal from "../../../components/modals/verificationAlert/VerificationAlertModal";
+
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -36,6 +38,7 @@ export default function CreateMenu({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [catError , setCatError ] = useState(false)
   const [category, setCategory] = useState("");
+  const [modal, setModal] = useState(false)
   
 
   const dispatch = useDispatch();
@@ -43,7 +46,7 @@ export default function CreateMenu({ navigation }) {
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    console.log(category);
+    // console.log(category);
   });
 
   const uploadImage = async (data) => {
@@ -65,12 +68,14 @@ export default function CreateMenu({ navigation }) {
     formData.append("name", data.menuName);
     formData.append("username", user.username);
 
-    console.log(formData);
+    // console.log(formData);
     try {
       setLoading(true);
       const response = await dispatch(addSingleMenu(formData)).unwrap();
       console.log(response)
-      if (response) {
+      if(response.res.error){
+      toaster.show({ message:response.res.error, type: "error", position: "top" });
+      }else if(response) {
         toaster.show({
           message: "Menu Created",
           type: "success",
@@ -85,7 +90,6 @@ export default function CreateMenu({ navigation }) {
         console.log(error.message)
         toaster.show({
           message: "No Internet,Please check your connection!",
-          // message: error.message,
           type: "error",
           position: "top",
         });
@@ -109,7 +113,6 @@ export default function CreateMenu({ navigation }) {
         quality: 1,
       });
 
-      console.log(user.username);
       if (!result.canceled) {
         setImage(result.assets[0].uri);
       }

@@ -20,30 +20,35 @@ import Profile from "../../screens/restau/profileScreens/Profile";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import DashboardHeader from "../../components/header/dashboardHeader/DashboardHeader";
-import RestauDashboardHeader from "../../components/header/restauDashboardHeader/RestauDashboardHeader"
+import RestauDashboardHeader from "../../components/header/restauDashboardHeader/RestauDashboardHeader";
 import Header from "../../components/header/header/Header";
 
 const Tabs = createMaterialBottomTabNavigator();
 const MainStackScreens = createStackNavigator();
 
-
 // find title for all headers apart from the home dashboard for tab navigator
+//@TODO create a util function and move there
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   switch (routeName) {
     case "Home":
-      return <RestauDashboardHeader/>;
+      return <RestauDashboardHeader />;
     case "Profile":
       return <Header name="Profile" />;
     case "Order":
       return (
         <Header
           name="Orders"
-          icon={<FontAwesome5 name="search" color="black" size={23} />}
+          // icon={<FontAwesome5 name="search" color="black" size={23} />}
         />
       );
     case "Menu":
-      return <Header name="Menu" />;
+      return (
+        <Header
+          name="Menu"
+          // icon={<AntDesign name="questioncircleo" size={24} color="black" />}
+        />
+      );
   }
 }
 // Make tab navigator as top level then redirect to stack navigator as recomended by react navigaton docs
@@ -71,7 +76,7 @@ function MainStackTabs() {
             tabBarIcon: ({ color }) => (
               <Entypo color={color} name="home" size={24} />
             ),
-            headerShown:false,
+            headerShown: false,
           };
         }}
         component={RestauDashboard}
@@ -84,9 +89,9 @@ function MainStackTabs() {
             tabBarHideOnKeyboard: true,
             tabBarIcon: ({ color }) => (
               <FontAwesome5 name="search" color={color} size={23} />
-              ),
-            };
-          }}
+            ),
+          };
+        }}
         component={Orders}
       />
       <Tabs.Screen
@@ -97,30 +102,29 @@ function MainStackTabs() {
             tabBarHideOnKeyboard: true,
             tabBarIcon: ({ color }) => (
               <AntDesign name="menu-fold" size={24} color={color} />
-              ),
-            };
-          }}
+            ),
+          };
+        }}
         component={Menu}
       />
-          <Tabs.Screen
-            name="Profile"
-            options={() => {
-              return {
-                tabBarButton: (props) => <TouchableOpacity {...props} />,
-                tabBarHideOnKeyboard: true,
-                tabBarIcon: ({ color }) => (
-                  <FontAwesome name="user-circle" size={24} color={color} />
-                ),
-              };
-            }}
-            component={Profile}
-          />
+      <Tabs.Screen
+        name="Profile"
+        options={() => {
+          return {
+            tabBarButton: (props) => <TouchableOpacity {...props} />,
+            tabBarHideOnKeyboard: true,
+            tabBarIcon: ({ color }) => (
+              <FontAwesome name="user-circle" size={24} color={color} />
+            ),
+          };
+        }}
+        component={Profile}
+      />
     </Tabs.Navigator>
   );
 }
 
-
-// nesting tabs in stack navigator to ensure bottom tabs appear on all top pages only 
+// nesting tabs in stack navigator to ensure bottom tabs appear on all top pages only
 
 const MainStack = ({ route }) => {
   return (
@@ -130,16 +134,6 @@ const MainStack = ({ route }) => {
         component={MainStackTabs}
         options={({ route }) => ({
           headerTitle: () => getHeaderTitle(route),
-          // headerStyle: {
-          //   shadowColor: "#000000",
-          //   shadowOpacity: 0.8,
-          //   shadowRadius: 3,
-          //   shadowOffset: {
-          //     height: 1,
-          //     width: 1,
-          //   },
-          // },
-          // headerShown:false
         })}
       />
       <MainStackScreens.Group screenOptions={{ headerShown: false }}>

@@ -4,6 +4,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Text,
+  Image
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import {
@@ -23,18 +24,34 @@ import {
   deleteSingleMenu,
 } from "../../../redux/reducers/restau/menuReducer";
 import Loader from "../../../components/loader/Loader";
+import Modal from "react-native-modal";
+import { useToast } from "react-native-paper-toast";
+import Button from "../../../components/button/Button";
+import VerificationAlertModal from "../../../components/modals/verificationAlert/VerificationAlertModal";
+
+
+
+
 
 export default function Menus({ navigation }) {
+
+  const [modal, setModal] = useState(false)
+
   const [loading, setLoading] = useState(false);
+
   const menu = useSelector((state) => state.menu);
   const user = useSelector((state) => state.auth.user);
+
   const dispatch = useDispatch();
+  const toaster = useToast();
 
   // everytime user navigates to this screen,fetch the menu from server
   useFocusEffect(
     useCallback(() => {
       getMenu();
-      console.log("menu",menu)
+      if(!user.verifyUser){
+        setModal(true)
+      }
     }, [])
   );
 
@@ -42,7 +59,7 @@ export default function Menus({ navigation }) {
     try {
       setLoading(true);
       const response = await dispatch(getAllMenu(user.id)).unwrap();
-      // console.log(response.res)
+      console.log(response.res)
     } catch (error) {
       console.log(error);
     }
@@ -52,8 +69,18 @@ export default function Menus({ navigation }) {
     try {
       const response = await dispatch(deleteSingleMenu(data)).unwrap();
       getMenu();
+      toaster.show({
+        message: "Menu deleted",
+        type: "success",
+        position: "top",
+      });
     } catch (error) {
       console.log(error);
+      toaster.show({
+        message: "Failed to delete Menu",
+        type: "error",
+        position: "top",
+      });
     }
   };
   const editMenu = async () => {
@@ -73,6 +100,20 @@ export default function Menus({ navigation }) {
               <Text style={globalStyles.textHeader}>No menu found</Text>
               <Text style={globalStyles.textBody}>
                 Create a menu to view here
+              </Text>
+              <Text style={{...globalStyles.textHeader,marginTop:100,marginBottom:20}}>
+              Below is an example of a created menu
+              </Text>
+              <FoodCard
+                  key="afads"
+                  label="eru and garri"
+                  // servings={items.quantity}
+                  price="2000"
+                  image="https://storage.googleapis.com/e-restou-alziron.appspot.com/1705500458264_garri.jpeg?GoogleAccessId=firebase-adminsdk-37aq4%40e-restou-alziron.iam.gserviceaccount.com&Expires=16730323200&Signature=EVEKtqzqTULCsS60mpCk8pvz1KuoqBIZ8DyTXtcs5G1IT1Q0kpzx6v7Tb3%2FPkUaa0%2BJB%2BalmqZYhLRaKN2z1shm1%2B8R0E9qvGKy4jGBNGaX9bm7quXfl50GadkxuS3fe6JTXAiPaqAGabTS7M2H2z5BGgBSo%2FFrIFJNAIBMpwGWsLqAki4BbSLQ51RIfWDngYlU%2B7UWxH6FTn0cERkTqX3N3egOmyfXIHQM8mhAqD4YqU7Sb6z3MVAopeIqUUMHK0B40q2WmKCYBDp%2FSOudtf0c3EVFBAsoJThxltq%2FcI7O4EAJ%2BOnspPW06cxj0S3UEdo3X4%2FDJEPPssZX2D9vLQg%3D%3D"
+                  ownerName="kizzie's Snack"
+                  />
+                  <Text style={globalStyles.textBody}>
+                *Menu should be reuploaded daily
               </Text>
             </View>
           </View>
@@ -131,6 +172,7 @@ export default function Menus({ navigation }) {
             })}
           </ScrollView>
         )}
+       {modal && <VerificationAlertModal onpress={()=>setModal(false)}/>}
       </ScrollView>
       <TouchableOpacity
         activeOpacity={0.6}
@@ -139,7 +181,7 @@ export default function Menus({ navigation }) {
           navigation.navigate("MenuStack", { screen: "Create Menu" })
         }
       >
-        <AntDesign name="pluscircle" size={60} color={themeColor.primary} />
+        <AntDesign name="pluscircle" size={55} color={themeColor.primary} />
       </TouchableOpacity>
     </View>
   );

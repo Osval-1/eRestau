@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   amountView: {
     marginBottom: 40,
     marginRight: 15,
+    marginLeft:5,
     width: 20,
     backgroundColor: themeColor.primary,
     color: "#fff",

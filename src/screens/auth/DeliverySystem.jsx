@@ -31,7 +31,7 @@ const DeliverySystem = ({ navigation }) => {
 
     try {
       const res = await dispatch(signup(data)).unwrap();
-      toaster.show({ message: res.message, type: "success", position: "top" });
+      toaster.show({ message: "Signup successful", type: "success", position: "top" });
       navigation.navigate("UserLogin");
     } catch (error) {
       console.log(error);
@@ -65,11 +65,11 @@ const DeliverySystem = ({ navigation }) => {
       >
         Delivery System?
       </Text>
-      <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
-        Do you have a dedicated third party taking care of your Deliveries?.
+      <Text style={{ ...globalStyles.textHeader, marginBottom: 10 ,textAlign:"center",lineHeight:20}}>
+        Do you have a dedicated third party taking care of your deliveries?.
       </Text>
-      <Text style={{ ...globalStyles.textHeader }}>
-        If not ,Donot worry we will provide a delivery system for your use
+      <Text style={{ ...globalStyles.textHeader ,textAlign:"center",lineHeight:20}}>
+        If not, donot worry we will provide a delivery system for your use
       </Text>
       <View style={styles.buttonContainer}>
         <Pressable

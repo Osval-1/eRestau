@@ -2,12 +2,12 @@ import axios from "axios";
 import config from "../../../../project.config";
 import authHeader from "../authHeader";
 
-const url = `${config.ENDPOINT}/api/user`;
- const searchUrl = `${config.ENDPOINT}/api/product`
- const tokenUrl =`${config.ENDPOINT}` 
+const url = `${config.ENDPOINT}/${config.API_VERSION}/api/user`;
+ const searchUrl = `${config.ENDPOINT}/${config.API_VERSION}/api/product`
+ const tokenUrl =`${config.ENDPOINT}/${config.API_VERSION}` 
 
 const getRecentlyViewed = async () => {
-  const response = await axios.get(`${config.ENDPOINT}/api/product/getDashboard`,
+  const response = await axios.get(`${config.ENDPOINT}/${config.API_VERSION}/api/product/getDashboard`,
   // { headers: await authHeader() }
   );
   return response.data;

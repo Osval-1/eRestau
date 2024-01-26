@@ -60,6 +60,8 @@ const UserRegistration = ({ navigation }) => {
     phone: yup
       .string()
       .matches(/^(\S+$)/, "phone number cannot contain blankspaces")
+      .min(9, ({ min }) => `phone must be atleast ${min} characters`)
+      .max(9, ({ max }) => `phone number must be atmost ${max} characters`)
       .required("phone number is reqiured "),
     password: yup
       .string()

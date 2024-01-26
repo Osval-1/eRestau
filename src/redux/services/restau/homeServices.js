@@ -2,7 +2,7 @@ import axios from "axios";
 import config from "../../../../project.config";
 import authHeader from "../authHeader";
 
-const url = `${config.ENDPOINT}/api/restau`;
+const url = `${config.ENDPOINT}/${config.API_VERSION}/api/restau`;
 
 
 const editProfile = async (data) => {

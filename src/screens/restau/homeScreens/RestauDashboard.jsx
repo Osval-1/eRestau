@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   Platform,
-  Button,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getRestauDashboard } from "../../../redux/reducers/restau/restauReducer";
@@ -17,6 +16,7 @@ import Constants from "expo-constants";
 import messaging from "@react-native-firebase/messaging";
 import { globalStyles } from "../../../styles/global";
 import * as SecureStore from "expo-secure-store";
+import Button from "../../../components/button/Button";
 
 
 const RestauDashboard = ({ navigation }) => {
@@ -79,6 +79,7 @@ const RestauDashboard = ({ navigation }) => {
 
   useEffect(()=>{
     computeDashboardInfo()
+    console.log(user)
   },[completedOrders])
 
   useEffect(() => {
@@ -233,6 +234,11 @@ const RestauDashboard = ({ navigation }) => {
           </View>
         </View>
         
+      </View>
+      <View style={{alignItems:"center"}}>
+       <Button title="Add Menu" maxWidth="50%" onpress={() =>
+          navigation.navigate("Menu")
+        }/>
       </View>
     </View>
   );

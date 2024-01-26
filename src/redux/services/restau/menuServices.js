@@ -2,7 +2,7 @@ import axios from "axios";
 import config from "../../../../project.config";
 import authHeader from "../authHeader";
 
-const url = `${config.ENDPOINT}/api/product/`;
+const url = `${config.ENDPOINT}/${config.API_VERSION}/api/product/`;
 axios.defaults.timeout = 20000;
 
 async function getAllMenu(data) {

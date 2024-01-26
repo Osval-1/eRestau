@@ -12,16 +12,27 @@ import { globalStyles } from "../../../styles/global";
 import themeColor from "../../../../themeColor";
 import Button from "../../../components/button/Button";
 import { getPaymentInfo } from "../../../redux/reducers/user/cartReducer";
+import { Formik } from "formik";
+import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "react-native-paper-toast";
+import date from "../../../utils/date";
+import dayjs from 'dayjs'
 
 export default function PaymentMethod({ navigation }) {
   const [paymentMethod, setPaymentMethod] = useState("Cash on Delivery");
-  const [paymentPhone, setPaymentPhone] = useState("");
-  const [customerLocation, setCustomerLocation] = useState("");
 
   const dispatch = useDispatch();
   const toaster = useToast();
+
+  const deliveryInfoValidationSchema = yup.object().shape({
+    phone: yup
+      .string()
+      .matches(/^(\S+$)/, "phone number cannot contain blankspaces")
+      .max(9, ({ max }) => `phone number must be atmost ${max} characters`)
+      .min(9, ({ min }) => `phone must be atleast ${min} characters`)
+      .required("phone number is reqiured "),
+  });
 
   return (
     <View style={styles.container}>
@@ -32,7 +43,7 @@ export default function PaymentMethod({ navigation }) {
           style={{
             ...globalStyles.textHeader,
             textAlign: "center",
-            marginBottom: 20,
+            marginBottom: 15,
             fontSize: 16,
           }}
         >
@@ -71,43 +82,95 @@ export default function PaymentMethod({ navigation }) {
           </View>
         </TouchableOpacity>
         <Text style={{...globalStyles.textHeader,textAlign:"center",marginBottom:15}}>Cash on Delivery</Text>
-            
+        <Formik
+            validationSchema={deliveryInfoValidationSchema}
+            initialValues={{
+              phone: "",
+            }}
+            onSubmit={(values) =>{
+              if (values.phone) {
+                dispatch(
+                  getPaymentInfo({
+                    paymentMethod,
+                    phone:values.phone,
+                    date:date()
+                  })
+                  );
+                  navigation.navigate("Payment Review");
+                } else {
+                toaster.show({
+                  message: "Please fill in all required information",
+                  type: "error",
+                  position: "top",
+                });
+              }
+            }}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              isValid,
+              touched,
+            }) => (
+              <>
         <View style={globalStyles.inputView}>
           <TextInput
             style={globalStyles.textInput}
-            placeholder="Phone Number"
-            onChangeText={(value) => setPaymentPhone(value)}
-          />
+            placeholder="phone Number"
+            value={values.phone}
+            keyboardType="numeric"
+            onChangeText={handleChange("phone")}
+            onBlur={handleBlur("phone")}
+            />
         </View>
-        <View style={globalStyles.inputView}>
-          <TextInput
+        {touched.phone && errors.phone && (
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                        marginTop:-10,
+                        marginBottom:5
+                      }}
+                    >
+                      {errors.phone}
+                    </Text>
+                  )}
+        {/* <View style={globalStyles.inputView}>
+         <TextInput
             style={globalStyles.textInput}
             placeholder="Current Location"
-            onChangeText={(value) => setCustomerLocation(value)}
-          />
-        </View>
+            value={values.location}
+            onChangeText={handleChange("location")}
+            onBlur={handleBlur("location")}
+            />
+        </View> 
+        {touched.location && errors.location && (
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        color: "red",
+                        fontFamily: "Montserrat-Regular",
+                        marginTop:-10,
+                      }}
+                    >
+                      {errors.location}
+                    </Text>
+                  )} */}
+            <View style={{marginTop:50}}>
+
         <Button
           title="Confirm"
           btnWidth={"50%"}
-          onpress={() => {
-            if (paymentPhone && customerLocation) {
-              dispatch(
-                getPaymentInfo({
-                  paymentMethod,
-                  paymentPhone,
-                  customerLocation,
-                })
-              );
-              navigation.navigate("Payment Review");
-            } else {
-              toaster.show({
-                message: "Please fill in all required information",
-                type: "error",
-                position: "top",
-              });
-            }
-          }}
-        />
+          onpress={handleSubmit}
+          />
+          </View>
+          </>
+        )}
+          </Formik>
       </KeyboardAvoidingView>
     </View>
   );

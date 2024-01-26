@@ -15,12 +15,11 @@ import themeColor from "../../../../themeColor";
 import { deleteFromCart } from "../../../redux/reducers/user/cartReducer";
 import { setCart } from "../../../redux/reducers/user/cartReducer";
 import Loader from "../../../components/loader/Loader";
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating, AirbnbRating } from "react-native-ratings";
 import { useToast } from "react-native-paper-toast";
 import { getTotal } from "../../../redux/reducers/user/cartReducer";
 
 const Cart = ({ navigation }) => {
-
   // --------------------
   // function ratingCompleted(rating){
   //   console.log("Rating is: " + rating)
@@ -70,14 +69,22 @@ const Cart = ({ navigation }) => {
       setLoading(true);
       const response = await dispatch(setCart(cart)).unwrap();
       console.log(response);
-      toaster.show({ message:"Orders passed", type: "success", position: "top" });
+      toaster.show({
+        message: "Orders passed",
+        type: "success",
+        position: "top",
+      });
       // navigation.navigate("CartStack", { screen: "Payment Method" });
       // navigation.navigate("HomeStack", { screen: "UserDashboard" });
     } catch (error) {
       console.log(error);
-      toaster.show({ message:"No Internet,Please check your connection!", type: "error", position: "top" });
+      toaster.show({
+        message: "No Internet,Please check your connection!",
+        type: "error",
+        position: "top",
+      });
       if (error.message) {
-        console.log(error.message)
+        console.log(error.message);
         toaster.show({
           message: "No Internet,Please check your connection!",
           // message: error.message,
@@ -104,15 +111,18 @@ const Cart = ({ navigation }) => {
             <Button
               title="Order"
               btnWidth="100%"
-              onpress={
-                () => {
-                  // placeOrder()
-                  if(!cart[0]){
-      toaster.show({ message:"Empty Cart, Please place an order ", type: "error", position: "top" });
-                    return
-                  }
-                  dispatch(getTotal(total))
-                navigation.navigate("CartStack", { screen: "Payment Method" })
+              onpress={() => {
+                // placeOrder()
+                if (!cart[0]) {
+                  toaster.show({
+                    message: "Empty Cart, Please place an order ",
+                    type: "error",
+                    position: "top",
+                  });
+                  return;
+                }
+                dispatch(getTotal(total));
+                navigation.navigate("CartStack", { screen: "Payment Method" });
               }}
             />
           </View>
@@ -184,7 +194,7 @@ const Cart = ({ navigation }) => {
           })
         )}
       </ScrollView>
-{/* <Rating
+      {/* <Rating
   type='star'
   ratingCount={5}
   imageSize={20}
