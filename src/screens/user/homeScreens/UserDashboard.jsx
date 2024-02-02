@@ -9,8 +9,6 @@ import {
   Image,
 } from "react-native";
 import Slider from "../../../components/slider/Slider";
-import Card from "../../../components/card/card/Card";
-import Tag from "../../../components/tag/Tag";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecentlyViewed } from "../../../redux/reducers/user/userReducer";
 import themeColor from "../../../../themeColor";
@@ -22,8 +20,7 @@ import Constants from "expo-constants";
 import messaging from "@react-native-firebase/messaging";
 import { searchCategory } from "../../../redux/reducers/user/userReducer";
 import { uploadToken } from "../../../redux/reducers/user/userReducer";
-import * as SecureStore from "expo-secure-store";
-
+import SmallCard from "../../../components/card/smallCard/SmallCard";
 
 // TODO
 // re-implement search by category in a more efficeint and clean way
@@ -44,19 +41,19 @@ const UserDashboard = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const recentlyViewed = useSelector((state) => state.user.recentlyViewed);
-  const username = useSelector((state) =>state.auth.user.username )
+  const username = useSelector((state) => state.auth.user.username);
 
-  const sendToken = async (data) => { 
+  const sendToken = async (data) => {
     try {
       // const  notificationKey = await SecureStore.getItemAsync("notificationKey")
       // if(notificationKey){
-        //   return
-        // }
-        // await SecureStore.setItemAsync("notificationKey",data.token)
-        const response = await dispatch(uploadToken(data)).unwrap();
-        console.log(data.username,data.token,response)
-      } catch (error) {
-        console.log(error);
+      //   return
+      // }
+      // await SecureStore.setItemAsync("notificationKey",data.token)
+      const response = await dispatch(uploadToken(data)).unwrap();
+      console.log(data.username, data.token, response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -76,8 +73,7 @@ const UserDashboard = ({ navigation }) => {
     if (requestUserPermission()) {
       messaging()
         .getToken()
-        .then((token) => sendToken({token,username}))
-
+        .then((token) => sendToken({ token, username }));
     }
     // Set up the notification handler for the app
     Notifications.setNotificationHandler({
@@ -208,17 +204,32 @@ const UserDashboard = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ marginTop: 10 }}
       >
-        <Text
-          style={{ ...globalStyles.textBody, fontSize: 30, marginBottom: 20,textTransform:'capitalize' }}
-        >
-          Hi {username}
-        </Text>
-        <Text style={{...globalStyles.textBody,marginBottom:10}}>
-          What would you like today?
-        </Text>
-        <Text style={{ ...globalStyles.textLarge, marginHorizontal: 10 }}>
-          Categories
-        </Text>
+        <View style={{ marginHorizontal: 10 }}>
+          {/* <Text
+          style={{ ...globalStyles.textHeader, fontSize: 30, marginBottom: 5,textTransform:'capitalize',}}
+          >
+          Welcome Back!
+        </Text> */}
+          <Text
+            style={{
+              ...globalStyles.textHeader,
+              fontSize: 30,
+              marginBottom: 5,
+              textTransform: "capitalize",
+              backgroundColor: themeColor.primary,
+              color: "#fff",
+              borderRadius: 5,
+              width: 160,
+              textAlign: "center",
+            }}
+          >
+            Hi {username}
+          </Text>
+          <Text style={{ ...globalStyles.textBody, marginBottom: 10 }}>
+            What would you like today?
+          </Text>
+          <Text style={{ ...globalStyles.textLarge }}>Categories</Text>
+        </View>
 
         {/* categories header */}
 
@@ -272,6 +283,36 @@ const UserDashboard = ({ navigation }) => {
           }
         />
         {/* <Slider itemData={smallCardData2} label="Recomendations" /> */}
+        <Text
+          style={{
+            ...globalStyles.textLarge,
+            marginBottom: 10,
+            marginLeft: 10,
+          }}
+        >
+          Popular Today!
+        </Text>
+        <View
+          style={{ flexDirection: "row", flexWrap: "wrap", paddingLeft: 5 }}
+        >
+          {recentlyViewed.map((item) => {
+            return (
+              <SmallCard
+                key={item.name}
+                price={item.price}
+                foodName={item.name}
+                image={item.image}
+                owner={item.ownerName}
+                onpress={() =>
+                  navigation.navigate("HomeStack", {
+                    screen: "SingleFood",
+                    params: { item },
+                  })
+                }
+              />
+            );
+          })}
+        </View>
       </ScrollView>
     </View>
   );

@@ -185,7 +185,7 @@ const RestauDashboard = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.dashboardView}>
         <Text
-          style={{ ...globalStyles.textBody, fontSize: 30, marginBottom: 20 ,textTransform:'capitalize'}}
+          style={{ ...globalStyles.textHeader, fontSize: 30, marginBottom: 20 ,textTransform:'capitalize',backgroundColor:themeColor.primary,color:"#fff",borderRadius:5,width:160,textAlign:"center"}}
         >
           Hi {username}
         </Text>

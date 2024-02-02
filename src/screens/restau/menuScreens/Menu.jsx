@@ -13,7 +13,7 @@ import {
   MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState,useEffect } from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import themeColor from "../../../../themeColor";
 import FoodCard from "../../../components/card/foodCard/FoodCard";
@@ -49,11 +49,15 @@ export default function Menus({ navigation }) {
   useFocusEffect(
     useCallback(() => {
       getMenu();
-      if(!user.verifyUser){
-        setModal(true)
-      }
     }, [])
   );
+  // display modal once screen is mounted
+  useEffect(()=>{
+    if(!user.verifyUser){
+      setModal(true)
+    }
+  },[])
+
 
   const getMenu = async () => {
     try {

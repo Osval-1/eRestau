@@ -116,7 +116,6 @@ const UserLogin = ({ navigation }) => {
                       value={values.username}
                       onChangeText={handleChange("username")}
                       onBlur={handleBlur("username")}
-                      autoFocus
                     />
                   </View>
                   {touched.username && errors.username && (
