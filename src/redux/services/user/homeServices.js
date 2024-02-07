@@ -33,7 +33,7 @@ const search = async (data) => {
   return response.data;
 };
 const uploadToken = async (data) => {
-  const response = await axios.post(`${tokenUrl}/api/create-user-token`, data);
+  const response = await axios.post(`${tokenUrl}/api/token/createToken`, data);
   return response.data;
 };
 
