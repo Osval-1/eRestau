@@ -5,6 +5,7 @@ import authHeader from "../authHeader";
 const url = `${config.ENDPOINT}/${config.API_VERSION}/api/user`;
  const searchUrl = `${config.ENDPOINT}/${config.API_VERSION}/api/product`
  const tokenUrl =`${config.ENDPOINT}/${config.API_VERSION}` 
+ const frequentlyBoughtUrl =`${config.ENDPOINT}/${config.API_VERSION}` 
 
 const getRecentlyViewed = async () => {
   const response = await axios.get(`${config.ENDPOINT}/${config.API_VERSION}/api/product/getDashboard`,

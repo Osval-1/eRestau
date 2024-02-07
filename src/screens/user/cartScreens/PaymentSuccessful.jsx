@@ -7,6 +7,8 @@ import Button from "../../../components/button/Button";
 export default function PaymentSuccessful({navigation}) {
    const [pressed, setPressed] = useState(false)
 
+
+   //@Todo press home button once and not twice to return to home screen
   useEffect(()=>{
         navigation.addListener('beforeRemove', (e) => {
           // Prevent default behavior of leaving the screen

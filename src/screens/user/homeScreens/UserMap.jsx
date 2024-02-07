@@ -6,7 +6,6 @@ import {
     StyleSheet,
     Dimensions,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 
 const windowWidth = Dimensions.get("window").width;
@@ -38,13 +37,12 @@ export default function UserMap() {
   }
   return (
     <View>
-      {/* <Text>{text}</Text> */}
-      <MapView style={styles.map}
+      {/* <MapView style={styles.map}
       showsUserLocation={true}
       followsUserLocation={true}
       >
       {location && <Marker coordinate={location.coords} />}
-      </MapView>
+      </MapView> */}
     </View>
   );
 }

@@ -27,7 +27,6 @@ const [loading, setLoading] = useState(false);
     }
     setLoading(true);
     try {
-      setLoading(true);
       const response = await dispatch(setCart(cart)).unwrap();
       console.log(response);
       toaster.show({
@@ -36,8 +35,6 @@ const [loading, setLoading] = useState(false);
         position: "top",
       });
       navigation.navigate("Payment Successful")
-      // navigation.navigate("CartStack", { screen: "Payment Method" });
-      // navigation.navigate("HomeStack", { screen: "UserDashboard" });
     } catch (error) {
       console.log(error);
       toaster.show({
@@ -53,7 +50,6 @@ const [loading, setLoading] = useState(false);
           position: "top",
         });
       }
-      setLoading(false);
     }
     setLoading(false);
   };

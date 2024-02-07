@@ -29,18 +29,21 @@ export const search = createAsyncThunk("search", async (data, thunkAPI) => {
     thunkAPI.rejectWithValue(message);
   }
 });
-export const uploadToken = createAsyncThunk("uploadToken", async (data, thunkAPI) => {
-  try {
-    const res = await homeServices.uploadToken(data);
-    return { res };
-  } catch (error) {
-    const message =
-      (error.message && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    thunkAPI.rejectWithValue(message);
+export const uploadToken = createAsyncThunk(
+  "uploadToken",
+  async (data, thunkAPI) => {
+    try {
+      const res = await homeServices.uploadToken(data);
+      return { res };
+    } catch (error) {
+      const message =
+        (error.message && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 export const getSingleProduct = createAsyncThunk(
   "getSingleProduct",
   async (data, thunkAPI) => {
@@ -61,7 +64,7 @@ export const getOrders = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const res = await orderServices.getOrder(data);
-      console.log(res)
+      console.log(res);
       return { res };
     } catch (error) {
       const message =
@@ -85,33 +88,43 @@ export const editProfile = createAsyncThunk("editProfile", async (thunkAPI) => {
   }
 });
 
-const initialState = { recentlyViewed: [], orders: [] ,search:[],loading:false,category:""};
+const initialState = {
+  recentlyViewed: [],
+  orders: [],
+  frequentlyBought:[],
+  search: [],
+  loading: false,
+  category: "",
+};
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    clearSearch:(state)=>{
-      state.search = []
-      state.category=""
-    },searchCategory:(state,action)=>{
-      state.category = action.payload
-    }
+    clearSearch: (state) => {
+      state.search = [];
+      state.category = "";
+    },
+    searchCategory: (state, action) => {
+      state.category = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getRecentlyViewed.fulfilled, (state, action) => {
         state.recentlyViewed = action.payload.res.product;
+        state.frequentlyBought = action.payload.res.frequentlyBoughtProducts;
       })
       .addCase(getRecentlyViewed.rejected, (state, action) => {
         state.loading = false;
       }),
       builder
         .addCase(search.fulfilled, (state, action) => {
-          state.search= action.payload.res
-          state.loading = false
-        }).addCase(search.pending, (state, action) => {
-          state.loading = true
+          state.search = action.payload.res;
+          state.loading = false;
+        })
+        .addCase(search.pending, (state, action) => {
+          state.loading = true;
         })
         .addCase(search.rejected, (state, action) => {
           state.loading = false;
@@ -120,7 +133,8 @@ const userSlice = createSlice({
         .addCase(uploadToken.fulfilled, (state, action) => {
           // state.search= action.payload.res
           // state.loading = false
-        }).addCase(uploadToken.pending, (state, action) => {
+        })
+        .addCase(uploadToken.pending, (state, action) => {
           // state.loading = true
         })
         .addCase(uploadToken.rejected, (state, action) => {
@@ -150,5 +164,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {clearSearch,searchCategory} = userSlice.actions;
+export const { clearSearch, searchCategory } = userSlice.actions;
 export default userSlice.reducer;

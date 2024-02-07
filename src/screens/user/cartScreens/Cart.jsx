@@ -15,7 +15,6 @@ import themeColor from "../../../../themeColor";
 import { deleteFromCart } from "../../../redux/reducers/user/cartReducer";
 import { setCart } from "../../../redux/reducers/user/cartReducer";
 import Loader from "../../../components/loader/Loader";
-import { Rating, AirbnbRating } from "react-native-ratings";
 import { useToast } from "react-native-paper-toast";
 import { getTotal } from "../../../redux/reducers/user/cartReducer";
 
@@ -59,42 +58,6 @@ const Cart = ({ navigation }) => {
     // );
     setTotal(totalprice);
   };
-
-  const placeOrder = async () => {
-    if (!cart[0]) {
-      return;
-    }
-    setLoading(true);
-    try {
-      setLoading(true);
-      const response = await dispatch(setCart(cart)).unwrap();
-      console.log(response);
-      toaster.show({
-        message: "Orders passed",
-        type: "success",
-        position: "top",
-      });
-      // navigation.navigate("CartStack", { screen: "Payment Method" });
-      // navigation.navigate("HomeStack", { screen: "UserDashboard" });
-    } catch (error) {
-      console.log(error);
-      toaster.show({
-        message: "No Internet,Please check your connection!",
-        type: "error",
-        position: "top",
-      });
-      if (error.message) {
-        console.log(error.message);
-        toaster.show({
-          message: "No Internet,Please check your connection!",
-          // message: error.message,
-          type: "error",
-          position: "top",
-        });
-      }
-    }
-    setLoading(false);
-  };
   if (loading) return <Loader />;
   return (
     <View style={styles.container}>
@@ -112,7 +75,6 @@ const Cart = ({ navigation }) => {
               title="Order"
               btnWidth="100%"
               onpress={() => {
-                // placeOrder()
                 if (!cart[0]) {
                   toaster.show({
                     message: "Empty Cart, Please place an order ",
@@ -147,9 +109,6 @@ const Cart = ({ navigation }) => {
                 image={item.image}
                 location={item.ownerLocation}
                 userName={item.ownerName}
-                // expectedTime={item.expectedTime}
-                // currentStatus={item.currentStatus}
-                // date={item.date}
                 popup={
                   <Menu>
                     <MenuTrigger
@@ -194,13 +153,6 @@ const Cart = ({ navigation }) => {
           })
         )}
       </ScrollView>
-      {/* <Rating
-  type='star'
-  ratingCount={5}
-  imageSize={20}
-  showRating
-  onFinishRating={ratingCompleted}
-/> */}
     </View>
   );
 };

@@ -50,10 +50,10 @@ useEffect(()=>{
       console.log(response.ok);
     } catch (error) {
       console.log(error);
-      toaster.show({ message: error, type: "error", position: "top" });
+      toaster.show({ message: "Search failed,please check your internet connection", type: "error", position: "top" });
       if (error.message) {
         toaster.show({
-          message: error.message,
+          message: "Search failed,please check your internet connection",
           type: "error",
           position: "top",
         });

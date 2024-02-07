@@ -4,12 +4,12 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getRestauDashboard } from "../../../redux/reducers/restau/restauReducer";
 import { uploadToken } from "../../../redux/reducers/user/userReducer";
 import * as Device from "expo-device";
+import themeColor from "../../../../themeColor";
 import * as Notifications from "expo-notifications";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Constants from "expo-constants";

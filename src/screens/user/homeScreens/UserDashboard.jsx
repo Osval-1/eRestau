@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Platform,
   Image,
+  ActivityIndicator
 } from "react-native";
 import Slider from "../../../components/slider/Slider";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,6 +42,7 @@ const UserDashboard = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const recentlyViewed = useSelector((state) => state.user.recentlyViewed);
+  const frequentlyBought = useSelector((state) => state.user.frequentlyBought);
   const username = useSelector((state) => state.auth.user.username);
 
   const sendToken = async (data) => {
@@ -64,6 +66,7 @@ const UserDashboard = ({ navigation }) => {
     try {
       setLoading(true);
       const response = await dispatch(getRecentlyViewed()).unwrap();
+      console.log(response)
     } catch (error) {
       console.log(error);
     }
@@ -271,6 +274,11 @@ const UserDashboard = ({ navigation }) => {
 
         {/* sliders start here */}
 
+      {loading?<>
+      <View style={{marginTop:40}}>
+        <ActivityIndicator size="large" color={themeColor.primary}/>
+      </View>
+      </>:<>
         <Slider
           itemData={recentlyViewed}
           label="Recently Today!"
@@ -289,30 +297,34 @@ const UserDashboard = ({ navigation }) => {
             marginBottom: 10,
             marginLeft: 10,
           }}
-        >
+          >
           Popular Today!
         </Text>
         <View
           style={{ flexDirection: "row", flexWrap: "wrap", paddingLeft: 5 }}
-        >
-          {recentlyViewed.map((item) => {
+          >
+          {frequentlyBought.map((item) => {
+            if(item === null){
+              return
+            }
             return (
               <SmallCard
-                key={item.name}
-                price={item.price}
-                foodName={item.name}
-                image={item.image}
-                owner={item.ownerName}
-                onpress={() =>
-                  navigation.navigate("HomeStack", {
-                    screen: "SingleFood",
-                    params: { item },
-                  })
-                }
+              key={item.name}
+              price={item.price}
+              foodName={item.name}
+              image={item.image}
+              owner={item.ownerName}
+              onpress={() =>
+                navigation.navigate("HomeStack", {
+                  screen: "SingleFood",
+                  params: { item },
+                })
+              }
               />
-            );
-          })}
+              );
+            })}
         </View>
+            </>}
       </ScrollView>
     </View>
   );
