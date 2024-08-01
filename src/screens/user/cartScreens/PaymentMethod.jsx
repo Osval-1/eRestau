@@ -119,7 +119,7 @@ export default function PaymentMethod({ navigation }) {
         <View style={globalStyles.inputView}>
           <TextInput
             style={globalStyles.textInput}
-            placeholder="phone Number"
+            placeholder="Phone Number"
             value={values.phone}
             keyboardType="numeric"
             onChangeText={handleChange("phone")}

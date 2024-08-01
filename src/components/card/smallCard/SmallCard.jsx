@@ -5,13 +5,7 @@ import themeColor from "../../../../themeColor";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 
-export default function SmallCard({
-  foodName,
-  owner,
-  price,
-  image,
-  onpress,
-}) {
+export default function SmallCard({ foodName, owner, price, image, onpress }) {
   return (
     <TouchableOpacity
       style={styles.smallCardContainer}
@@ -22,11 +16,21 @@ export default function SmallCard({
     >
       <Image source={{ uri: image }} style={styles.image} />
       <View>
-        <Text style={{ ...globalStyles.textHeader,textAlign:'left' }}>{foodName}</Text>
+        <Text style={{ ...globalStyles.textHeader, textAlign: "left" }}>
+          {foodName}
+        </Text>
       </View>
       <View style={styles.priceView}>
-        <Text style={globalStyles.textGrey}>{owner}</Text>
-        <Text style={{ ...globalStyles.textBody, color: themeColor.primary }}>
+        <Text style={{ ...globalStyles.textGrey, fontSize: 10 }}>{owner}</Text>
+        <Text
+          style={{
+            ...globalStyles.textBody,
+            color: themeColor.primary,
+            fontSize: 10,
+            letterSpacing: 0.2,
+            lineHeight: 10 * 1.2,
+          }}
+        >
           {price}F
         </Text>
       </View>
@@ -55,7 +59,8 @@ const styles = StyleSheet.create({
   priceView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems:'center',
+    alignItems: "center",
     width: "100%",
+    gap: 2,
   },
 });

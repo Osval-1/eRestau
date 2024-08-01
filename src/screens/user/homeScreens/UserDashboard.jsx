@@ -222,8 +222,7 @@ const UserDashboard = ({ navigation }) => {
               backgroundColor: themeColor.primary,
               color: "#fff",
               borderRadius: 5,
-              width: 160,
-              textAlign: "center",
+              width: "auto",
             }}
           >
             Hi {username}

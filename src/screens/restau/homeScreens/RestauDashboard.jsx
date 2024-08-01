@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getRestauDashboard } from "../../../redux/reducers/restau/restauReducer";
 import { uploadToken } from "../../../redux/reducers/user/userReducer";
@@ -18,18 +13,16 @@ import { globalStyles } from "../../../styles/global";
 import * as SecureStore from "expo-secure-store";
 import Button from "../../../components/button/Button";
 
-
 const RestauDashboard = ({ navigation }) => {
- const [income, setIncome] = useState(0)
- const [totalDishes, setTotalDishes] = useState(0)
- const [customers, setCustomers] = useState(0)
+  const [income, setIncome] = useState(0);
+  const [totalDishes, setTotalDishes] = useState(0);
+  const [customers, setCustomers] = useState(0);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   //reimplement so that the redux store is accessed only once with user and use user.username to send token
-  const username = useSelector((state) =>state.auth.user.username )
-  const user = useSelector((state)=>state.auth.user)
-  const completedOrders = useSelector((state)=>state.restau.completedOrders)
-  
+  const username = useSelector((state) => state.auth.user.username);
+  const user = useSelector((state) => state.auth.user);
+  const completedOrders = useSelector((state) => state.restau.completedOrders);
 
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
@@ -42,53 +35,59 @@ const RestauDashboard = ({ navigation }) => {
     }
   };
 
-  const sendToken = async (data) => { 
+  const sendToken = async (data) => {
     try {
       // const  notificationKey = await SecureStore.getItemAsync("notificationKey")
       // if(notificationKey){
-        //   return
-        // }
-        // await SecureStore.setItemAsync("notificationKey",data.token)
-        const response = await dispatch(uploadToken(data)).unwrap();
-        console.log(data.username,data.token,response)
+      //   return
+      // }
+      // await SecureStore.setItemAsync("notificationKey",data.token)
+      const response = await dispatch(uploadToken(data)).unwrap();
+      console.log(data.username, data.token, response);
     } catch (error) {
       console.log(error);
     }
   };
-  const getRestauDashboardAsync = async () => { 
+  const getRestauDashboardAsync = async () => {
     try {
-        const response = await dispatch(getRestauDashboard(user.id)).unwrap();
-        console.log(username)
+      const response = await dispatch(getRestauDashboard(user.id)).unwrap();
+      console.log(username);
     } catch (error) {
       console.log(error);
     }
   };
-    
-  const computeDashboardInfo = ()=>{
-    const income = completedOrders.reduce((total,order)=>order.quantity*order.price+total,0)
-    const totalDishes = completedOrders.reduce((total,order)=>order.quantity+total,0)
-    const customers  = new Set()
-    const getCustomers =  completedOrders.forEach((order)=>{
-      customers.add(order.orderedBy)
-    })
-    // give the size of the set
-    setCustomers(customers.size)
-    setIncome(income)
-    setTotalDishes(totalDishes)
-  }
 
-  useEffect(()=>{
-    computeDashboardInfo()
-    console.log(user)
-  },[completedOrders])
+  const computeDashboardInfo = () => {
+    const income = completedOrders.reduce(
+      (total, order) => order.quantity * order.price + total,
+      0
+    );
+    const totalDishes = completedOrders.reduce(
+      (total, order) => order.quantity + total,
+      0
+    );
+    const customers = new Set();
+    const getCustomers = completedOrders.forEach((order) => {
+      customers.add(order.orderedBy);
+    });
+    // give the size of the set
+    setCustomers(customers.size);
+    setIncome(income);
+    setTotalDishes(totalDishes);
+  };
 
   useEffect(() => {
-    getRestauDashboardAsync()
+    computeDashboardInfo();
+    console.log(user);
+  }, [completedOrders]);
+
+  useEffect(() => {
+    getRestauDashboardAsync();
 
     if (requestUserPermission()) {
       messaging()
         .getToken()
-        .then((token) => sendToken({token,username}))
+        .then((token) => sendToken({ token, username }));
     }
     // Set up the notification handler for the app
     Notifications.setNotificationHandler({
@@ -96,7 +95,6 @@ const RestauDashboard = ({ navigation }) => {
         shouldShowAlert: true,
         shouldPlaySound: true,
         shouldSetBadge: true,
-      
       }),
     });
 
@@ -185,7 +183,16 @@ const RestauDashboard = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.dashboardView}>
         <Text
-          style={{ ...globalStyles.textHeader, fontSize: 30, marginBottom: 20 ,textTransform:'capitalize',backgroundColor:themeColor.primary,color:"#fff",borderRadius:5,width:160,textAlign:"center"}}
+          style={{
+            ...globalStyles.textHeader,
+            fontSize: 30,
+            marginBottom: 20,
+            textTransform: "capitalize",
+            backgroundColor: themeColor.primary,
+            color: "#fff",
+            borderRadius: 5,
+            width: "auto",
+          }}
         >
           Hi {username}
         </Text>
@@ -199,46 +206,58 @@ const RestauDashboard = ({ navigation }) => {
             <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
               Completed deliveries
             </Text>
-            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>{completedOrders.length}</Text>
+            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>
+              {completedOrders.length}
+            </Text>
           </View>
           <View style={{ ...styles.cardView, backgroundColor: "#d5f889" }}>
-         
-          <MaterialIcons
-            name="account-balance-wallet"
-            size={48}
-            color="black"
-          />
+            <MaterialIcons
+              name="account-balance-wallet"
+              size={48}
+              color="black"
+            />
             <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
               Income generated
             </Text>
-            <Text style={{ ...globalStyles.textLarge, fontSize: 25 }}>{income} XAF</Text>
+            <Text style={{ ...globalStyles.textLarge, fontSize: 25 }}>
+              {income} XAF
+            </Text>
           </View>
           <View style={{ ...styles.cardView, backgroundColor: "#D9EADA" }}>
-          <MaterialCommunityIcons
-            name="account-group"
-            size={48}
-            color="black"
-          />
+            <MaterialCommunityIcons
+              name="account-group"
+              size={48}
+              color="black"
+            />
             <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
               Customers
             </Text>
-            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>{customers}</Text>
+            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>
+              {customers}
+            </Text>
           </View>
           <View style={{ ...styles.cardView, backgroundColor: "#ffe483" }}>
-          <MaterialCommunityIcons name="account-cash" size={48} color="black" />
+            <MaterialCommunityIcons
+              name="account-cash"
+              size={48}
+              color="black"
+            />
 
             <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
-              Dishes Sold 
+              Dishes Sold
             </Text>
-            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>{totalDishes}</Text>
+            <Text style={{ ...globalStyles.textLarge, fontSize: 30 }}>
+              {totalDishes}
+            </Text>
           </View>
         </View>
-        
       </View>
-      <View style={{alignItems:"center"}}>
-       <Button title="Add Menu" maxWidth="50%" onpress={() =>
-          navigation.navigate("Menu")
-        }/>
+      <View style={{ alignItems: "center" }}>
+        <Button
+          title="Add Menu"
+          maxWidth="50%"
+          onpress={() => navigation.navigate("Menu")}
+        />
       </View>
     </View>
   );
@@ -255,9 +274,9 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     marginTop: 40,
-    flexDirection:"row",
-    gap:10,
-    flexWrap:"wrap",
+    flexDirection: "row",
+    gap: 10,
+    flexWrap: "wrap",
   },
   cardView: {
     width: "48%",

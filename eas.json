@@ -27,5 +27,12 @@
       "production": {
         "autoIncrement": true
       }
-    } 
+    } ,"submit":{
+      "production": {
+      "android": {
+        "serviceAccountKeyPath": "../path/to/api-xxx-yyy-zzz.json",
+        "track": "internal"
+      }
+    }
+  }
 }
