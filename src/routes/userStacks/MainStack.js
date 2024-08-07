@@ -1,6 +1,6 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import { FontAwesome, Entypo, FontAwesome5 } from "@expo/vector-icons";
 import theme from "../../../themeColor"; //importing theme color
 // importing user stacks
@@ -16,7 +16,7 @@ import Profile from "../../screens/user/profileScreens/Profile";
 import Orders from "../../screens/user/orderScreens/Orders";
 import Cart from "../../screens/user/cartScreens/Cart";
 import { useNavigation } from "@react-navigation/native";
-
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../../components/header/header/Header";
 
@@ -24,13 +24,19 @@ const Tabs = createMaterialBottomTabNavigator();
 const MainStackScreens = createStackNavigator();
 
 // find title for headers apart from the home dashboard for tab navigator
-function getHeaderTitle(route,navigation) {
+function getHeaderTitle(route, navigation) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   switch (routeName) {
     case "Home":
-      return <DashboardHeader onpress={()=>navigation.navigate("HomeStack", {
-        screen: "SearchFood",
-      })} />;
+      return (
+        <DashboardHeader
+          onpress={() =>
+            navigation.navigate("HomeStack", {
+              screen: "SearchFood",
+            })
+          }
+        />
+      );
     case "Profile":
       return <Header name="Profile" />;
     case "Orders":
@@ -46,7 +52,8 @@ function getHeaderTitle(route,navigation) {
 }
 // Make tab navigator as top level then redirect to stack navigator as recomended by react navigaton docs
 const MainStackTabs = () => {
-
+  const orders = useSelector((state) => state.user.orders);
+  const cart = useSelector((state) => state.cart.cart);
   return (
     <Tabs.Navigator
       barStyle={{
@@ -82,7 +89,7 @@ const MainStackTabs = () => {
             tabBarButton: (props) => <TouchableOpacity {...props} />,
             tabBarHideOnKeyboard: true,
             tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="search" color={color} size={23} />
+                <FontAwesome5 name="search" color={color} size={23} />
             ),
           };
         }}
@@ -95,7 +102,33 @@ const MainStackTabs = () => {
             tabBarButton: (props) => <TouchableOpacity {...props} />,
             tabBarHideOnKeyboard: true,
             tabBarIcon: ({ color }) => (
-              <FontAwesome5 name="shopping-cart" color={color} size={23} />
+              <View>
+                <FontAwesome5 name="shopping-cart" color={color} size={23} />
+                <View
+                  style={{
+                    position: "absolute",
+                    right: -10,
+                    top: -14,
+                    backgroundColor: theme.primary,
+                    borderRadius: 100,
+                    width: 20,
+                    height: 18,
+                    padding: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      flex: 1,
+                      marginTop: -2,
+                    }}
+                  >
+                    {cart.length}
+                  </Text>
+                </View>
+              </View>
             ),
           };
         }}
@@ -120,7 +153,7 @@ const MainStackTabs = () => {
 
 // nesting tabs in stack navigator to ensure bottom tabs appear on all top pages only
 const MainStack = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     <MainStackScreens.Navigator>
@@ -128,7 +161,7 @@ const MainStack = () => {
         name="MainStackTabs"
         component={MainStackTabs}
         options={({ route }) => ({
-          headerTitle: () => getHeaderTitle(route,navigation),
+          headerTitle: () => getHeaderTitle(route, navigation),
           headerStyle: {
             shadowColor: "#000000",
             shadowOpacity: 0.8,
