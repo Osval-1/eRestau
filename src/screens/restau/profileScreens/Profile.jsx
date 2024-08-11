@@ -1,95 +1,103 @@
-import React,{useState} from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text,TouchableOpacity, StyleSheet,Linking } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import Button from "../../../components/button/Button";
-import { Ionicons, MaterialIcons, AntDesign,FontAwesome } from "@expo/vector-icons";
+import {
+  Ionicons,
+  AntDesign,
+  FontAwesome,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import Tile from "../../../components/tile/Tile";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/reducers/authReducer";
 import Loader from "../../../components/loader/Loader";
 
-
 const Profile = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
-  const user = useSelector((state)=>state.auth.user)
-  const dispatch =  useDispatch()
-  const handlelogout= async () => {
+  const loadInBrowser = () => {
+    Linking.openURL(
+      "https://alzironsystems.com/erestau-remove-user-data/"
+    ).catch((err) => console.error("Couldn't load page", err));
+  };
+
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const handlelogout = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       await dispatch(logout()).unwrap();
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false)
+      setLoading(false);
     }
   };
-  // if(loading){
-  //   return <Loader/>
-  // }
-
 
   return (
     <View style={styles.container}>
       <View style={styles.ProfileView}>
         <TouchableOpacity activeOpacity={0.6} style={styles.imageView}>
-          {/* <Image
-            source={require("../../../../assets/images/restaurant.jpg")}
+          <FontAwesome
+            name="user-circle"
+            size={120}
+            color="silver"
             style={styles.image}
-          /> */}
-          <FontAwesome name="user-circle" size={120} color="silver" style={styles.image} />
-
+          />
         </TouchableOpacity>
         <View style={styles.infoView}>
-          <Text style={{...globalStyles.textLarge,textTransform:"capitalize"}}>{user.username}</Text>
+          <Text
+            style={{ ...globalStyles.textLarge, textTransform: "capitalize" }}
+          >
+            {user.username}
+          </Text>
           <Text style={[globalStyles.textGrey, globalStyles.textBody]}>
             {user.location}
           </Text>
-          <Text style={globalStyles.textGrey}>
-            {user.phone}
-          </Text>
+          <Text style={globalStyles.textGrey}>{user.phone}</Text>
           <Button
             title={<Text style={globalStyles.textLarge}>Edit</Text>}
             btnWidth="70%"
           />
         </View>
       </View>
-      {/* <Tile
-        label="Settings"
-        icon={<Ionicons name="settings" size={34} color="black" />}
-        onpress={() =>
-          navigation.navigate("ProfileStack", { screen: "Settings" })
-        }
-      /> */}
       <Tile
         label="Notifications"
         icon={<Ionicons name="notifications" size={34} color="black" />}
-        onpress={()=>
+        onpress={() =>
           navigation.navigate("ProfileStack", { screen: "Notifications" })
-          }
+        }
       />
-      {/* <Tile
-        label="Location"
-        icon={<Ionicons name="location" size={34} color="black" />}
-      /> */}
-      {/* <Tile
-        label="Favourites"
-        icon={<MaterialIcons name="favorite" size={34} color="black" />}
-      /> */}
+      <Tile
+        label="Delete Account"
+        icon={
+          <FontAwesome5
+            name="user-edit"
+            size={28}
+            color="black"
+            adjustToFitSize
+          />
+        }
+        onpress={loadInBrowser}
+      />
       <Tile
         label="About"
-        icon={<Ionicons name="information-circle" size={34} color="black" 
-        onpress={() =>
-          navigation.navigate("ProfileStack", { screen: "About" })
-        }  
-        />
-      }
+        icon={
+          <Ionicons
+            name="information-circle"
+            size={34}
+            color="black"
+            onpress={() =>
+              navigation.navigate("ProfileStack", { screen: "About" })
+            }
+          />
+        }
       />
       <Tile
         label="Logout"
         icon={<AntDesign name="logout" size={34} color="black" />}
         onpress={handlelogout}
-
       />
     </View>
   );
