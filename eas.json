@@ -27,7 +27,8 @@
       "production": {
         "autoIncrement": true
       }
-    } ,"submit":{
+    } 
+    ,"submit":{
       "production": {
       "android": {
         "serviceAccountKeyPath": "../path/to/api-xxx-yyy-zzz.json",

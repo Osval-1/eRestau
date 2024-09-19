@@ -234,9 +234,37 @@ const UserRegistration = ({ navigation }) => {
                       {errors.password}
                     </Text>
                   )}
- <View style={{marginTop:60}}>
-
-</View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.licenseText}>I agree to the </Text>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("Terms$Conditions")}
+                    >
+                      <Text
+                        style={{
+                          ...styles.licenseText,
+                          color: themeColor.primary,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        terms $ conditions{" "}
+                      </Text>
+                    </TouchableOpacity>
+                    <Text style={styles.licenseText}>and </Text>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("PrivacyPolicy")}
+                    >
+                      <Text
+                        style={{
+                          ...styles.licenseText,
+                          color: themeColor.primary,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        privacy policy{" "}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ marginTop: 60 }}></View>
                   <Button
                     title={"Sign Up"}
                     onpress={handleSubmit}
