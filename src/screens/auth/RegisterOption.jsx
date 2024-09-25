@@ -27,7 +27,7 @@ const RegisterOption = ({ navigation }) => {
           <Button
             title={"Guest Access"}
             btnWidth={"80%"}
-            onpress={() => navigation.navigate("UserRegistration")}
+            onpress={() => navigation.navigate("GetLocation")}
             outlined={true}
           />
           <Button
