@@ -13,6 +13,7 @@ import AuthContext from "./src/context/AuthContext";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import Loader from "./src/components/loader/Loader";
+import "./src/i18n"
 
 SplashScreen.preventAutoHideAsync();
 

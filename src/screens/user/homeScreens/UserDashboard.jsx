@@ -22,6 +22,7 @@ import messaging from "@react-native-firebase/messaging";
 import { searchCategory } from "../../../redux/reducers/user/userReducer";
 import { uploadToken } from "../../../redux/reducers/user/userReducer";
 import SmallCard from "../../../components/card/smallCard/SmallCard";
+import SplashScreenManager from "../../splash-screen-manager/SplashScreenManager";
 
 // TODO
 // re-implement search by category in a more efficeint and clean way
@@ -201,6 +202,7 @@ const UserDashboard = ({ navigation }) => {
     { category: "local", src: require("../../../../assets/images/local.jpg") },
     { category: "pizza", src: require("../../../../assets/images/pizza.jpg") },
   ];
+  return <SplashScreenManager/>
   return (
     <View style={styles.container}>
       <ScrollView

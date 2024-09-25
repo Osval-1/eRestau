@@ -15,18 +15,17 @@ const RegisterOption = ({ navigation }) => {
             style={styles.image}
           />
         </View>
-        <Text style={{...globalStyles.textHeader,marginBottom:10}}>
+        <Text style={{ ...globalStyles.textHeader, marginBottom: 10 }}>
           Register as a Customer Or Restaurant
         </Text>
-        <View style={{gap:10}}>
+        <View style={{ gap: 10 }}>
           <Button
             title={"Register as Restaurant"}
             btnWidth={"80%"}
             onpress={() => navigation.navigate("RestauRegistration")}
-            
           />
           <Button
-            title={"Register as Cutsomer"}
+            title={"Guest Access"}
             btnWidth={"80%"}
             onpress={() => navigation.navigate("UserRegistration")}
             outlined={true}
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
   text: {
     ...globalStyles.textBody,
     textAlign: "center",
-    marginBottom:20
+    marginBottom: 20,
   },
 });
 

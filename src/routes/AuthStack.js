@@ -12,6 +12,7 @@ import ForgotPassword from "../screens/auth/Forgotpassword";
 import DeliverySystem from "../screens/auth/DeliverySystem";
 import PrivacyPolicy from "../screens/auth/PrivacyPolicy";
 import Terms$Conditions from "../screens/auth/Terms$Conditions";
+import GetLocation from "../screens/auth/GetLocation";
 import { AuthContext } from "../context/AuthContext";
 import * as SecureStore from "expo-secure-store";
 
@@ -87,6 +88,13 @@ const AuthStack = () => {
             }}
             name="Terms$Conditions"
             component={Terms$Conditions}
+          />
+          <AuthStackScreen.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="GetLocation"
+            component={GetLocation}
           />
         </>
       ) : (
