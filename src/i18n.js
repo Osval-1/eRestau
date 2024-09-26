@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-// import { getLocales, getCalendars } from 'expo-localization';
+import { getLocales, getCalendars } from 'expo-localization';
 import en from "./translations/en/en.json";
 import fr from "./translations/fr/fr.json";
 
@@ -10,6 +10,7 @@ const resources = {
 };
 
 const initI18n = async () => {
+  console.log(getLocales()[0].languageCode)
   i18n.use(initReactI18next).init({
     compatibilityJSON: "v3",
     resources,
@@ -21,6 +22,6 @@ const initI18n = async () => {
   });
 };
 
-// initI18n();
+initI18n();
 
 export default i18n;
