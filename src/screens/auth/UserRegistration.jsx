@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
