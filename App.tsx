@@ -5,14 +5,14 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import "react-native-gesture-handler";
 import { MenuProvider } from "react-native-popup-menu";
-import store from "./src/redux/store";
+import store from "@/redux/store";
 import { Provider } from "react-redux";
 import { ToastProvider } from "react-native-paper-toast";
-import RootStack from "./src/routes/RootStack";
-import AuthContext from "./src/context/AuthContext";
+import RootStack from "@/routes/RootStack";
+import AuthContext from "@/context/AuthContext";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import Loader from "./src/components/loader/Loader";
+import Loader from "@/components/loader/Loader";
 import "./src/i18n"
 
 SplashScreen.preventAutoHideAsync();
