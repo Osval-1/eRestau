@@ -5,17 +5,20 @@ import {
   Image,
   TextInput,
   KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../../styles/global";
 import themeColor from "../../../themeColor";
 import Button from "../../components/button/Button";
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 
 const GetLocation = () => {
   const [onFocus, setOnFocus] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
+      <GooglePlacesAutocomplete/>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >

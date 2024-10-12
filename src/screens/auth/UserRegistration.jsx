@@ -12,15 +12,15 @@ import {
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import themeColor from "../../../themeColor";
-import { globalStyles } from "../../styles/global";
-import Button from "../../components/button/Button";
+import { globalStyles } from "@/styles/global";
+import Button from "@/components/button/Button";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../redux/reducers/authReducer";
+import { signup } from "@/redux/reducers/authReducer";
 import { useToast } from "react-native-paper-toast";
-import Loader from "../../components/loader/Loader";
-import { saveLoginInfo } from "../../redux/reducers/authReducer";
+import Loader from "@/components/loader/Loader";
+import { saveLoginInfo } from "@/redux/reducers/authReducer";
 
 const UserRegistration = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
