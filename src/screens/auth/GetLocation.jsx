@@ -5,46 +5,37 @@ import {
   Image,
   TextInput,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../../styles/global";
 import themeColor from "../../../themeColor";
 import Button from "../../components/button/Button";
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const GetLocation = () => {
   const [onFocus, setOnFocus] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
-      <GooglePlacesAutocomplete/>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      <Text
+        style={{
+          ...globalStyles.textLarge,
+          // color: themeColor.primary,
+          textAlign: "center",
+          marginBottom: 10,
+          // borderWidth:1,
+        }}
       >
-        <View style={styles.imageView}>
-          <Image
-            source={require("../../../assets/images/location.png")}
-            style={styles.image}
-          />
-        </View>
-        <Text
-          style={{
-            ...globalStyles.textLarge,
-            color: themeColor.primary,
-            textAlign: "center",
-            marginBottom: 10,
-          }}
-        >
-          Enter Your Location
-        </Text>
-        <View style={globalStyles.inputView}>
-          <TextInput style={globalStyles.textInput} placeholder="username" />
-        </View>
-        <Text style={styles.orText}>or</Text>
-        <Text style={styles.forgotPass}>Use Your Location</Text>
-      </KeyboardAvoidingView>
-      <View style={{ flex: 1 }}></View>
+        Enter Your Location
+      </Text>
+      <GooglePlacesAutocomplete placeholder="Type a place"/>
+      <View style={globalStyles.inputView}>
+        <TextInput style={globalStyles.textInput} placeholder="username" />
+      </View>
+      <Text style={styles.orText}>or</Text>
+      <Text style={styles.forgotPass}>Use Your Location</Text>
+      {/* <View style={{ flex: 1 }}></View> */}
       <Button
         title={"Continue"}
         onpress={() => navigation.navigate("RegisterOption")}

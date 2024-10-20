@@ -1,0 +1,122 @@
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ marginTop: 10 }}
+      >
+        <View style={{ marginHorizontal: 10 }}>
+          {/* <Text
+          style={{ ...globalStyles.textHeader, fontSize: 30, marginBottom: 5,textTransform:'capitalize',}}
+          >
+          Welcome Back!
+        </Text> */}
+          <Text
+            style={{
+              ...globalStyles.textHeader,
+              fontSize: 30,
+              marginBottom: 5,
+              textTransform: "capitalize",
+              backgroundColor: themeColor.primary,
+              color: "#fff",
+              borderRadius: 5,
+              width: "auto",
+            }}
+          >
+            Hi {username}
+          </Text>
+          <Text style={{ ...globalStyles.textBody, marginBottom: 10 }}>
+            What would you like today?
+          </Text>
+          <Text style={{ ...globalStyles.textLarge }}>Categories</Text>
+        </View>
+
+        {/* categories header */}
+
+        <ScrollView
+          horizontal
+          contentContainerStyle={styles.categoryContainer}
+          showsHorizontalScrollIndicator={false}
+          contentInsetAdjustmentBehavior="automatic"
+        >
+          {/* <CategoryOption label={"burger"} src={require("../../../../assets/images/burger.jpg")}/> */}
+          {categories.map((item) => {
+            const { category, src } = item;
+            return (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => {
+                  dispatch(searchCategory(category));
+                  navigation.navigate("HomeStack", {
+                    screen: "SearchFood",
+                    params: { category },
+                  });
+                }}
+                delayPressIn={50}
+                style={styles.categoryView}
+                key={category}
+              >
+                <View style={styles.imageView}>
+                  <Image source={src} style={styles.image} />
+                </View>
+                <Text
+                  style={{ ...globalStyles.textHeader, textAlign: "center" }}
+                >
+                  {category}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+
+        {/* sliders start here */}
+
+      {loading?<>
+      <View style={{marginTop:40}}>
+        <ActivityIndicator size="large" color={themeColor.primary}/>
+      </View>
+      </>:<>
+        <Slider
+          itemData={recentlyViewed}
+          label="Recently Today!"
+          // this function is passed to the child component then run there
+          onpress={(item) =>
+            navigation.navigate("HomeStack", {
+              screen: "SingleFood",
+              params: { item },
+            })
+          }
+        />
+        {/* <Slider itemData={smallCardData2} label="Recomendations" /> */}
+        <Text
+          style={{
+            ...globalStyles.textLarge,
+            marginBottom: 10,
+            marginLeft: 10,
+          }}
+          >
+          Popular Today!
+        </Text>
+        <View
+          style={{ flexDirection: "row", flexWrap: "wrap", paddingLeft: 5 }}
+          >
+          {frequentlyBought.map((item) => {
+            if(item === null){
+              return
+            }
+            return (
+              <SmallCard
+              key={item.name}
+              price={item.price}
+              foodName={item.name}
+              image={item.image}
+              owner={item.ownerName}
+              onpress={() =>
+                navigation.navigate("HomeStack", {
+                  screen: "SingleFood",
+                  params: { item },
+                })
+              }
+              />
+              );
+            })}
+        </View>
+            </>}
+      </ScrollView>

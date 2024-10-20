@@ -10,7 +10,7 @@ export default function Slider({ itemData, onpress, label }) {
   const navigation = useNavigation();
   return (
     <ScrollView contentContainerStyle={{marginVertical:10}}> 
-      <View style={{ paddingHorizontal: 10 }}>
+      <View>
         <Tag label={label} />
       </View>
       <FlatList

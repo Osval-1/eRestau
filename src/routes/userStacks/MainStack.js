@@ -156,12 +156,12 @@ const MainStack = () => {
   const navigation = useNavigation();
 
   return (
-    <MainStackScreens.Navigator>
+    <MainStackScreens.Navigator screenOptions={{headerShown:false}}>
       <MainStackScreens.Screen
         name="MainStackTabs"
         component={MainStackTabs}
         options={({ route }) => ({
-          headerTitle: () => getHeaderTitle(route, navigation),
+          // headerTitle: () => getHeaderTitle(route, navigation),
           headerStyle: {
             shadowColor: "#000000",
             shadowOpacity: 0.8,

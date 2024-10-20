@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { globalStyles } from "../../../styles/global";
 import themeColor from "../../../../themeColor";
+import { screenWidth } from "@/styles/metrics";
 
 //all onpress events contain placeholder functions waiting for navigation to be implemented
 
@@ -40,21 +41,18 @@ export default function SmallCard({ foodName, owner, price, image, onpress }) {
 
 const styles = StyleSheet.create({
   smallCardContainer: {
-    width: 170,
+    width: screenWidth* 0.41,
     backgroundColor: "#fff",
     alignItems: "flex-start",
-    // gap: 6,
-    marginHorizontal: 2,
     marginBottom: 10,
-    padding: 8,
-    borderWidth: 1,
+    marginRight:20,
     borderColor: "#EFEDED",
     borderRadius: 5,
   },
   image: {
     width: "100%",
-    height: 150,
-    borderRadius: 5,
+    height: 120,
+    borderRadius: 15,
   },
   priceView: {
     flexDirection: "row",
