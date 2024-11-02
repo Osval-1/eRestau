@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  StyleSheet,
   ScrollView,
   Text,
   TouchableOpacity,
   TextInput,
-  Platform,
   Image,
   Pressable,
   ActivityIndicator,
-  ImageBackground,
 } from "react-native";
 import Slider from "../../../../components/slider/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecentlyViewed } from "../../../../redux/reducers/user/userReducer";
 import themeColor from "../../../../../themeColor";
 import { globalStyles } from "../../../../styles/global";
-import { useNavigation } from "@react-navigation/native";
 import * as Device from "expo-device";
 import { Ionicons, FontAwesome6, EvilIcons } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
@@ -29,8 +25,8 @@ import SmallCard from "../../../../components/card/smallCard/SmallCard";
 import SplashScreenManager from "../../../splash-screen-manager/SplashScreenManager";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "@/assets/static";
-import { screenWidth } from "@/styles/metrics";
 import { styles } from "./styles";
+import { categories } from "@/utils/categories";
 
 // TODO
 // re-implement search by category in a more efficeint and clean way
@@ -178,28 +174,7 @@ const UserDashboard = ({ navigation }) => {
     };
   }, []);
 
-  const categories = [
-    {
-      category: "snacks",
-      src: require("../../../../../assets/images/snacks.jpg"),
-    },
-    {
-      category: "burger",
-      src: require("../../../../../assets/images/burger.jpg"),
-    },
-    {
-      category: "salad",
-      src: require("../../../../../assets/images/salad.jpg"),
-    },
-    {
-      category: "local",
-      src: require("../../../../../assets/images/local.jpg"),
-    },
-    {
-      category: "pizza",
-      src: require("../../../../../assets/images/pizza.jpg"),
-    },
-  ];
+
   // return <SplashScreenManager/>
   return (
     <SafeAreaView style={styles.container}>
