@@ -11,7 +11,7 @@ import CartStack from "./CartStack";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import DashboardHeader from "../../components/header/dashboardHeader/DashboardHeader";
-import UserDashboard from "../../screens/user/homeScreens/UserDashboard";
+import UserDashboard from "../../screens/user/homeScreens/Home/UserDashboard";
 import Profile from "../../screens/user/profileScreens/Profile";
 import Orders from "../../screens/user/orderScreens/Orders";
 import Cart from "../../screens/user/cartScreens/Cart";

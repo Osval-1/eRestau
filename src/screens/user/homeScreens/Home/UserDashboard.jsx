@@ -12,24 +12,25 @@ import {
   ActivityIndicator,
   ImageBackground,
 } from "react-native";
-import Slider from "../../../components/slider/Slider";
+import Slider from "../../../../components/slider/Slider";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecentlyViewed } from "../../../redux/reducers/user/userReducer";
-import themeColor from "../../../../themeColor";
-import { globalStyles } from "../../../styles/global";
+import { getRecentlyViewed } from "../../../../redux/reducers/user/userReducer";
+import themeColor from "../../../../../themeColor";
+import { globalStyles } from "../../../../styles/global";
 import { useNavigation } from "@react-navigation/native";
 import * as Device from "expo-device";
 import { Ionicons, FontAwesome6, EvilIcons } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import messaging from "@react-native-firebase/messaging";
-import { searchCategory } from "../../../redux/reducers/user/userReducer";
-import { uploadToken } from "../../../redux/reducers/user/userReducer";
-import SmallCard from "../../../components/card/smallCard/SmallCard";
-import SplashScreenManager from "../../splash-screen-manager/SplashScreenManager";
+import { searchCategory } from "../../../../redux/reducers/user/userReducer";
+import { uploadToken } from "../../../../redux/reducers/user/userReducer";
+import SmallCard from "../../../../components/card/smallCard/SmallCard";
+import SplashScreenManager from "../../../splash-screen-manager/SplashScreenManager";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "@/assets/static";
 import { screenWidth } from "@/styles/metrics";
+import { styles } from "./styles";
 
 // TODO
 // re-implement search by category in a more efficeint and clean way
@@ -180,41 +181,32 @@ const UserDashboard = ({ navigation }) => {
   const categories = [
     {
       category: "snacks",
-      src: require("../../../../assets/images/snacks.jpg"),
+      src: require("../../../../../assets/images/snacks.jpg"),
     },
     {
       category: "burger",
-      src: require("../../../../assets/images/burger.jpg"),
+      src: require("../../../../../assets/images/burger.jpg"),
     },
-    { category: "salad", src: require("../../../../assets/images/salad.jpg") },
-    { category: "local", src: require("../../../../assets/images/local.jpg") },
-    { category: "pizza", src: require("../../../../assets/images/pizza.jpg") },
+    {
+      category: "salad",
+      src: require("../../../../../assets/images/salad.jpg"),
+    },
+    {
+      category: "local",
+      src: require("../../../../../assets/images/local.jpg"),
+    },
+    {
+      category: "pizza",
+      src: require("../../../../../assets/images/pizza.jpg"),
+    },
   ];
   // return <SplashScreenManager/>
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-      showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: 20,
-          }}
-          Header
-        >
-          <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-            <Pressable
-              style={{
-                width: 34,
-                height: 34,
-                backgroundColor: "#ff812c33",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 5,
-              }}
-            >
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
+          <View style={styles.headerIconContainer}>
+            <Pressable style={styles.headerIcon}>
               <Ionicons
                 name="location-outline"
                 size={24}
@@ -225,99 +217,51 @@ const UserDashboard = ({ navigation }) => {
               />
             </Pressable>
             <View>
-              <View
-                style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
-              >
+              <View style={styles.currentLocationTextContainer}>
                 <Text style={globalStyles.textGrey}>Current location</Text>
-                <FontAwesome6 name="caret-down" size={15} color="grey" />
+                <FontAwesome6
+                  name="caret-down"
+                  size={15}
+                  color={themeColor.grey_1}
+                />
               </View>
-              <Text>Jl. Soekarno Hatta 15A Malang</Text>
+              <Text style={globalStyles.textBody}>
+                Jl. Soekarno Hatta 15A Malang
+              </Text>
             </View>
           </View>
-          <Pressable
-            style={{
-              width: 34,
-              height: 34,
-              backgroundColor: "#F5F5F5",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 5,
-            }}
-          >
+          <Pressable style={styles.notificationContainer}>
             <Ionicons name="notifications-outline" size={24} color="black" />
           </Pressable>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderWidth: 1,
-            borderColor: "silver",
-            borderRadius: 40,
-            paddingHorizontal: 14,
-            paddingVertical: 10,
-            marginTop: 24,
-          }}
-        >
+        <View style={styles.searchContainer}>
           <View style={{ flexDirection: "row", gap: 2 }}>
             <EvilIcons name="search" size={28} color={themeColor.grey_2} />
-            <TextInput placeholder="Search foods,restaurants etc" />
+            <TextInput
+              placeholder="Search foods, restaurants etc"
+              style={{ ...globalStyles.textBody, width: "80%" }}
+            />
           </View>
           <Ionicons name="filter-outline" size={24} color={themeColor.grey_2} />
         </View>
-        <View
-          style={{
-            width: "100%",
-            height: 142,
-            marginTop: 20,
-          }}
-        >
+        <View style={styles.bannerContainer}>
           <Image
             source={images.banner}
-            style={{
-              borderRadius: 10,
-              width: "100%",
-            }}
+            style={styles.bannerImageStyle}
           />
           <View
-            style={{
-              position: "absolute",
-              zIndex: 1,
-              top: 0,
-              left: 0,
-              width: "60%",
-              height: "100%",
-              paddingLeft: 16,
-              alignItems: "flex-start",
-              justifyContent: "center",
-              gap: 8,
-            }}
+            style={styles.bannerTextContainer}
           >
             <Text
-              style={{
-                ...globalStyles.textLarge,
-                fontSize: 20,
-                color: "#fff",
-              }}
+              style={styles.bannertextStyle}
             >
               Claim your discount 30% daily now!
             </Text>
             <Pressable
-              style={{
-                width: 87,
-                height: 30,
-                backgroundColor: "#101010",
-                borderRadius: 40,
-                justifyContent: "center",
-              }}
+              style={styles.bannerButtonContainer}
             >
               <Text
-                style={{
-                  color: "#fff",
-                  ...globalStyles.textHeader,
-                  textAlign: "center",
-                }}
+                style={styles.bannerButtonText}
               >
                 Order
               </Text>
@@ -361,93 +305,61 @@ const UserDashboard = ({ navigation }) => {
             })}
           </ScrollView>
         </View>
-        {/* <View style={{marginTop:24}}>
-        <Text style={globalStyles.textLarge}>Popular Today!</Text>
-
-        </View> */}
-        {loading?<>
-      <View style={{marginTop:40}}>
-        <ActivityIndicator size="large" color={themeColor.primary}/>
-      </View>
-      </>:<>
-        <Slider
-          itemData={recentlyViewed}
-          label="Recently Today!"
-          // this function is passed to the child component then run there
-          onpress={(item) =>
-            navigation.navigate("HomeStack", {
-              screen: "SingleFood",
-              params: { item },
-            })
-          }
-        />
-        <Text
-          style={{
-            ...globalStyles.textLarge,
-            marginBottom: 10,
-            marginLeft: 10,
-          }}
-          >
-          Popular Today!
-        </Text>
-        <View
-          style={{ flexDirection: "row", flexWrap: "wrap", paddingLeft: 5 }}
-          >
-          {frequentlyBought.map((item) => {
-            if(item === null){
-              return
-            }
-            return (
-              <SmallCard
-              key={item.name}
-              price={item.price}
-              foodName={item.name}
-              image={item.image}
-              owner={item.ownerName}
-              onpress={() =>
+        {loading ? (
+          <>
+            <View style={{ marginTop: 40 }}>
+              <ActivityIndicator size="large" color={themeColor.primary} />
+            </View>
+          </>
+        ) : (
+          <>
+            <Slider
+              itemData={recentlyViewed}
+              label="Recently Today!"
+              onpress={(item) =>
                 navigation.navigate("HomeStack", {
                   screen: "SingleFood",
                   params: { item },
                 })
               }
-              />
-              );
-            })}
-        </View>
-            </>}
+            />
+            <Text
+              style={{
+                ...globalStyles.textLarge,
+                marginBottom: 10,
+                marginLeft: 10,
+              }}
+            >
+              Popular Today!
+            </Text>
+            <View
+              style={{ flexDirection: "row", flexWrap: "wrap", paddingLeft: 5 }}
+            >
+              {frequentlyBought.map((item) => {
+                if (item === null) {
+                  return;
+                }
+                return (
+                  <SmallCard
+                    key={item.name}
+                    price={item.price}
+                    foodName={item.name}
+                    image={item.image}
+                    owner={item.ownerName}
+                    onpress={() =>
+                      navigation.navigate("HomeStack", {
+                        screen: "SingleFood",
+                        params: { item },
+                      })
+                    }
+                  />
+                );
+              })}
+            </View>
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: screenWidth*0.05,
-  },
-  categoryContainer: {
-    flexDirection: "row",
-    marginTop: 16,
-  },
-  categoryView: {
-    flexDirection: "column",
-    gap: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 15,
-    marginRight: 5,
-    paddingHorizontal: 7,
-  },
-  imageView: {
-    width: 64,
-    height: 64,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 999,
-  },
-});
-
 export default UserDashboard;
